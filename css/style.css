@@ -14,13 +14,30 @@
   }
   
   body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: var(--color-background);
+    background: radial-gradient(circle at center, #0d0d0d 0%, #000000 90%);
     color: var(--color-text);
-    text-align: center; 
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    overflow-x: hidden;
   }
   
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/assets/nebuleuse.png'); 
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+  }
+  
+
   header {
     padding: 2rem 1rem;
   }
@@ -91,4 +108,3 @@
     color: var(--color-footer-text);
     font-size: 0.9rem;
   }
-  
