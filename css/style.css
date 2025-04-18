@@ -1,0 +1,94 @@
+:root {
+    --color-background: #0d0d0d;
+    --color-text: #ffffff;
+    --color-muted-text: #cccccc;
+    --color-header-blue: #0066cc;
+    --color-hover-blue: #0088cc;
+    --color-dark-card: #1a1a1a;
+    --color-border: #0066cc;
+    --color-shadow: rgba(0, 102, 204, 0.2);
+    --color-shadow-hover: rgba(0, 102, 204, 0.4);
+    --color-button-text: #000;
+    --color-footer-bg: #111;
+    --color-footer-text: #888;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--color-background);
+    color: var(--color-text);
+    text-align: center; 
+  }
+  
+  header {
+    padding: 2rem 1rem;
+  }
+  
+  header h1 {
+    font-size: 3rem;
+    color: var(--color-header-blue);
+    text-shadow: 0 0 10px var(--color-header-blue);
+  }
+  
+  header p {
+    font-size: 1.2rem;
+    color: var(--color-muted-text);
+  }
+  
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .card {
+    background: var(--color-dark-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 250px;
+    box-shadow: 0 0 15px var(--color-shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px var(--color-shadow-hover);
+  }
+  
+  .card h2 {
+    color: var(--color-header-blue);
+    margin-bottom: 0.5rem;
+  }
+  
+  .card p {
+    color: var(--color-muted-text);
+    font-size: 0.95rem;
+  }
+  
+  .btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--color-header-blue);
+    color: var(--color-button-text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: var(--color-hover-blue);
+  }
+  
+  footer {
+    padding: 1rem;
+    background: var(--color-footer-bg);
+    color: var(--color-footer-text);
+    font-size: 0.9rem;
+  }
+  
