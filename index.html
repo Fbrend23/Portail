@@ -3,12 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brendan Studiant | Portail</title>
+    <title>Brendan Fleurdelys | Portail</title>
+    <link rel="icon" href="assets/logo.png" />
     <link rel="stylesheet" href="css/style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-stars@3/tsparticles.preset.stars.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   </head>
   <body>
+    <!-- "Chargement" du site -->
     <!-- <div id="intro-overlay">
       <div class="intro-content">
         <p>Initialisation<span id="dots-loading"></span></p></p>
@@ -23,28 +27,46 @@
     </header>
 
     <main>
-      <section class="cards">
-        <div class="card"  data-theme="cyber">
-          <h2>B. Fleurdelys | Photo Nature</h2>
+      <section class="cards flex">
+        <div class="card"  data-theme="cyber" id="s-photo">
+          <img class="preview-bg" src="/assets/cartes/s-photo.png" alt="">
+          <h2>Photographie animalière</h2>
           <p>Portfolio photo autour de la nature</p>
           <a href="https://photographie.brendanfleurdelys.ch/" class="btn">EXPLORER →</a>
         </div>
-        <div class="card" data-theme="flare">
+        <div class="card" data-theme="flare" id="s-horaire">
+          <img class="preview-bg" src="/assets/cartes/s-horaire.png" alt="">
           <h2>Vivement la fin</h2>
           <p>Un clicker absurde pour survivre à une journée de cours.</p>
           <a href="https://horaire.brendanfleurdelys.ch/" class="btn">DÉCOUVRIR →</a>
         </div>
-        <div class="card" data-theme="crystal">
+        <div class="card" data-theme="crystal" id="s-snake">
+          <img class="preview-bg" src="/assets/cartes/s-snake.png" alt="">
           <h2>Snake</h2>
           <p>Jeu du snake en javascript</p>
           <a href="https://snake.brendanfleurdelys.ch/" class="btn">JOUER →</a>
         </div>
-        <div class="card" data-theme="void">
+        <div class="card" data-theme="void" id="s-fieu">
+          <img class="preview-bg" src="/assets/cartes/s-fieu.png" alt="">
           <h2>Maisallezfieu</h2>
           <p>Site web pour une pièce de théatre</p>
           <a href="https://maisallezfieu.be/" class="btn">DÉCOUVRIR →</a>
         </div>
       </section>
+
+      <!-- Réseaux sociaux -->
+      <div class="social-navbar flex column">
+        <a href="www.linkedin.com/in/brendan-fleurdelys-319b52301" target="_blank" title="Linkedin">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/Fbrend23" target="_blank" title="Github">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <!-- <a href="https://www.flickr.com/photos/tonprofil" target="_blank" title="Instagram">
+          <i class="fa-brands fa-instagram"></i> -->
+        </a>
+      </div>
+      
     </main>
 
     <footer>
