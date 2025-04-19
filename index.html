@@ -44,12 +44,13 @@
 <!-- Assistant -->
     <div id="assistant">
       <button id="assistant-toggle">
+        <i class="fa-solid fa-envelope"></i>
         <img src="/assets/assistant.png" alt="Assistant IA">
       </button>
 
       <!-- Formulaire de contact -->
       <div id="assistant-box">
-        <form id="assistant-form" action="send-mail.php" method="post">
+        <form id="assistant-form" action="/php/send-mail.php" method="post">
           <label for="prenom">Prénom</label>
           <input type="text" id="prenom" name="prenom" required>
       
@@ -64,17 +65,20 @@
             <button type="submit">Envoyer</button>
           </div>
         </form>
+        <div id="assistant-confirmation" class="hidden">
+          <p>Ton message a bien été envoyé.</p>
+        </div>
       </div>
     </div>
     
 
     <!-- "Chargement" du site -->
-    <!-- <div id="intro-overlay">
+    <div id="intro-overlay">
       <div class="intro-content">
         <p>Initialisation<span id="dots-loading"></span></p></p>
         <h1>BRENDAN FLEURDELYS</h1>
       </div>
-    </div> -->
+    </div>
     <div id="main-content">
     <header>
       <h1>BRENDAN FLEURDELYS</h1>

@@ -336,10 +336,14 @@ footer {
 @keyframes pulse-robot {
   0%, 5% { transform: scale(1); filter: drop-shadow(0 0 2px var(--accent)); }
 }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
 /**** End Keyframes ****/
 
 /******************************** Intro ********************************/
-/* #intro-overlay {
+#intro-overlay {
   position: fixed;
   inset: 0;
   display: flex;
@@ -396,7 +400,7 @@ footer {
 .dots-loading::after {
   content: "";
   animation: dots 1.2s steps(3, end) infinite;
-} */
+}
 
 
 /********************* Réseaux sociaux **********************/
@@ -472,16 +476,25 @@ footer {
 }
 
 #assistant-toggle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: none;
   border: none;
   padding: 0.6rem;
   cursor: pointer;
 }
+#assistant-toggle i {
+  color: var(--accent);
+  font-size: 1.2rem;
+  animation: bounce 3s infinite ease-in-out;
+}
 
 #assistant-toggle img {
   width: 64px;
   height: 64px;
-  animation: pulse-robot 4s ease-in-out infinite;
+  margin-top:-8px;
 }
 
 #assistant-toggle:hover img {
@@ -552,6 +565,27 @@ footer {
 .form-actions button:hover {
   background: white;
 }
+
+#assistant-confirmation {
+  display: none;
+  color: #fff;
+  font-size: 0.95rem;
+  padding: 1rem;
+  text-align: center;
+  animation: fadeIn 0.4s ease-out;
+}
+
+#assistant-confirmation p {
+  background: rgba(0, 255, 170, 0.08);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.15);
+}
+
+#assistant-confirmation.show {
+  display: block;
+}
 /******************** Mobile ********************/
 @media (max-width: 768px) {
   header h1 {
@@ -593,7 +627,7 @@ footer {
   .social-mobile {
     display: flex;
     flex-direction: column-reverse;
-    align-items: flex-end;
+    align-items: center;
     position: fixed;
     bottom: 1.2rem;
     right: 1.2rem;

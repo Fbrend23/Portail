@@ -31,10 +31,34 @@ document.getElementById("toggle-social").addEventListener("click", function () {
     document.getElementById("assistant-form").reset();
   });
   
-  document.getElementById("assistant-form").addEventListener("submit", (e) => {
+  document.getElementById("assistant-form").addEventListener("submit", function (e) {
     e.preventDefault();
-    alert("Merci pour ton message Brendan ! 📬");
-    e.target.reset();
-    document.getElementById("assistant").classList.remove("open");
+  
+    const form = this;
+    const data = new FormData(form);
+  
+    fetch(form.action, {
+      method: "POST",
+      body: data,
+    })
+      .then((response) => response.text())
+      .then((result) => {
+        // Masquer le formulaire et afficher confirmation
+        form.style.display = "none";
+        document.getElementById("assistant-confirmation").classList.add("show");
+  
+        // Optionnel : refermer le panneau après 4s
+        setTimeout(() => {
+          document.getElementById("assistant").classList.remove("open");
+          // Réinitialiser le formulaire
+          form.reset();
+          form.style.display = "block";
+          document.getElementById("assistant-confirmation").classList.remove("show");
+        }, 4000);
+      })
+      .catch((error) => {
+        alert("Une erreur s'est produite. Réessaie plus tard.");
+        console.error("Erreur : ", error);
+      });
   });
   

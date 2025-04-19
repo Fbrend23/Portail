@@ -1,31 +1,49 @@
 <?php
-// Sécurité de base : éviter l'accès direct
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    exit("Accès interdit");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../libs/phpmailer/src/Exception.php';
+require '../libs/phpmailer/src/PHPMailer.php';
+require '../libs/phpmailer/src/SMTP.php';
+
+// Récupération des identifiants SMTP
+$user = getenv("REDIRECT_SMTP_USER");
+$pass = getenv("REDIRECT_SMTP_PASS");
+
+if (!$user || !$pass) {
+    exit("⚠️ Configuration SMTP manquante.");
 }
 
-// Récupération et nettoyage des données
-$prenom  = htmlspecialchars(trim($_POST["prenom"]));
-$email   = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-$message = htmlspecialchars(trim($_POST["message"]));
+$mail = new PHPMailer(true);
 
-// Vérification simple
-if (!filter_var($email, FILTER_VALIDATE_EMAIL) || empty($prenom) || empty($message)) {
-    exit("Données invalides");
+try {
+    // Configuration serveur SMTP
+    $mail->isSMTP();
+    $mail->Host       = 'mail.infomaniak.com';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = $user;
+    $mail->Password   = $pass;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
+
+    // Expéditeur et destinataire
+    $mail->setFrom($user, 'Assistant IA');
+    $mail->addAddress($user); // S’auto-envoi pour test ou réception
+
+    // Réponses vers l'expéditeur
+    $mail->addReplyTo($_POST["email"], $_POST["prenom"]);
+
+    // Contenu du mail
+    $mail->isHTML(true);
+    $mail->Subject = 'Message depuis ton assistant IA';
+    $mail->Body    = "Prénom : " . htmlspecialchars($_POST["prenom"]) .
+                     "<br>Email : " . htmlspecialchars($_POST["email"]) .
+                     "<br><br>Message :<br>" . nl2br(htmlspecialchars($_POST["message"]));
+    $mail->AltBody = "Prénom : {$_POST["prenom"]}\nEmail : {$_POST["email"]}\n\nMessage :\n{$_POST["message"]}";
+
+    // Envoi
+    $mail->send();
+    echo '📬 Message envoyé avec succès.';
+} catch (Exception $e) {
+    echo "❌ Erreur : {$mail->ErrorInfo}";
 }
-
-// Préparation du mail
-$to = "contact@brendanfleurdelys.ch";
-$subject = "Nouveau message depuis ton assistant IA";
-$body = "Prénom : $prenom\nEmail : $email\n\nMessage :\n$message";
-$headers = "From: $prenom <$email>" . "\r\n" .
-           "Reply-To: $email" . "\r\n" .
-           "Content-Type: text/plain; charset=utf-8";
-
-// Envoi du mail
-if (mail($to, $subject, $body, $headers)) {
-    echo "Message envoyé avec succès.";
-} else {
-    echo "Erreur lors de l'envoi du message.";
-}
-?>
