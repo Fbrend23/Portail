@@ -5,6 +5,11 @@
       id: "tsparticles",
       options: {
         preset: "stars",
+        background: {
+          color: {
+            value: "transparent"
+          }
+        }
       },
     });
   })();
