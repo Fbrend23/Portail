@@ -328,6 +328,14 @@ footer {
   66%  { content: ".."; }
   100% { content: "..."; }
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-robot {
+  0%, 5% { transform: scale(1); filter: drop-shadow(0 0 2px var(--accent)); }
+}
 /**** End Keyframes ****/
 
 /******************************** Intro ********************************/
@@ -452,9 +460,98 @@ footer {
 .card .btn {
   position: relative;
   z-index: 1;
+}/********* End cartes**********/
+
+
+/******************** Assistant ********************/
+#assistant {
+  position: fixed;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  z-index: 999;
 }
 
+#assistant-toggle {
+  background: none;
+  border: none;
+  padding: 0.6rem;
+  cursor: pointer;
+}
 
+#assistant-toggle img {
+  width: 64px;
+  height: 64px;
+  animation: pulse-robot 4s ease-in-out infinite;
+}
+
+#assistant-toggle:hover img {
+  transform: scale(1.1) rotate(2deg);
+}
+
+#assistant-box {
+  display: none;
+  position: absolute;
+  bottom: 80px;
+  left: 50px;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 260px;
+  font-size: 0.95rem;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
+}
+
+#assistant.open #assistant-box {
+  display: block;
+}
+
+#assistant-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+#assistant-box input,
+#assistant-box textarea {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  color: white;
+  font-family: inherit;
+  resize: none;
+  font-size: 0.8rem;
+}
+
+#assistant-box input:focus,
+#assistant-box textarea:focus {
+  outline: none;
+  border-color: #fff;
+  box-shadow: 0 0 6px var(--accent);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.form-actions button {
+  background: var(--accent);
+  border: none;
+  color: black;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form-actions button:hover {
+  background: white;
+}
 /******************** Mobile ********************/
 @media (max-width: 768px) {
   header h1 {

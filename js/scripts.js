@@ -18,4 +18,23 @@ setTimeout(() => {
 document.getElementById("toggle-social").addEventListener("click", function () {
     document.querySelector(".social-mobile").classList.toggle("open");
   });
+
+  //Assistant
+  document.getElementById("assistant-toggle").addEventListener("click", () => {
+    document.getElementById("assistant").classList.toggle("open");
+  });
+  
+  //Forms
+ 
+  document.getElementById("cancel-form").addEventListener("click", () => {
+    document.getElementById("assistant").classList.remove("open");
+    document.getElementById("assistant-form").reset();
+  });
+  
+  document.getElementById("assistant-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    alert("Merci pour ton message Brendan ! 📬");
+    e.target.reset();
+    document.getElementById("assistant").classList.remove("open");
+  });
   
