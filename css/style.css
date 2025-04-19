@@ -507,12 +507,12 @@ footer {
   bottom: 80px;
   left: 50px;
   background: rgba(10, 10, 10, 0.85);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   border-radius: 12px;
   padding: 1rem;
   width: 260px;
   font-size: 0.95rem;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
 }
 
 #assistant.open #assistant-box {
@@ -635,7 +635,13 @@ footer {
     gap: 0.4rem;
   }
   
+  
   #toggle-social {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: rgba(13, 13, 13, 0.6);
     border: none;
     border-radius: 50%;
@@ -645,8 +651,12 @@ footer {
     box-shadow: 0 0 10px rgba(51, 204, 255, 0.1);
     transition: transform 0.3s ease;
     font-size: 24px;
+    color: white;
   }
   
+  #togal-social > i{
+    font-size: 24px;
+  }
   
   .social-icons {
     display: flex;
@@ -656,6 +666,13 @@ footer {
     opacity: 0;
     transition: all 0.4s ease;
     pointer-events: none;
+    margin-bottom: 10px;
+    background: rgba(10, 10, 10, 0.85);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 10px;
+    border-radius: 20px;
+
   }
   
   .social-icons a {
@@ -671,5 +688,11 @@ font-size: 46px;
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
+  }
+
+  #assistant-toggle{
+    height: 64px;
+    width: 64px;
+    justify-content: center;
   }
 }
