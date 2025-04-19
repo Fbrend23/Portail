@@ -14,3 +14,8 @@ setTimeout(() => {
     dots.textContent = ".".repeat((i++ % 4));
   }, 400);
 
+// Réseaux sociaux
+document.getElementById("toggle-social").addEventListener("click", function () {
+    document.querySelector(".social-mobile").classList.toggle("open");
+  });
+  
