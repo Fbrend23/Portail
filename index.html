@@ -9,26 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-stars@3/tsparticles.preset.stars.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-NFZSMS6W');</script>
-  <!-- End Google Tag Manager -->
   </head>
-  <body>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MKX9YCHYPH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-MKX9YCHYPH');
-</script>
- 
+  <body> 
      <!-- "Chargement" du site -->
     <div id="intro-overlay">
       <div class="intro-content">
@@ -101,14 +83,18 @@
 
     
     <header>
-      <h1>BRENDAN FLEURDELYS</h1>
-      <h2>Bienvenue sur mon portail personnel</h2>
-      <p>Retrouvez tous mes projets et sites ici</p>
+      <div class="hero">
+        <h1>BRENDAN FLEURDELYS</h1>
+        <h2>Bienvenue sur mon portail personnel</h2>
+        <p>Retrouvez tous mes projets et sites ici</p>
+        <div class="scroll-down">
+          <a href="#projects"><i class="fa-solid fa-chevron-down"></i></a>
+        </div>
+      </div>
     </header>
-
     <main>
-      <section class="cards flex">
-        <div class="card"  data-theme="cyber" id="s-photo">
+      <section id="projects" class="cards flex">
+        <div class="card"  data-theme="forest" id="s-photo">
           <img class="preview-bg" src="/assets/cartes/s-photo.png" alt="">
           <h2>Photographie animalière</h2>
           <p>Portfolio photo autour de la nature</p>
@@ -131,6 +117,12 @@
           <h2>Maisallezfieu</h2>
           <p>Site web pour une pièce de théatre</p>
           <a href="https://maisallezfieu.be/" class="btn">DÉCOUVRIR →</a>
+        </div>
+        <div class="card" data-theme="ocean" id="s-meow">
+          <img class="preview-bg" src="/assets/cartes/s-meow.png" alt="">
+          <h2>Meow</h2>
+          <p>Pour se réconforter avec des images de chats</p>
+          <a href="https://meow.brendanfleurdelys.ch/" class="btn">SE DÉTENDRE →</a>
         </div>
       </section>
     </main>
