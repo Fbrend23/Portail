@@ -1,4 +1,5 @@
 // Chargement du site
+window.scrollTo(0, 0);
 setTimeout(() => {
     const main = document.getElementById('main-content');
     const intro = document.getElementById('intro-overlay');
