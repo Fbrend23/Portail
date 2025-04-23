@@ -42,6 +42,18 @@ body::before {
   z-index: -1;
 }
 
+.grecaptcha-badge {
+  visibility: hidden; /* masque le badge de Google */
+}
+
+.recaptcha-disclaimer {
+  font-size: 0.75rem;
+  text-align: center;
+  opacity: 0.5;
+  padding: 1rem 0;
+}
+
+
 header {
   padding: 2rem 1rem;
   margin-bottom: 0;
@@ -118,7 +130,7 @@ header p {
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 20px var(--accent-shadow-hover);
+  box-shadow: 0 0 30px var(--accent-shadow-hover), 0 0 20px var(--accent);
 }
 
 .card::before {
@@ -249,59 +261,52 @@ footer {
 
 .card[data-theme="sunset"] {
   --accent: #ff6b6b;
-  background: linear-gradient(145deg, #2d0b14, #4c1c1c);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 10px rgba(255, 107, 107, 0.25);
+  --accent-shadow: rgba(255, 107, 107, 0.2);
+  --accent-shadow-hover: rgba(255, 107, 107, 0.4);
 }
 
 .card[data-theme="ocean"] {
   --accent: #00cccc;
-  background: linear-gradient(145deg, #00242e, #003843);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 12px rgba(0, 204, 204, 0.3);
+  --accent-shadow: rgba(0, 204, 204, 0.2);
+  --accent-shadow-hover: rgba(0, 204, 204, 0.4);
 }
 
 .card[data-theme="forest"] {
   --accent: #55aa55;
-  background: linear-gradient(145deg, #0f1a0f, #1a2d1a);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 10px rgba(85, 170, 85, 0.2);
+  --accent-shadow: rgba(85, 170, 85, 0.2);
+  --accent-shadow-hover: rgba(85, 170, 85, 0.4);
 }
 
 .card[data-theme="ice"] {
   --accent: #a0e9ff;
-  background: linear-gradient(145deg, #0e1b2a, #12283d);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 10px rgba(160, 233, 255, 0.3);
+  --accent-shadow: rgba(160, 233, 255, 0.2);
+  --accent-shadow-hover: rgba(160, 233, 255, 0.4);
 }
 
 .card[data-theme="matrix"] {
   --accent: #00ff00;
-  background: linear-gradient(145deg, #000800, #001300);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 12px rgba(0, 255, 0, 0.3);
+  --accent-shadow: rgba(0, 255, 0, 0.2);
+  --accent-shadow-hover: rgba(0, 255, 0, 0.4);
 }
 
 .card[data-theme="holo"] {
   --accent: #d966ff;
-  background: linear-gradient(145deg, #2a1a2f, #3d2d4c);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 14px rgba(217, 102, 255, 0.25);
+  --accent-shadow: rgba(217, 102, 255, 0.2);
+  --accent-shadow-hover: rgba(217, 102, 255, 0.4);
 }
 
 .card[data-theme="dream"] {
   --accent: #8899ff;
-  background: linear-gradient(145deg, #1b1b3a, #2c2c5c);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 10px rgba(136, 153, 255, 0.3);
+  --accent-shadow: rgba(136, 153, 255, 0.2);
+  --accent-shadow-hover: rgba(136, 153, 255, 0.4);
 }
 
-.card[data-theme="flare"] {
+.card[data-theme="flare-alt"] {
   --accent: #ff9900;
-  background: linear-gradient(145deg, #2d1a00, #4a2c0a);
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 12px rgba(255, 153, 0, 0.25);
+  --accent-shadow: rgba(255, 153, 0, 0.2);
+  --accent-shadow-hover: rgba(255, 153, 0, 0.4);
 }
+
 
 /******************************** KeyFrames ********************************/
 @keyframes glow-scan {
@@ -684,7 +689,19 @@ footer {
 
 #assistant-confirmation.show {
   display: block;
-} /******** End assistant *********/
+} 
+
+.assistant-error {
+  background: rgba(255, 0, 0, 0.08);
+  border: 1px solid #ff4444;
+  padding: 0.8rem;
+  border-radius: 8px;
+  color: #ffaaaa;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+/******** End assistant *********/
 
 /******************** Hero section ********************/
 .hero {

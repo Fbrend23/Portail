@@ -9,6 +9,8 @@ require '../libs/phpmailer/src/SMTP.php';
 // Récupération des identifiants SMTP
 $user = getenv("REDIRECT_SMTP_USER");
 $pass = getenv("REDIRECT_SMTP_PASS");
+$recaptcha = $_POST['g-recaptcha-response'] ?? '';
+$secret = getenv("REDIRECT_SMTP_CAPTCHA");
 
 if (!$user || !$pass) {
     exit("⚠️ Configuration SMTP manquante.");
@@ -17,6 +19,24 @@ if (!$user || !$pass) {
 $mail = new PHPMailer(true);
 
 try {
+    // ✅ reCAPTCHA validation avec cURL
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'secret' => $secret,
+        'response' => $recaptcha,
+        'remoteip' => $_SERVER['REMOTE_ADDR']
+    ]));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $result = json_decode($response);
+    if (!$result || !$result->success) {
+        exit("Erreur reCAPTCHA. Merci de valider que vous n’êtes pas un robot.");
+    }
+
     // Configuration serveur SMTP
     $mail->isSMTP();
     $mail->Host       = 'mail.infomaniak.com';
@@ -28,9 +48,7 @@ try {
 
     // Expéditeur et destinataire
     $mail->setFrom($user, 'Assistant IA');
-    $mail->addAddress($user); // S’auto-envoi pour test ou réception
-
-    // Réponses vers l'expéditeur
+    $mail->addAddress($user);
     $mail->addReplyTo($_POST["email"], $_POST["prenom"]);
 
     // Contenu du mail
@@ -41,9 +59,10 @@ try {
                      "<br><br>Message :<br>" . nl2br(htmlspecialchars($_POST["message"]));
     $mail->AltBody = "Prénom : {$_POST["prenom"]}\nEmail : {$_POST["email"]}\n\nMessage :\n{$_POST["message"]}";
 
-    // Envoi
+    // ✅ Envoi du mail
     $mail->send();
     echo '📬 Message envoyé avec succès.';
+
 } catch (Exception $e) {
     echo "❌ Erreur : {$mail->ErrorInfo}";
 }
