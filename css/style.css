@@ -615,7 +615,8 @@ footer {
   backdrop-filter: blur(8px);
   border-radius: 12px;
   padding: 1rem;
-  width: 260px;
+  width: 360px;
+  height: 400px;
   font-size: 0.95rem;
 }
 
@@ -643,6 +644,9 @@ footer {
   font-size: 0.8rem;
 }
 
+#assistant-box textarea{
+  height: 120px;
+}
 #assistant-box input:focus,
 #assistant-box textarea:focus {
   outline: none;
@@ -653,7 +657,7 @@ footer {
 .form-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .form-actions button {
