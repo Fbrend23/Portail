@@ -17,6 +17,8 @@ if (!$user || !$pass) {
 }
 
 $mail = new PHPMailer(true);
+$mail->CharSet = 'UTF-8';
+$mail->Encoding = '8bit';
 
 try {
     // ✅ reCAPTCHA validation avec cURL
