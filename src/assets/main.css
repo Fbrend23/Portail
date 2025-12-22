@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap');
+
+:root {
+  /* Core Colors */
+  --color-background: #0d0d0d;
+  --color-text: #ffffff;
+  --color-muted: #888;
+
+  /* Fallback Accent */
+  --accent: #d4f1ff;
+  --accent-shadow: rgba(212, 241, 255, 0.2);
+  --accent-shadow-hover: rgba(212, 241, 255, 0.4);
+
+  /* Font */
+  --font-family-base: 'Segoe UI', sans-serif;
+  --font-family-header: 'Sora', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at center, #0c1e2c 0%, #010a14 100%);
+  background-size: cover;
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Background Nebula Effect (Static Fallback, handled dynamically in App.vue if needed) */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* Use absolute path to public/assets if possible, or just assume assets are copied */
+  background-image: url('/assets/nebuleuse.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  z-index: -1;
+  pointer-events: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-header);
+  margin: 0;
+}
+
+/* --- THEMES (matches legacy data-theme) --- */
+
+[data-theme='forest'] {
+  --accent: #55aa55;
+  --accent-shadow: rgba(85, 170, 85, 0.4);
+  --accent-shadow-hover: rgba(85, 170, 85, 0.6);
+}
+
+[data-theme='ocean'] {
+  --accent: #00cccc;
+  --accent-shadow: rgba(0, 204, 204, 0.4);
+  --accent-shadow-hover: rgba(0, 204, 204, 0.6);
+}
+
+[data-theme='flare'] {
+  --accent: #ff5500;
+  --accent-shadow: rgba(255, 85, 0, 0.4);
+  --accent-shadow-hover: rgba(255, 85, 0, 0.6);
+}
+
+[data-theme='void'] {
+  --accent: #aa66ff;
+  --accent-shadow: rgba(170, 102, 255, 0.4);
+  --accent-shadow-hover: rgba(170, 102, 255, 0.6);
+}
+
+[data-theme='sunset'] {
+  --accent: #ff6b6b;
+  --accent-shadow: rgba(255, 107, 107, 0.4);
+  --accent-shadow-hover: rgba(255, 107, 107, 0.6);
+}
+
+[data-theme='crystal'] {
+  --accent: #66ccff;
+  --accent-shadow: rgba(102, 204, 255, 0.4);
+  --accent-shadow-hover: rgba(102, 204, 255, 0.6);
+}
+
+[data-theme='dream'] {
+  --accent: #8899ff;
+  --accent-shadow: rgba(136, 153, 255, 0.4);
+  --accent-shadow-hover: rgba(136, 153, 255, 0.6);
+}
+
+/* Animations Helper */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
