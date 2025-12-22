@@ -53,8 +53,9 @@ defineProps({
   box-shadow: 0 0 10px rgba(51, 204, 255, 0.05),
     0 0 20px rgba(51, 204, 255, 0.08) inset;
   position: relative;
-  overflow: visible; /* Changed to visible for the outer glow effect */
+  overflow: visible;
   z-index: 1;
+  text-align: center;
 }
 
 .card:hover {
@@ -85,16 +86,20 @@ defineProps({
   background: var(--accent);
   opacity: 0.05;
   z-index: -1;
-  filter: blur(8px); /* Soften the edge */
+  filter: blur(8px);
+  /* Soften the edge */
   animation: pulse 1.5s infinite ease-in-out;
 }
 
 /* Animations */
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.05;
   }
+
   50% {
     transform: scale(1.05);
     opacity: 0.1;
@@ -112,7 +117,8 @@ defineProps({
   transition: opacity 0.4s ease;
   z-index: 0;
   pointer-events: none;
-  border-radius: inherit; /* Ensure image respects border radius */
+  border-radius: inherit;
+  /* Ensure image respects border radius */
 }
 
 .card:hover .preview-bg {
@@ -126,7 +132,8 @@ h2 {
   font-size: 1.2rem;
   color: var(--accent);
   font-family: 'Sora', sans-serif;
-  text-shadow: none; /* Reset shadow */
+  text-shadow: none;
+  /* Reset shadow */
 }
 
 p {
@@ -140,6 +147,7 @@ p {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -154,17 +162,19 @@ p {
   display: inline-block;
   font-weight: bold;
   transition: background 0.3s;
-  align-self: flex-start;
-  margin: auto;
+  align-self: center;
+  margin-top: auto;
   border: none;
   cursor: pointer;
-  font-size: 0.9rem; /* Reset to legacy size */
+  font-size: 0.9rem;
 }
 
 .btn:hover {
   filter: brightness(1.3);
-  box-shadow: none; /* Reset shadow */
-  transform: none; /* Reset transform */
+  box-shadow: none;
+  /* Reset shadow */
+  transform: none;
+  /* Reset transform */
 }
 
 @media (max-width: 768px) {
