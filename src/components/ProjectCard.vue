@@ -44,46 +44,61 @@ defineProps({
   width: 300px;
   height: 250px;
   padding: 1.5rem;
-  background: rgba(20, 20, 20, 0.4);
-  /* Lighter, more transparent */
-  border-radius: 16px;
-  /* Smoother corners */
+  background: var(--card-bg, #1a1a1a);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(10px);
+  background-color: rgba(13, 13, 13, 0.6);
+  box-shadow: 0 0 10px rgba(51, 204, 255, 0.05),
+    0 0 20px rgba(51, 204, 255, 0.08) inset;
   position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  backdrop-filter: blur(20px) saturate(180%);
-  /* heavier blur + saturation for vibrancy */
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  /* Soft deep shadow */
+  overflow: visible; /* Changed to visible for the outer glow effect */
+  z-index: 1;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px var(--accent-shadow-hover), 0 0 20px var(--accent);
+}
 
 .card::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  border: 1px solid transparent;
+  background: linear-gradient(120deg, transparent, var(--accent), transparent);
+  opacity: 0.1;
+  z-index: 0;
   pointer-events: none;
 }
 
-.card:hover {
-  transform: translateY(-8px) scale(1.02);
-  background: rgba(30, 30, 30, 0.5);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-    0 0 30px var(--accent-shadow-hover, rgba(255, 255, 255, 0.1));
+.card:hover::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 14px;
+  background: var(--accent);
+  opacity: 0.05;
+  z-index: -1;
+  filter: blur(8px); /* Soften the edge */
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.05;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.1;
+  }
 }
 
 .preview-bg {
@@ -93,26 +108,25 @@ defineProps({
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  filter: blur(8px) saturate(0.5);
-  transition: opacity 0.5s ease, filter 0.5s ease;
+  filter: blur(1px);
+  transition: opacity 0.4s ease;
   z-index: 0;
   pointer-events: none;
+  border-radius: inherit; /* Ensure image respects border radius */
 }
 
 .card:hover .preview-bg {
-  opacity: 0.4;
-  filter: blur(2px) saturate(1.2);
+  opacity: 1;
 }
 
 h2 {
   position: relative;
   z-index: 1;
   margin: 0 0 1rem;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--accent, #fff);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 1.2rem;
+  color: var(--accent);
   font-family: 'Sora', sans-serif;
+  text-shadow: none; /* Reset shadow */
 }
 
 p {
@@ -120,32 +134,46 @@ p {
   z-index: 1;
   flex-grow: 1;
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #ccc;
   margin-bottom: 1.5rem;
-  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .btn {
   position: relative;
   z-index: 1;
-  background-color: var(--accent, #fff);
+  background-color: var(--accent);
   color: #000;
   text-decoration: none;
-  padding: 0.7rem 1.4rem;
-  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
   display: inline-block;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
+  font-weight: bold;
+  transition: background 0.3s;
   align-self: flex-start;
-  margin-top: auto;
+  margin: auto;
   border: none;
   cursor: pointer;
+  font-size: 0.9rem; /* Reset to legacy size */
 }
 
 .btn:hover {
-  filter: brightness(1.15);
-  box-shadow: 0 0 15px var(--accent-shadow, rgba(255, 255, 255, 0.4));
-  transform: translateY(-1px);
+  filter: brightness(1.3);
+  box-shadow: none; /* Reset shadow */
+  transform: none; /* Reset transform */
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 80vw;
+    max-width: 400px;
+    height: auto;
+    min-height: 180px;
+    padding: 1.2rem;
+  }
 }
 </style>

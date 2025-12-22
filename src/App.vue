@@ -112,9 +112,18 @@ const isLoaded = ref(false)
   justify-content: center;
   gap: 2rem;
   padding: 2rem;
-  max-width: 1200px;
+  /* max-width: 1200px; Removed to match legacy full width behavior */
   margin: 0 auto;
   padding-bottom: 4rem;
+}
+
+@media (max-width: 768px) {
+  .projects-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1.5rem;
+  }
 }
 
 .card-wrapper {
