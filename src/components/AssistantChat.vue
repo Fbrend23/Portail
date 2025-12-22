@@ -1,46 +1,148 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, nextTick } from 'vue'
 
 const isOpen = ref(false)
-const showConfirmation = ref(false)
-const isLoading = ref(false)
+const isTyping = ref(false)
+const messages = ref([])
+const chatBody = ref(null)
+const lastFactIndex = ref(-1)
 
-const form = reactive({
-  prenom: '',
-  email: '',
-  message: '',
-  website: ''
-})
+const botName = "Echo"
 
-const toggleAssistant = () => {
-  isOpen.value = !isOpen.value
-  if (!isOpen.value) {
-    showConfirmation.value = false
+// FAQ Logic
+const faqData = {
+  start: {
+    text: `Bonjour ! Je suis ${botName}, l'assistant virtuel de Brendan. Comment puis-je vous aider ?`,
+    options: [
+      { label: "Qui est Brendan ?", next: 'who' },
+      { label: "Compétences", next: 'skills' },
+      { label: "Disponibilité", next: 'availability' },
+      { label: "Ses projets", next: 'projects' },
+      { label: "Le contacter", next: 'contact' }
+    ]
+  },
+  who: {
+    text: "Brendan est un développeur passionné, s'orientant vers le web et les interfaces interactives. Il aime créer des expériences numériques soignées et immersives.",
+    options: [
+      { label: "Ses compétences ?", next: 'skills' },
+      { label: "Voir ses projets", next: 'projects' },
+      { label: "Retour au début", next: 'start' }
+    ]
+  },
+  skills: {
+    text: "Actuellement en formation, Brendan développe activement ses compétences dans l’écosystème web moderne, notamment avec Vue 3, AdonisJS et la conception d’interfaces claires, accessibles et structurées.",
+    options: [
+      { label: "Est-il disponible ?", next: 'availability' },
+      { label: "Voir ses projets", next: 'projects' },
+      { label: "Retour", next: 'start' }
+    ]
+  },
+  availability: {
+    text: "Brendan est actuellement ouvert à de nouvelles opportunités, qu’il s’agisse de projets, de collaborations ou de stages, en contexte local comme international.",
+    options: [
+      { label: "Le contacter", next: 'contact' },
+      { label: "Fun fact", next: 'funfact' },
+      { label: "Retour", next: 'start' }
+    ]
+  },
+  funfact: {
+    // Handled dynamically in handleOption
+    text: "",
+    options: []
+  },
+  projects: {
+    text: "Il a réalisé plusieurs projets variés, allant de sites vitrines à des applications interactives et des jeux. Vous pouvez les découvrir directement via les cartes visibles en arrière-plan !",
+    options: [
+      { label: "Ses compétences", next: 'skills' },
+      { label: "Le contacter", next: 'contact' }
+    ]
+  },
+  contact: {
+    text: "Vous souhaitez lui envoyer un message ? Vous pouvez utiliser le formulaire de contact officiel.",
+    options: [{ label: "Retour au début", next: 'start' }],
+    isContact: true
   }
 }
 
-const cancelForm = () => {
-    isOpen.value = false
-    form.prenom = ''
-    form.email = ''
-    form.message = ''
+// Initialize Chat
+const initChat = () => {
+  if (messages.value.length === 0) {
+    addBotMessage(faqData.start)
+  }
 }
 
-const handleSubmit = async () => {
-  if (form.website) return
-  
-  isLoading.value = true
-  
+const toggleAssistant = () => {
+  isOpen.value = !isOpen.value
+  if (isOpen.value) {
+    initChat()
+  }
+}
 
+const addBotMessage = (node) => {
+  isTyping.value = true
+  scrollToBottom()
 
   setTimeout(() => {
-    isLoading.value = false
-    showConfirmation.value = true
-    showConfirmation.value = true
-    form.prenom = ''
-    form.email = ''
-    form.message = ''
-  }, 1500)
+    isTyping.value = false
+    messages.value.push({
+      sender: 'bot',
+      text: node.text,
+      options: node.options,
+      isContact: node.isContact
+    })
+    scrollToBottom()
+  }, 1000) // Simulated delay
+}
+
+const handleOption = (option) => {
+  // Add User Message
+  messages.value.push({
+    sender: 'user',
+    text: option.label
+  })
+  scrollToBottom()
+
+  // Trigger Bot Response
+  let nextNode = faqData[option.next]
+
+  // Handle Dynamic Fun Fact
+  if (option.next === 'funfact') {
+    const facts = [
+      "Fun fact : Brendan adore transformer des idées simples en projets interactifs, parfois juste « pour voir jusqu’où ça peut aller »",
+      "Fun fact : Brendan pratique la photographie, en particulier la photographie animalière, ce qui lui a appris la patience, l’observation et l’attention aux détails."
+    ]
+
+    // Pick a random fact different from the last one
+    let newIndex
+    do {
+      newIndex = Math.floor(Math.random() * facts.length)
+    } while (newIndex === lastFactIndex.value && facts.length > 1)
+
+    lastFactIndex.value = newIndex
+    const randomFact = facts[newIndex]
+
+    // Create a temporary node for display
+    nextNode = {
+      text: randomFact,
+      options: [
+        { label: "Voir ses projets", next: 'projects' },
+        { label: "Autre fun fact ?", next: 'funfact' },
+        { label: "Retour au début", next: 'start' }
+      ]
+    }
+  }
+
+  if (nextNode) {
+    addBotMessage(nextNode)
+  }
+}
+
+const scrollToBottom = () => {
+  nextTick(() => {
+    if (chatBody.value) {
+      chatBody.value.scrollTop = chatBody.value.scrollHeight
+    }
+  })
 }
 </script>
 
@@ -49,58 +151,56 @@ const handleSubmit = async () => {
 
     <button id="assistant-toggle" @click="toggleAssistant" aria-label="Toggle Assistant">
       <div class="icon-wrapper">
-         <img src="/assets/assistant.png" alt="Assistant IA" />
-         <div class="glow-ring"></div>
+        <img src="/assets/assistant.png" alt="Assistant IA" />
+        <div class="glow-ring"></div>
       </div>
     </button>
 
+    <transition name="pop">
+      <div v-if="isOpen" id="assistant-box">
+        <div class="chat-header">
+          <h3>{{ botName }}</h3>
+          <button class="close-btn" @click="toggleAssistant">×</button>
+        </div>
 
-    <div id="assistant-box">
-      <div v-if="!showConfirmation">
-        <h3>Contact</h3>
-        <p class="subtitle">Une question ? Je vous écoute.</p>
-        
-        <form @submit.prevent="handleSubmit">
-          <div class="form-group">
-             <label for="prenom">Prénom</label>
-             <input type="text" id="prenom" v-model="form.prenom" required placeholder="Votre prénom...">
+        <div class="chat-body" ref="chatBody">
+          <div v-for="(msg, index) in messages" :key="index" :class="['message', msg.sender]">
+            <div class="bubble">
+              {{ msg.text }}
+
+              <!-- Special Contact Action -->
+              <div v-if="msg.isContact" class="contact-action">
+                <a href="https://contact.brendanfleurdelys.ch/" target="_blank" class="btn-redirect">
+                  Aller vers la page de contact →
+                </a>
+              </div>
+            </div>
+
+            <!-- Options (Only for bot messages) -->
+            <div v-if="msg.sender === 'bot' && msg.options && msg.options.length" class="options-container">
+              <button v-for="opt in msg.options" :key="opt.label" class="option-chip" @click="handleOption(opt)">
+                {{ opt.label }}
+              </button>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" v-model="form.email" required placeholder="email@exemple.com">
+          <!-- Typing Indicator -->
+          <div v-if="isTyping" class="message bot typing">
+            <div class="bubble">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
           </div>
-
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" v-model="form.message" rows="3" required placeholder="Comment puis-je vous aider ?"></textarea>
-          </div>
-
-
-          <input type="text" v-model="form.website" style="display:none;" autocomplete="off">
-
-          <div class="form-actions">
-            <button type="button" class="btn-cancel" @click="cancelForm">Fermer</button>
-            <button type="submit" class="btn-submit" :disabled="isLoading">
-                <span v-if="!isLoading">Envoyer</span>
-                <span v-else>Envoi...</span>
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
-
-
-      <div v-else class="confirmation-screen">
-        <div class="success-icon">✓</div>
-        <p>Message envoyé !</p>
-        <p class="small">Brendan vous répondra dès que possible.</p>
-        <button class="btn-close" @click="toggleAssistant">Fermer</button>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
 <style scoped>
+/* Main Container */
+/* Main Container */
 #assistant {
   position: fixed;
   bottom: 2rem;
@@ -130,7 +230,7 @@ const handleSubmit = async () => {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
 
 .glow-ring {
@@ -147,165 +247,222 @@ const handleSubmit = async () => {
 }
 
 @keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 0; }
-  50% { opacity: 0.5; }
-  100% { transform: scale(1.4); opacity: 0; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
 }
 
-/* Chat Box Container */
+/* Chat Box */
 #assistant-box {
   position: absolute;
   bottom: 80px;
+  /* Positioned just above the button */
   left: 10px;
-  background: rgba(18, 18, 18, 0.85);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 
-              0 0 0 1px rgba(255,255,255,0.1);
+
+  background: rgba(18, 18, 18, 0.9);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 16px;
-  padding: 1.5rem;
   width: 340px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   transform-origin: bottom left;
-  transform: scale(0.9) translateY(20px);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-#assistant.open #assistant-box {
+/* Open State for Box */
+/* Note: We target #assistant-box inside #assistant.open via the transition wrapper or direct css if simple */
+/* Since we use v-if/transition in Vue, the enter/leave classes handle opacity/transform. 
+   We just need base positioning to be correct relative to the 'flying' avatar. */
+
+.pop-enter-active,
+.pop-leave-active {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pop-enter-from,
+.pop-leave-to {
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+}
+
+.pop-enter-to,
+.pop-leave-from {
   opacity: 1;
-  visibility: visible;
   transform: scale(1) translateY(0);
 }
 
-h3 {
-  margin-bottom: 0.2rem;
+.chat-header {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 1rem;
   color: var(--accent, #fff);
   font-family: 'Sora', sans-serif;
 }
 
-.subtitle {
-  font-size: 0.85rem;
-  color: #888;
-  margin-bottom: 1.2rem;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
-  color: #aaa;
-}
-
-input, textarea {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 0.6rem 0.8rem;
-  color: white;
-  font-family: inherit;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent, #fff);
-  box-shadow: 0 0 0 2px var(--accent-shadow, rgba(255,255,255,0.1));
-}
-
-textarea {
-  resize: none;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.8rem;
-  margin-top: 1.5rem;
-}
-
-button {
+.close-btn {
+  background: none;
   border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  font-size: 0.85rem;
+  color: #888;
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: all 0.2s;
-  font-weight: 600;
+  line-height: 1;
+  padding: 0 0.5rem;
 }
 
-.btn-cancel {
-  background: transparent;
-  color: #aaa;
-}
-
-.btn-cancel:hover {
+.close-btn:hover {
   color: #fff;
 }
 
-.btn-submit {
-  background: var(--accent, #fff);
+.chat-body {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* Messages */
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 85%;
+}
+
+.message.bot {
+  align-self: flex-start;
+}
+
+.message.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.bubble {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message.bot .bubble {
+  background: rgba(255, 255, 255, 0.1);
+  color: #eee;
+  border-top-left-radius: 2px;
+}
+
+.message.user .bubble {
+  background: var(--accent, #33ccff);
+  color: #000;
+  border-top-right-radius: 2px;
+  font-weight: 500;
+}
+
+/* Actions */
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.option-chip {
+  background: transparent;
+  border: 1px solid var(--accent, #33ccff);
+  color: var(--accent, #33ccff);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-chip:hover {
+  background: var(--accent, #33ccff);
   color: #000;
 }
 
-.btn-submit:hover {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
+.contact-action {
+  margin-top: 0.8rem;
 }
 
-.btn-submit:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.btn-redirect {
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: transform 0.2s;
 }
 
-/* Confirmation Screen */
-.confirmation-screen {
-  text-align: center;
-  padding: 2rem 0;
-  animation: fadeIn 0.4s ease;
+.btn-redirect:hover {
+  transform: translateY(-2px);
 }
 
-.success-icon {
-  width: 50px;
-  height: 50px;
-  background: rgba(0, 255, 128, 0.2);
-  color: #00ff80;
-  border-radius: 50%;
+/* Typing Indicator */
+.typing .bubble {
   display: flex;
-  align-items: center;
+  gap: 4px;
+  padding: 1rem;
+  min-width: 60px;
   justify-content: center;
-  font-size: 1.5rem;
-  margin: 0 auto 1rem;
-  border: 1px solid rgba(0, 255, 128, 0.4);
 }
 
-.confirmation-screen p {
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    color: #fff;
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #aaa;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
 }
 
-.confirmation-screen .small {
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 1.5rem;
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
 }
 
-.btn-close {
-    background: rgba(255,255,255,0.1);
-    color: #fff;
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
 }
-.btn-close:hover {
-    background: rgba(255,255,255,0.2);
+
+@keyframes bounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
 }
 
 @media (max-width: 768px) {
@@ -313,10 +470,10 @@ button {
     bottom: 1.5rem;
     left: 1.5rem;
   }
-  
+
   #assistant-box {
     width: 300px;
-    left: 0; 
+    left: 0;
   }
 }
 </style>
