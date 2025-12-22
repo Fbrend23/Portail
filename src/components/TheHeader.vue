@@ -1,5 +1,5 @@
 <script setup>
-// No props needed for now, static content primarily
+
 </script>
 
 <template>
@@ -10,7 +10,7 @@
       <p>Retrouvez tous mes projets et sites ici</p>
       <div class="scroll-down">
         <a href="#projects" aria-label="Scroll to projects">
-            <!-- Simple chevron icon -->
+
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </a>
       </div>
@@ -43,7 +43,7 @@ h1 {
   text-transform: uppercase;
   margin-bottom: 2rem;
   position: relative;
-  /* Glow effect */
+
   text-shadow: 0 0 10px rgba(212, 241, 255, 0.4), 
                0 0 20px rgba(212, 241, 255, 0.2);
 }
@@ -86,7 +86,7 @@ p {
 
 .scroll-down {
   position: absolute;
-  bottom: -4rem; /* Adjusted because hero isn't full height of header container in layout sometimes, but here header is 100vh */
+  bottom: -4rem;
   left: 50%;
   transform: translateX(-50%);
   animation: bounce 2s infinite;

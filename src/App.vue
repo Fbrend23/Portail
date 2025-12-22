@@ -2,8 +2,12 @@
 import { ref } from 'vue'
 import TheHeader from './components/TheHeader.vue'
 import ProjectCard from './components/ProjectCard.vue'
+import SocialSidebar from './components/SocialSidebar.vue'
+import SocialMobile from './components/SocialMobile.vue'
+import AssistantChat from './components/AssistantChat.vue'
+import ParticlesBackground from './components/ParticlesBackground.vue'
 
-// Project Data
+
 const projects = ref([
   {
     id: 's-photo',
@@ -66,6 +70,9 @@ const projects = ref([
 
 <template>
   <main>
+    <ParticlesBackground />
+
+
     <TheHeader />
 
     <section id="projects" class="projects-container">
@@ -78,18 +85,23 @@ const projects = ref([
           :image="project.image"
           :btnText="project.theme === 'horaire' ? 'SUIVRE →' : (project.theme === 'forest' ? 'EXPLORER →' : 'DÉCOUVRIR →')" 
         />
-        <!-- Simplified label logic for demo, can be refined -->
       </div>
     </section>
 
     <footer>
       <p>© 2025 Brendan Fleurdelys</p>
     </footer>
+
+
+    <SocialSidebar />
+    <SocialMobile />
+    <AssistantChat />
   </main>
 </template>
 
 <style>
 @import './assets/main.css';
+
 
 .projects-container {
   display: flex;

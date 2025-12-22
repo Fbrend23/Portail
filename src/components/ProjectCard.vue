@@ -9,7 +9,7 @@ defineProps({
     required: true
   },
   theme: {
-    type: String, // 'forest', 'ocean', etc.
+    type: String,
     default: 'forest'
   },
   link: {
@@ -37,7 +37,7 @@ defineProps({
 </template>
 
 <style scoped>
-/* Glassmorphism Card Style - Refined for Vue */
+
 .card {
   display: flex;
   flex-direction: column;
@@ -53,16 +53,16 @@ defineProps({
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* Initial subtle shadow */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* Dynamic Theme Borders & Glows handled by data-theme in parent/global CSS or specific overrides below */
+
 .card::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px; /* border width */
+  padding: 1px;
   background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0)); 
   -webkit-mask: 
      linear-gradient(#fff 0 0) content-box, 
@@ -74,7 +74,7 @@ defineProps({
 
 .card:hover {
   transform: translateY(-5px) scale(1.02);
-  /* The shadow color will be injected via var(--accent) defined in global CSS for the theme */
+
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 
               0 0 20px var(--accent-shadow-hover, rgba(255,255,255,0.1));
 }
@@ -85,15 +85,15 @@ defineProps({
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0; /* Hidden by default */
-  filter: blur(8px) saturate(0.5); /* Artistic blur */
+  opacity: 0;
+  filter: blur(8px) saturate(0.5);
   transition: opacity 0.5s ease, filter 0.5s ease;
   z-index: 0;
   pointer-events: none;
 }
 
 .card:hover .preview-bg {
-  opacity: 0.4; /* Show subtle background on hover */
+  opacity: 0.4;
   filter: blur(2px) saturate(1.2);
 }
 
@@ -103,7 +103,7 @@ h2 {
   margin: 0 0 1rem;
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--accent, #fff); /* Fallback to white */
+  color: var(--accent, #fff);
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   font-family: 'Sora', sans-serif;
 }
