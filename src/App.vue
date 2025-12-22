@@ -1,11 +1,120 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+import TheHeader from './components/TheHeader.vue'
+import ProjectCard from './components/ProjectCard.vue'
+
+// Project Data
+const projects = ref([
+  {
+    id: 's-photo',
+    title: 'Photographie animalière',
+    description: 'Portfolio photo autour de la nature',
+    link: 'https://photographie.brendanfleurdelys.ch/',
+    theme: 'forest',
+    image: '/assets/cartes/s-photo.png'
+  },
+  {
+    id: 's-horaire',
+    title: 'Vivement la fin',
+    description: 'Suivre son horaire en direct avec un clicker pour passer le temps',
+    link: 'https://horaire.brendanfleurdelys.ch/',
+    theme: 'flare',
+    image: '/assets/cartes/s-horaire.png'
+  },
+  {
+    id: 's-snake',
+    title: 'Snake',
+    description: 'Jeu du snake en javascript',
+    link: 'https://snake.brendanfleurdelys.ch/',
+    theme: 'void',
+    image: '/assets/cartes/s-snake.png'
+  },
+  {
+    id: 's-fieu',
+    title: 'Maisallezfieu',
+    description: 'Site web pour une pièce de théatre',
+    link: 'https://maisallezfieu.be/',
+    theme: 'crystal',
+    image: '/assets/cartes/s-fieu.png'
+  },
+  {
+    id: 's-meow',
+    title: 'Meow',
+    description: 'Pour se réconforter avec des images de chats',
+    link: 'https://meow.brendanfleurdelys.ch/',
+    theme: 'ocean',
+    image: '/assets/cartes/s-meow.png'
+  },
+  {
+    id: 's-travel',
+    title: 'TravelDB',
+    description: 'Suivre ses pays visités avec carte intéractive',
+    link: 'https://traveldb.brendanfleurdelys.ch/',
+    theme: 'sunset',
+    image: '/assets/cartes/s-travel.png'
+  },
+  {
+    id: 's-wiki',
+    title: 'Wiki ETML',
+    description: 'Mes fiches de révisions avec audio',
+    link: 'https://revisions.brendanfleurdelys.ch/',
+    theme: 'dream',
+    image: '/assets/cartes/s-wiki.png'
+  }
+])
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <main>
+    <TheHeader />
+
+    <section id="projects" class="projects-container">
+      <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper" :style="{ animationDelay: `${index * 0.1}s` }">
+        <ProjectCard
+          :title="project.title"
+          :description="project.description"
+          :link="project.link"
+          :theme="project.theme"
+          :image="project.image"
+          :btnText="project.theme === 'horaire' ? 'SUIVRE →' : (project.theme === 'forest' ? 'EXPLORER →' : 'DÉCOUVRIR →')" 
+        />
+        <!-- Simplified label logic for demo, can be refined -->
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 Brendan Fleurdelys</p>
+    </footer>
+  </main>
 </template>
 
-<style scoped></style>
+<style>
+@import './assets/main.css';
+
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 4rem;
+}
+
+.card-wrapper {
+  animation: fadeUp 0.8s backwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+</style>
