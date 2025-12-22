@@ -37,7 +37,6 @@ defineProps({
 </template>
 
 <style scoped>
-
 .card {
   display: flex;
   flex-direction: column;
@@ -45,15 +44,19 @@ defineProps({
   width: 300px;
   height: 250px;
   padding: 1.5rem;
-  background: rgba(13, 13, 13, 0.6);
-  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.4);
+  /* Lighter, more transparent */
+  border-radius: 16px;
+  /* Smoother corners */
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  backdrop-filter: blur(20px) saturate(180%);
+  /* heavier blur + saturation for vibrancy */
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  /* Soft deep shadow */
 }
 
 
@@ -63,20 +66,24 @@ defineProps({
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0)); 
-  -webkit-mask: 
-     linear-gradient(#fff 0 0) content-box, 
-     linear-gradient(#fff 0 0);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.02);
-
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 
-              0 0 20px var(--accent-shadow-hover, rgba(255,255,255,0.1));
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(30, 30, 30, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px var(--accent-shadow-hover, rgba(255, 255, 255, 0.1));
 }
 
 .preview-bg {
@@ -104,7 +111,7 @@ h2 {
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--accent, #fff);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   font-family: 'Sora', sans-serif;
 }
 
@@ -138,7 +145,7 @@ p {
 
 .btn:hover {
   filter: brightness(1.15);
-  box-shadow: 0 0 15px var(--accent-shadow, rgba(255,255,255,0.4));
+  box-shadow: 0 0 15px var(--accent-shadow, rgba(255, 255, 255, 0.4));
   transform: translateY(-1px);
 }
 </style>

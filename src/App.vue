@@ -6,6 +6,7 @@ import SocialSidebar from './components/SocialSidebar.vue'
 import SocialMobile from './components/SocialMobile.vue'
 import AssistantChat from './components/AssistantChat.vue'
 import ParticlesBackground from './components/ParticlesBackground.vue'
+import LoadingScreen from './components/LoadingScreen.vue'
 
 
 const projects = ref([
@@ -66,36 +67,38 @@ const projects = ref([
     image: '/assets/cartes/s-wiki.png'
   }
 ])
+const isLoaded = ref(false)
 </script>
 
 <template>
   <main>
+    <LoadingScreen @finished="isLoaded = true" />
     <ParticlesBackground />
 
 
-    <TheHeader />
+    <transition name="fade-content">
+      <div v-if="isLoaded" class="content-wrapper">
+        <TheHeader />
 
-    <section id="projects" class="projects-container">
-      <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper" :style="{ animationDelay: `${index * 0.1}s` }">
-        <ProjectCard
-          :title="project.title"
-          :description="project.description"
-          :link="project.link"
-          :theme="project.theme"
-          :image="project.image"
-          :btnText="project.theme === 'horaire' ? 'SUIVRE →' : (project.theme === 'forest' ? 'EXPLORER →' : 'DÉCOUVRIR →')" 
-        />
+        <section id="projects" class="projects-container">
+          <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
+            :style="{ animationDelay: `${index * 0.1}s` }">
+            <ProjectCard :title="project.title" :description="project.description" :link="project.link"
+              :theme="project.theme" :image="project.image"
+              :btnText="project.theme === 'horaire' ? 'SUIVRE →' : (project.theme === 'forest' ? 'EXPLORER →' : 'DÉCOUVRIR →')" />
+          </div>
+        </section>
+
+        <footer>
+          <p>© 2025 Brendan Fleurdelys</p>
+        </footer>
+
+
+        <SocialSidebar />
+        <SocialMobile />
+        <AssistantChat />
       </div>
-    </section>
-
-    <footer>
-      <p>© 2025 Brendan Fleurdelys</p>
-    </footer>
-
-
-    <SocialSidebar />
-    <SocialMobile />
-    <AssistantChat />
+    </transition>
   </main>
 </template>
 
@@ -119,8 +122,15 @@ const projects = ref([
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 footer {
@@ -128,5 +138,16 @@ footer {
   padding: 2rem;
   color: var(--color-muted);
   font-size: 0.9rem;
+}
+</style>
+
+<style scoped>
+.fade-content-enter-active {
+  transition: opacity 1s ease 0.5s;
+  /* Delay slightly to sync with loading screen fade out */
+}
+
+.fade-content-enter-from {
+  opacity: 0;
 }
 </style>
