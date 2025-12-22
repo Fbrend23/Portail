@@ -73,6 +73,15 @@ const projects = ref([
     theme: 'dream',
     image: '/assets/cartes/s-wiki.png',
     btnText: 'RÉVISER →'
+  },
+  {
+    id: 's-tanuki',
+    title: 'TanukiCode',
+    description: 'Apprendre le japonais en s\'amusant',
+    link: 'https://tanukicode.brendanfleurdelys.ch/',
+    theme: 'tanuki',
+    image: '/assets/cartes/s-tanukicode.png',
+    btnText: 'APPRENDRE →'
   }
 ])
 const isLoaded = ref(false)
