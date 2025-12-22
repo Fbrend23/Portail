@@ -151,6 +151,7 @@ const scrollToBottom = () => {
 
     <button id="assistant-toggle" @click="toggleAssistant" aria-label="Toggle Assistant">
       <div class="icon-wrapper">
+        <div v-if="!isOpen" class="greeting-bubble">Bienvenue !</div>
         <img src="/assets/assistant.png" alt="Assistant IA" />
         <div class="glow-ring"></div>
       </div>
@@ -224,6 +225,46 @@ const scrollToBottom = () => {
   position: relative;
   width: 64px;
   height: 64px;
+}
+
+.greeting-bubble {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: black;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: float 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.greeting-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid white;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-5px);
+  }
 }
 
 #assistant-toggle img {
