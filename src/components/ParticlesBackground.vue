@@ -22,25 +22,20 @@ const options = {
       direction: "none",
     },
     size: {
-        value: { min: 0.1, max: 1.5 }
+      value: { min: 0.1, max: 1.5 }
     },
     opacity: {
-        value: { min: 0.1, max: 0.8 },
-        animation: {
-            enable: true,
-            speed: 0.5,
-            sync: false
-        }
+      value: { min: 0.8, max: 1 },
+      animation: {
+        enable: false
+      }
     }
   },
 };
 </script>
 
 <template>
-  <vue-particles
-    id="tsparticles"
-    :options="options"
-  />
+  <vue-particles id="tsparticles" :options="options" />
 </template>
 
 <style scoped>

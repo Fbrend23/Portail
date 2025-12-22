@@ -161,8 +161,8 @@ footer {
 
 <style scoped>
 .fade-content-enter-active {
-  transition: opacity 1s ease 0.5s;
-  /* Delay slightly to sync with loading screen fade out */
+  transition: opacity 1s ease;
+  /* Delay removed to prevent brightness dip */
 }
 
 .fade-content-enter-from {

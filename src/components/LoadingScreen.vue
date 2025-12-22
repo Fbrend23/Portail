@@ -9,8 +9,8 @@ onMounted(() => {
   setTimeout(() => {
     isVisible.value = false
     setTimeout(() => {
-        emit('finished')
-    }, 500) // Wait for fade out
+      emit('finished')
+    }, 1000) // Wait for full fade out before showing content
   }, 2500) // 2.5s intro
 })
 </script>
@@ -28,30 +28,30 @@ onMounted(() => {
 
 <style scoped>
 #intro-overlay {
-    position: fixed;
-    inset: 0;
-    /* Transparent background to see Nebula */
-    background: transparent;
-    backdrop-filter: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
 .intro-content {
-    text-align: center;
+  text-align: center;
 }
 
 .intro-content h1 {
   font-family: "Sora", sans-serif;
   font-size: 3.5rem;
   color: var(--accent, #d4f1ff);
-  text-shadow: 0 0 6px var(--accent, #d4f1ff), 0 0 12px rgba(212, 241, 255, 0.2),
-    0 0 18px rgba(212, 241, 255, 0.4);
-  animation: fadeGlowIn 1.6s ease-out;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
   margin: 0;
   position: relative;
+  text-shadow: 0 0 10px rgba(212, 241, 255, 0.4),
+    0 0 20px rgba(212, 241, 255, 0.2);
+  animation: fadeGlowIn 1.6s ease-out;
 }
 
 .intro-content h1::after {
@@ -60,20 +60,16 @@ onMounted(() => {
   margin: 1rem auto 0;
   width: 60%;
   height: 4px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    var(--accent, #d4f1ff),
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  clip-path: polygon(
-    0% 50%,
-    50% 0%,
-    100% 50%,
-    50% 100%
-  );
+  background: linear-gradient(to right,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      var(--accent, #d4f1ff),
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  clip-path: polygon(0% 50%,
+      50% 0%,
+      100% 50%,
+      50% 100%);
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
   animation: linePulse 4s ease-in-out infinite;
 }
@@ -98,6 +94,7 @@ onMounted(() => {
     transform: scale(1.2);
     filter: blur(4px);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -110,6 +107,7 @@ onMounted(() => {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 0.7;
     transform: translateY(0);
@@ -117,17 +115,31 @@ onMounted(() => {
 }
 
 @keyframes dots {
-  0% { content: ""; }
-  33% { content: "."; }
-  66% { content: ".."; }
-  100% { content: "..."; }
+  0% {
+    content: "";
+  }
+
+  33% {
+    content: ".";
+  }
+
+  66% {
+    content: "..";
+  }
+
+  100% {
+    content: "...";
+  }
 }
 
 @keyframes linePulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.5;
     transform: scaleX(1);
   }
+
   50% {
     opacity: 1;
     transform: scaleX(1.2);
