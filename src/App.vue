@@ -16,7 +16,8 @@ const projects = ref([
     description: 'Portfolio photo autour de la nature',
     link: 'https://photographie.brendanfleurdelys.ch/',
     theme: 'forest',
-    image: '/assets/cartes/s-photo.png'
+    image: '/assets/cartes/s-photo.png',
+    btnText: 'EXPLORER →'
   },
   {
     id: 's-horaire',
@@ -24,7 +25,8 @@ const projects = ref([
     description: 'Suivre son horaire en direct avec un clicker pour passer le temps',
     link: 'https://horaire.brendanfleurdelys.ch/',
     theme: 'flare',
-    image: '/assets/cartes/s-horaire.png'
+    image: '/assets/cartes/s-horaire.png',
+    btnText: 'SUIVRE →'
   },
   {
     id: 's-snake',
@@ -32,7 +34,8 @@ const projects = ref([
     description: 'Jeu du snake en javascript',
     link: 'https://snake.brendanfleurdelys.ch/',
     theme: 'void',
-    image: '/assets/cartes/s-snake.png'
+    image: '/assets/cartes/s-snake.png',
+    btnText: 'JOUER →'
   },
   {
     id: 's-fieu',
@@ -40,7 +43,8 @@ const projects = ref([
     description: 'Site web pour une pièce de théatre',
     link: 'https://maisallezfieu.be/',
     theme: 'crystal',
-    image: '/assets/cartes/s-fieu.png'
+    image: '/assets/cartes/s-fieu.png',
+    btnText: 'DÉCOUVRIR →'
   },
   {
     id: 's-meow',
@@ -48,7 +52,8 @@ const projects = ref([
     description: 'Pour se réconforter avec des images de chats',
     link: 'https://meow.brendanfleurdelys.ch/',
     theme: 'ocean',
-    image: '/assets/cartes/s-meow.png'
+    image: '/assets/cartes/s-meow.png',
+    btnText: 'SE RÉCONFORTER →'
   },
   {
     id: 's-travel',
@@ -56,7 +61,8 @@ const projects = ref([
     description: 'Suivre ses pays visités avec carte intéractive',
     link: 'https://traveldb.brendanfleurdelys.ch/',
     theme: 'sunset',
-    image: '/assets/cartes/s-travel.png'
+    image: '/assets/cartes/s-travel.png',
+    btnText: 'VOYAGER →'
   },
   {
     id: 's-wiki',
@@ -64,7 +70,8 @@ const projects = ref([
     description: 'Mes fiches de révisions avec audio',
     link: 'https://revisions.brendanfleurdelys.ch/',
     theme: 'dream',
-    image: '/assets/cartes/s-wiki.png'
+    image: '/assets/cartes/s-wiki.png',
+    btnText: 'RÉVISER →'
   }
 ])
 const isLoaded = ref(false)
@@ -84,8 +91,7 @@ const isLoaded = ref(false)
           <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
             :style="{ animationDelay: `${index * 0.1}s` }">
             <ProjectCard :title="project.title" :description="project.description" :link="project.link"
-              :theme="project.theme" :image="project.image"
-              :btnText="project.theme === 'horaire' ? 'SUIVRE →' : (project.theme === 'forest' ? 'EXPLORER →' : 'DÉCOUVRIR →')" />
+              :theme="project.theme" :image="project.image" :btnText="project.btnText" />
           </div>
         </section>
 
