@@ -5,6 +5,7 @@ import ProjectCard from './components/ProjectCard.vue'
 import SocialSidebar from './components/SocialSidebar.vue'
 import SocialMobile from './components/SocialMobile.vue'
 import AssistantChat from './components/AssistantChat.vue'
+import BackToTop from './components/BackToTop.vue'
 import ParticlesBackground from './components/ParticlesBackground.vue'
 import LoadingScreen from './components/LoadingScreen.vue'
 
@@ -86,6 +87,8 @@ const isLoaded = ref(false)
     <transition name="fade-content">
       <div v-if="isLoaded" class="content-wrapper">
         <TheHeader />
+
+        <BackToTop />
 
         <section id="projects" class="projects-container">
           <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
