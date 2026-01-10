@@ -153,4 +153,10 @@ onMounted(() => {
 .fade-out-leave-to {
   opacity: 0;
 }
+
+@media (max-width: 768px) {
+  .intro-content h1 {
+    font-size: 1.8rem;
+  }
+}
 </style>
