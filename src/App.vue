@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import TheHeader from './components/TheHeader.vue'
 import ProjectCard from './components/ProjectCard.vue'
 import SocialSidebar from './components/SocialSidebar.vue'
@@ -85,6 +85,13 @@ const projects = ref([
   }
 ])
 const isLoaded = ref(false)
+
+onMounted(() => {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual'
+  }
+  window.scrollTo(0, 0)
+})
 </script>
 
 <template>
