@@ -10,6 +10,10 @@ const toggleSocial = () => {
 
 <template>
   <div class="social-mobile">
+    <button id="toggle-social" @click="toggleSocial" :aria-label="isOpen ? 'Close social menu' : 'Open social menu'">
+      <i :class="isOpen ? 'fa-solid fa-times' : 'fa-solid fa-share-nodes'"></i>
+    </button>
+
     <div class="social-icons" :class="{ open: isOpen }">
       <a href="https://www.linkedin.com/in/brendan-fleurdelys-319b52301" target="_blank" title="LinkedIn">
         <i class="fa-brands fa-linkedin"></i>
@@ -18,10 +22,6 @@ const toggleSocial = () => {
         <i class="fa-brands fa-github"></i>
       </a>
     </div>
-
-    <button id="toggle-social" @click="toggleSocial" :aria-label="isOpen ? 'Close social menu' : 'Open social menu'">
-      <i :class="isOpen ? 'fa-solid fa-times' : 'fa-solid fa-share-nodes'"></i>
-    </button>
   </div>
 </template>
 
@@ -44,11 +44,11 @@ const toggleSocial = () => {
   align-items: center;
   justify-content: center;
   background: rgba(13, 13, 13, 0.4);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   cursor: pointer;
   backdrop-filter: blur(10px);
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   font-size: 1.4rem;
   color: white;
@@ -89,14 +89,14 @@ const toggleSocial = () => {
   color: #fff;
   font-size: 1.2rem;
   backdrop-filter: blur(5px);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.3s;
 }
 
 .social-icons a:hover {
   background: var(--accent, #33ccff);
   color: #000;
-  transform: translateX(-5px);
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
