@@ -82,6 +82,15 @@ const projects = ref([
     theme: 'tanuki',
     image: '/assets/cartes/s-tanukicode.png',
     btnText: 'APPRENDRE →'
+  },
+  {
+    id: 's-prodysos',
+    title: 'Prodysos',
+    description: 'Gestion de production théâtrale',
+    link: 'https://prodysos.app',
+    theme: 'prodysos',
+    image: '/assets/cartes/s-prodysos.png',
+    btnText: 'GÉRER →'
   }
 ])
 const isLoaded = ref(false)

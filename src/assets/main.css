@@ -116,6 +116,12 @@ h6 {
   --accent-shadow-hover: rgba(136, 153, 255, 0.6);
 }
 
+[data-theme='prodysos'] {
+  --accent: #b3311d;
+  --accent-shadow: rgba(179, 49, 29, 0.4);
+  --accent-shadow-hover: rgba(179, 49, 29, 0.6);
+}
+
 /* Animations Helper */
 .fade-enter-active,
 .fade-leave-active {
