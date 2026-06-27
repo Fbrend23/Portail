@@ -94,6 +94,7 @@ const projects = ref([
   }
 ])
 const isLoaded = ref(false)
+const currentYear = new Date().getFullYear()
 
 onMounted(() => {
   if ('scrollRestoration' in history) {
@@ -124,7 +125,7 @@ onMounted(() => {
         </section>
 
         <footer>
-          <p>© 2025 Brendan Fleurdelys</p>
+          <p>© {{ currentYear }} Brendan Fleurdelys</p>
         </footer>
 
 
