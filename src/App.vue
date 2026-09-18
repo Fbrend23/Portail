@@ -30,15 +30,6 @@ const projects = ref([
     btnText: 'SUIVRE →'
   },
   {
-    id: 's-snake',
-    title: 'Snake',
-    description: 'Jeu du snake en javascript',
-    link: 'https://snake.brendanfleurdelys.ch/',
-    theme: 'void',
-    image: '/assets/cartes/s-snake.png',
-    btnText: 'JOUER →'
-  },
-  {
     id: 's-fieu',
     title: 'Maisallezfieu',
     description: 'Site web pour une pièce de théatre',
@@ -46,15 +37,6 @@ const projects = ref([
     theme: 'crystal',
     image: '/assets/cartes/s-fieu.png',
     btnText: 'DÉCOUVRIR →'
-  },
-  {
-    id: 's-meow',
-    title: 'Meow',
-    description: 'Pour se réconforter avec des images de chats',
-    link: 'https://meow.brendanfleurdelys.ch/',
-    theme: 'ocean',
-    image: '/assets/cartes/s-meow.png',
-    btnText: 'SE RÉCONFORTER →'
   },
   {
     id: 's-travel',
