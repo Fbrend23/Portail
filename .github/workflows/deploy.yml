@@ -1,0 +1,137 @@
+# Déploiement du portail.
+#
+# Un seul job : build Vite, puis mirror FTP vers l'hébergement. Aucune pièce
+# intermédiaire, donc aucun endroit où la chaîne puisse s'arrêter sans que
+# personne ne l'apprenne.
+#
+# Deux déclencheurs, et aucun cron :
+#   push (main)         → un changement de code
+#   workflow_dispatch   → relance manuelle, avec dry_run pour lire ce que
+#                         le mirror ferait sans rien écrire
+#
+# Garde-fou de déploiement : un fichier vide, NOMMÉ D'APRÈS CE SITE, doit
+# exister à la racine du compte FTP, déposé une fois à la main. Son nom est la
+# variable DEPLOY_MARKER. Si les secrets pointent ailleurs, le marqueur n'y est
+# pas et tout s'arrête AVANT la moindre écriture : le FTP n'a pas de corbeille.
+#
+# PREMIER DÉPLOIEMENT : lancer à la main avec dry_run activé, puis lire la
+# liste. Elle doit montrer la suppression de l'ancien site statique (_legacy :
+# css/, js/, php/, assets/) et rien qui ressemble à un autre site.
+
+name: Déploiement
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'mirror en --dry-run (aucune écriture côté serveur)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploiement
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deployer:
+    runs-on: ubuntu-latest
+    # Sans plafond, un job bloqué court jusqu'à la limite de six heures de
+    # GitHub sans rien dire. Vingt minutes couvrent largement le cas normal,
+    # une à deux minutes, et transforment un blocage en échec signalé.
+    timeout-minutes: 20
+    env:
+      FTP_HOST: ${{ secrets.FTP_HOST }}
+      FTP_USER: ${{ secrets.FTP_USER }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci --prefer-offline --no-audit --no-fund
+
+      # 0 · Un déploiement privé de son marqueur doit s'arrêter avec un message
+      #     qui dit ce qui manque, plutôt que d'échouer plus loin sur un grep vide.
+      - name: Refuser un déploiement sans marqueur
+        env:
+          DEPLOY_MARKER: ${{ vars.DEPLOY_MARKER }}
+        run: |
+          if [ -z "${DEPLOY_MARKER:-}" ]; then
+            echo "::error::Variable DEPLOY_MARKER absente."
+            echo "C'est une variable du dépôt (Settings > Variables), pas un secret."
+            echo "Elle nomme le fichier témoin déposé à la racine du compte FTP de CE site."
+            exit 1
+          fi
+          echo "DEPLOY_MARKER fourni."
+
+      # apt-get update rafraîchit TOUS les index de paquets pour installer un
+      # seul binaire. On tente d'abord sans, et on ne rafraîchit que si l'index
+      # du runner est trop vieux pour connaître lftp.
+      - name: Installer lftp
+        run: |
+          sudo apt-get install -y -qq lftp \
+            || { sudo apt-get update -qq && sudo apt-get install -y -qq lftp; }
+
+      # 1 · Garde-fou AVANT TOUT : la cible doit porter SON marqueur. Un simple
+      #     listage, aucune écriture : le placer ici sépare « ta cible est
+      #     fausse » de « ton build a échoué ».
+      - name: Vérifier la cible de déploiement
+        env:
+          DEPLOY_MARKER: ${{ vars.DEPLOY_MARKER }}
+        run: |
+          if ! racine=$(lftp -u "$FTP_USER,$FTP_PASSWORD" \
+            -e "set net:timeout 20; set net:max-retries 2; set net:reconnect-interval-base 5; set dns:fatal-timeout 20; set ftp:ssl-force yes; set cmd:fail-exit yes; cls -l; quit" \
+            "$FTP_HOST" 2>&1); then
+            echo "::error::Connexion FTP impossible. Le marqueur n'est pas en cause."
+            echo "$racine" | sed -E 's#(ftps?|sftp)://[^[:space:]]*@#\1://***@#g'
+            echo "FTP_HOST doit être le serveur FTP de l'hébergeur, pas le domaine du site."
+            exit 1
+          fi
+
+          echo "Connexion établie. Racine vue par ce compte FTP :"
+          echo "$racine" | sed -E 's#(ftps?|sftp)://[^[:space:]]*@#\1://***@#g'
+
+          if ! echo "$racine" | grep -qF " $DEPLOY_MARKER"; then
+            echo "::error::Marqueur « $DEPLOY_MARKER » absent de cette racine, abandon."
+            echo "Vérifier D'ABORD que le listage ci-dessus est bien CE site : c'est là"
+            echo "que le mirror --delete écrira. Puis y déposer un fichier vide nommé « $DEPLOY_MARKER »."
+            exit 1
+          fi
+
+          echo "Marqueur « $DEPLOY_MARKER » présent, la cible est la bonne."
+
+      # 2 · Le build. Pas de publication s'il échoue : le site en ligne reste
+      #     celui d'hier.
+      - name: Construire le site
+        run: npm run build
+
+      # 3 · Publication, en une passe.
+      #
+      #     Pas de passe --only-missing sur dist/assets/ : Vite y mélange les
+      #     bundles empreintés ET les images de public/assets/ (cartes, logo…)
+      #     qui changent de contenu sans changer de nom. Une comparaison
+      #     normale sur tout dist/ est la seule qui les renvoie.
+      #
+      #     Le marqueur est exclu du --delete : il ne vient pas de dist/, donc
+      #     le mirror l'effacerait, et le déploiement SUIVANT échouerait faute
+      #     de le trouver.
+      - name: Déployer
+        env:
+          DRY_RUN: ${{ inputs.dry_run && '--dry-run' || '' }}
+          DEPLOY_MARKER: ${{ vars.DEPLOY_MARKER }}
+        run: |
+          set -o pipefail
+          # lftp imprime des URL contenant le mot de passe, encodé en URL. La
+          # chaîne encodée ne correspondant plus au secret, GitHub ne la masque
+          # pas : on rédige nous-mêmes avant que ça n'atteigne les logs.
+          lftp -u "$FTP_USER,$FTP_PASSWORD" \
+            -e "set net:timeout 20; set net:max-retries 2; set net:reconnect-interval-base 5; set dns:fatal-timeout 20; set ftp:ssl-force yes; set cmd:fail-exit yes; mirror -R --delete --parallel=4 --verbose $DRY_RUN --exclude-glob $DEPLOY_MARKER --exclude-glob .user.ini --exclude-glob .infomaniak-maintenance.html dist/ ./; quit" \
+            "$FTP_HOST" 2>&1 | sed -E 's#(ftps?|sftp)://[^[:space:]]*@#\1://***@#g'
