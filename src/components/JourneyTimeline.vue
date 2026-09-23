@@ -49,19 +49,28 @@ let clockTimer = null
 let observer = null
 let frame = null
 
-// La lumière suit un repère placé aux 60 % de la hauteur de l'écran
+// Repère commun à l'apparition des étapes et à l'allumage des points :
+// une étape apparaît et s'allume au même moment
+const ANCHOR = 0.85
+
 const updateProgress = () => {
   frame = null
   const el = list.value
   if (!el) return
-  const rect = el.getBoundingClientRect()
-  const anchor = window.innerHeight * 0.6
-  const value = Math.min(1, Math.max(0, (anchor - rect.top) / rect.height))
+  const track = el.querySelector('.track').getBoundingClientRect()
+  // Toute la frise est visible : elle a été lue, tout s'allume
+  const fullyInView = track.bottom <= window.innerHeight
+  const value = fullyInView
+    ? 1
+    : Math.min(1, Math.max(0, (window.innerHeight * ANCHOR - track.top) / track.height))
   progress.value = value
 
+  // Un point s'allume quand l'extrémité de la ligne allumée atteint son centre
+  const litEnd = track.top + value * track.height
   const lit = new Set()
-  el.querySelectorAll('.step').forEach((step, index) => {
-    if (step.offsetTop + 12 <= value * rect.height) lit.add(index)
+  el.querySelectorAll('.dot').forEach((dot, index) => {
+    const rect = dot.getBoundingClientRect()
+    if (rect.top + rect.height / 2 <= litEnd + 1) lit.add(index)
   })
   reached.value = lit
 }
@@ -88,7 +97,7 @@ onMounted(() => {
       visible.value = new Set(visible.value).add(Number(entry.target.dataset.index))
       observer.unobserve(entry.target)
     }
-  }, { rootMargin: '0px 0px -10% 0px' })
+  }, { rootMargin: `0px 0px -${Math.round((1 - ANCHOR) * 100)}% 0px` })
   list.value.querySelectorAll('.step').forEach((step) => observer.observe(step))
 })
 
@@ -197,6 +206,8 @@ h2 {
   box-shadow: 0 0 8px rgba(212, 241, 255, 0.6);
   transform-origin: top;
   will-change: transform;
+  /* Adoucit le passage à « tout allumé » quand la frise devient entièrement visible */
+  transition: transform 0.25s ease-out;
 }
 
 .step {
@@ -231,13 +242,15 @@ h2 {
   animation: pulse 2s ease-out infinite;
 }
 
-/* Étape à venir : point creux et pointillé, même atteint */
-.is-future .dot,
-.is-future.is-reached .dot {
+/* Étape à venir : point creux et pointillé ; atteint, il s'allume sans se remplir */
+.is-future .dot {
   border-style: dashed;
-  border-color: var(--accent, #d4f1ff);
   background: transparent;
-  box-shadow: none;
+}
+
+.is-future.is-reached .dot {
+  background: rgba(212, 241, 255, 0.15);
+  box-shadow: 0 0 10px rgba(212, 241, 255, 0.7);
 }
 
 .step-meta {
