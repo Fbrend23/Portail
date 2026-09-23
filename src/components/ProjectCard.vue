@@ -35,7 +35,7 @@ defineProps({
   <div class="card" :data-theme="theme">
     <img v-if="image" :src="image" class="preview-bg" alt="" decoding="async" />
     <h2>{{ title }}</h2>
-    <p>{{ description }}</p>
+    <p :class="{ 'has-tags': tags.length }">{{ description }}</p>
     <ul v-if="tags.length" class="tags" aria-label="Technologies">
       <li v-for="tag in tags" :key="tag">{{ tag }}</li>
     </ul>
@@ -158,14 +158,18 @@ p {
   -webkit-box-orient: vertical;
 }
 
+p.has-tags {
+  margin-bottom: 0.75rem;
+}
+
 .tags {
   position: relative;
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.4rem;
-  margin: 0 0 1rem;
+  gap: 0.35rem;
+  margin: 0 0 0.75rem;
   padding: 0;
   list-style: none;
 }
