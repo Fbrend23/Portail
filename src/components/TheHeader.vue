@@ -1,4 +1,54 @@
 <script setup>
+import { ref, watch, onBeforeUnmount } from 'vue'
+
+const props = defineProps({
+  // Passe à true à la fin de l'écran d'intro : l'animation démarre alors
+  active: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const phrases = [
+  "Informaticien CFC en développement d'applications",
+  'Développeur web',
+  'Photographe animalier amateur',
+  'Actuellement en stage à Séoul',
+  'Français · English · 한국어 en cours'
+]
+
+// La première phrase est affichée en entier dès le HTML pré-généré
+const typed = ref(phrases[0])
+let timer = null
+
+const wait = (ms) => new Promise((resolve) => { timer = setTimeout(resolve, ms) })
+
+const runTypewriter = async () => {
+  let index = 0
+  for (;;) {
+    await wait(2500)
+    while (typed.value.length > 0) {
+      typed.value = typed.value.slice(0, -1)
+      await wait(30)
+    }
+    index = (index + 1) % phrases.length
+    await wait(400)
+    for (const char of phrases[index]) {
+      typed.value += char
+      await wait(60)
+    }
+  }
+}
+
+watch(() => props.active, (active) => {
+  if (!active || timer !== null) return
+  // Pas d'animation pour qui a réduit les animations : la première phrase reste
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  runTypewriter()
+}, { immediate: true })
+
+onBeforeUnmount(() => clearTimeout(timer))
+
 const scrollToProjects = () => {
   document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
 }
@@ -8,8 +58,12 @@ const scrollToProjects = () => {
   <header>
     <div class="hero">
       <h1>BRENDAN FLEURDELYS</h1>
-      <h2>Bienvenue sur mon portail personnel</h2>
-      <p>Retrouvez tous mes projets et sites ici</p>
+      <h2>
+        <!-- Texte complet pour Google et les lecteurs d'écran, la ligne animée est décorative -->
+        <span class="visually-hidden">{{ phrases.join(' · ') }}</span>
+        <span class="typed" aria-hidden="true">{{ typed }}<span class="caret"></span></span>
+      </h2>
+      <p>Retrouvez ici tous mes projets</p>
       <div class="scroll-down">
         <button type="button" class="scroll-btn" @click="scrollToProjects" aria-label="Voir les projets">
           <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
@@ -77,6 +131,37 @@ h2 {
   font-weight: 300;
   margin-bottom: 0.5rem;
   color: #fff;
+  /* Hauteur fixe : la ligne ne doit pas faire sauter la page en s'effaçant */
+  min-height: 1.4em;
+  line-height: 1.4;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: var(--accent, #d4f1ff);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 p {
@@ -159,6 +244,9 @@ p {
 
   h2 {
     font-size: 1.1rem;
+    /* La phrase la plus longue peut passer sur deux lignes */
+    min-height: 2.8em;
+    padding: 0 1rem;
   }
 
   p {

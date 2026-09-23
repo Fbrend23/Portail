@@ -103,7 +103,7 @@ onMounted(() => {
 
     <!-- Toujours rendu (donc présent dans le HTML pré-généré), masqué pendant l'intro -->
     <div class="content-wrapper" :class="{ 'is-ready': isLoaded }">
-      <TheHeader />
+      <TheHeader :active="isLoaded" />
 
       <BackToTop />
 
