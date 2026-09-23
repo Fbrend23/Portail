@@ -120,8 +120,8 @@ defineProps({
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  /* Assombrie pour que le texte reste lisible, quelle que soit la capture */
-  filter: blur(1px) brightness(0.18) saturate(0.7);
+  /* Légèrement assombrie : c'est surtout l'ombre du texte qui assure la lisibilité */
+  filter: blur(1px) brightness(0.5);
   transition: opacity 0.4s ease;
   z-index: 0;
   pointer-events: none;
@@ -131,6 +131,20 @@ defineProps({
 
 .card:hover .preview-bg {
   opacity: 1;
+}
+
+/* Au survol, le texte passe par-dessus la capture : une ombre le détache du fond */
+.card:hover h2,
+.card:hover p {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
+.card:hover p {
+  color: #fff;
+}
+
+.card:hover .tags li {
+  background: rgba(13, 13, 13, 0.85);
 }
 
 h2 {
