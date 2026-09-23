@@ -10,6 +10,7 @@ import BackToTop from '../components/BackToTop.vue'
 import ParticlesBackground from '../components/ParticlesBackground.vue'
 import LoadingScreen from '../components/LoadingScreen.vue'
 import LangSwitch from '../components/LangSwitch.vue'
+import JourneyTimeline from '../components/JourneyTimeline.vue'
 import { projects as projectData } from '../data/projects'
 import { useI18n, localePaths, SITE_URL } from '../i18n'
 
@@ -115,6 +116,8 @@ onMounted(() => {
     <div class="content-wrapper" :class="{ 'is-ready': isLoaded }">
       <LangSwitch />
       <TheHeader :active="isLoaded" />
+
+      <JourneyTimeline />
 
       <BackToTop />
 

@@ -32,7 +32,53 @@ export default {
       'Français · English · 한국어 en cours'
     ],
     subtitle: 'Retrouvez ici tous mes projets',
-    scrollToProjects: 'Voir les projets'
+    scrollDown: 'Découvrir mon parcours'
+  },
+  journey: {
+    title: 'Parcours',
+    intro: 'De l’atelier au code : une reconversion par passion.',
+    items: [
+      {
+        date: '2015',
+        title: 'CFC de polymécanicien',
+        text: 'Usinage de pièces de précision. J’en ai gardé le goût du travail minutieux.',
+        status: 'past'
+      },
+      {
+        date: '2024',
+        title: 'Reconversion à l’ETML',
+        text: 'Formation accélérée (FPA) de deux ans pour devenir informaticien.',
+        place: 'Lausanne',
+        status: 'past'
+      },
+      {
+        date: '2026',
+        title: 'TPI pour le Paléo Festival',
+        text: 'Modules de statistiques et de recherche de conducteurs et de courses pour Runeado, l’application qui gère le transport des artistes et du staff.',
+        status: 'past'
+      },
+      {
+        date: '2026',
+        title: 'CFC d’informaticien, développement d’applications',
+        text: 'Diplômé de l’ETML.',
+        place: 'Lausanne',
+        status: 'past'
+      },
+      {
+        date: 'Août 2026 – février 2027',
+        title: 'Stage dans un cabinet d’avocats',
+        text: 'Équipe média : refonte du site web et outils internes pour faciliter le travail des avocats.',
+        place: 'Séoul',
+        status: 'current'
+      },
+      {
+        date: 'Dès mars 2027',
+        title: 'Et ensuite ?',
+        text: 'À la recherche d’un poste de développeur, en Suisse ou en Corée.',
+        status: 'future'
+      }
+    ],
+    current: 'En cours'
   },
   marquee: {
     label: 'Technologies utilisées'

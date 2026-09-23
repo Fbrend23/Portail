@@ -31,7 +31,53 @@ export default {
       'Français · English · learning 한국어'
     ],
     subtitle: 'All my projects, in one place',
-    scrollToProjects: 'See the projects'
+    scrollDown: 'Discover my journey'
+  },
+  journey: {
+    title: 'Journey',
+    intro: 'From the workshop to code: a career change driven by passion.',
+    items: [
+      {
+        date: '2015',
+        title: 'Polymechanic, Swiss Federal VET Diploma',
+        text: 'Machining precision parts. It left me with a taste for meticulous work.',
+        status: 'past'
+      },
+      {
+        date: '2024',
+        title: 'Career change at ETML',
+        text: 'Two-year accelerated programme to become an ICT specialist.',
+        place: 'Lausanne',
+        status: 'past'
+      },
+      {
+        date: '2026',
+        title: 'Diploma project for the Paléo Festival',
+        text: 'Statistics and driver/run search modules for Runeado, the app that manages transport for artists and staff.',
+        status: 'past'
+      },
+      {
+        date: '2026',
+        title: 'ICT Specialist, Application Development',
+        text: 'Swiss Federal VET Diploma, graduated from ETML.',
+        place: 'Lausanne',
+        status: 'past'
+      },
+      {
+        date: 'August 2026 – February 2027',
+        title: 'Internship at a law firm',
+        text: "Media team: website redesign and internal tools that make the lawyers' work easier.",
+        place: 'Seoul',
+        status: 'current'
+      },
+      {
+        date: 'From March 2027',
+        title: "What's next?",
+        text: 'Looking for a developer position, in Switzerland or in Korea.',
+        status: 'future'
+      }
+    ],
+    current: 'Now'
   },
   marquee: {
     label: 'Technologies I use'
