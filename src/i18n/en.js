@@ -68,16 +68,21 @@ export default {
         title: 'Internship at a law firm',
         text: "Media team: website redesigns and internal tools that make the lawyers' work easier.",
         place: 'Seoul',
+        placeLocal: '서울',
+        timeZone: 'Asia/Seoul',
         status: 'current'
       },
       {
         date: 'From March 2027',
         title: "What's next?",
         text: 'Looking for a developer position, in Switzerland or in Korea.',
+        countdownTo: '2027-03-01',
         status: 'future'
       }
     ],
-    current: 'Now'
+    current: 'Now',
+    clock: (time) => `It's ${time} in Seoul`,
+    countdown: (days) => (days === 1 ? 'tomorrow' : `in ${days} days`)
   },
   marquee: {
     label: 'Technologies I use'

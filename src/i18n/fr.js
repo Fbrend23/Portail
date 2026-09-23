@@ -69,16 +69,21 @@ export default {
         title: 'Stage dans un cabinet d’avocats',
         text: 'Équipe média : refontes des sites web et outils internes pour faciliter le travail des avocats.',
         place: 'Séoul',
+        placeLocal: '서울',
+        timeZone: 'Asia/Seoul',
         status: 'current'
       },
       {
         date: 'Dès mars 2027',
         title: 'Et ensuite ?',
         text: 'À la recherche d’un poste de développeur, en Suisse ou en Corée.',
+        countdownTo: '2027-03-01',
         status: 'future'
       }
     ],
-    current: 'En cours'
+    current: 'En cours',
+    clock: (time) => `Il est ${time} à Séoul`,
+    countdown: (days) => (days === 1 ? 'demain' : `dans ${days} jours`)
   },
   marquee: {
     label: 'Technologies utilisées'
