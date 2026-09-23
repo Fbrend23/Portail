@@ -2,6 +2,8 @@
 import { onMounted, ref } from 'vue'
 
 const isVisible = ref(true)
+// Intro sautée : l'overlay disparaît d'un coup, sans fondu par-dessus le contenu
+const skipped = ref(false)
 const emit = defineEmits(['finished'])
 
 onMounted(() => {
@@ -17,6 +19,7 @@ onMounted(() => {
   }
 
   if (reduceMotion || alreadySeen) {
+    skipped.value = true
     isVisible.value = false
     emit('finished')
     return
@@ -33,7 +36,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <transition name="fade-out">
+  <transition name="fade-out" :css="!skipped">
     <div v-if="isVisible" id="intro-overlay">
       <div class="intro-content">
         <p>Initialisation<span class="dots-loading"></span></p>
