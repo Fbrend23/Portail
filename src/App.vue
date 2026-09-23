@@ -48,7 +48,7 @@ const projects = ref([
     link: 'https://maisallezfieu.be/',
     theme: 'crystal',
     image: '/assets/cartes/s-fieu.webp',
-    tags: ['Astro', 'API Prodysos'],
+    tags: ['Astro', 'Directus', 'API Prodysos'],
     btnText: 'DÉCOUVRIR →'
   },
   {
