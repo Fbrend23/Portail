@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch, onBeforeUnmount } from 'vue'
+import TechMarquee from './TechMarquee.vue'
 
 const props = defineProps({
   // Passe à true à la fin de l'écran d'intro : l'animation démarre alors
@@ -64,6 +65,7 @@ const scrollToProjects = () => {
         <span class="typed" aria-hidden="true">{{ typed }}<span class="caret"></span></span>
       </h2>
       <p>Retrouvez ici tous mes projets</p>
+      <TechMarquee />
       <div class="scroll-down">
         <button type="button" class="scroll-btn" @click="scrollToProjects" aria-label="Voir les projets">
           <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
