@@ -54,7 +54,7 @@ export default {
       {
         date: '2026',
         title: 'TPI pour le Paléo Festival',
-        text: 'Modules de statistiques et de recherche de conducteurs et de courses pour Runeado, l’application qui gère le transport des artistes et du staff.',
+        text: 'Modules de statistiques et de recherche (conducteurs, courses) pour Runeado, l’application qui gère le transport des artistes et du staff.',
         status: 'past'
       },
       {
@@ -170,7 +170,7 @@ export default {
         ]
       },
       tpi: {
-        text: 'Pour son TPI, Brendan a développé des modules de statistiques et de recherche de conducteurs et de courses pour Runeado, l’application qui gère le transport des artistes et du staff du Paléo Festival.',
+        text: 'Pour son TPI, Brendan a développé des modules de statistiques et de recherche (conducteurs, courses) pour Runeado, l’application qui gère le transport des artistes et du staff du Paléo Festival.',
         options: [
           { label: 'Ses compétences', next: 'skills' },
           { label: 'Voir ses projets', next: 'projects' },
