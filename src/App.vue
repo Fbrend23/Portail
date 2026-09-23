@@ -116,6 +116,9 @@ onMounted(() => {
       </section>
 
       <footer>
+        <p>
+          <a href="https://contact.brendanfleurdelys.ch/" class="footer-contact">Me contacter</a>
+        </p>
         <p>© {{ currentYear }} Brendan Fleurdelys</p>
       </footer>
 
@@ -172,6 +175,17 @@ footer {
   padding: 2rem;
   color: var(--color-muted);
   font-size: 0.9rem;
+}
+
+.footer-contact {
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.footer-contact:hover,
+.footer-contact:focus-visible {
+  border-color: currentColor;
 }
 </style>
 
