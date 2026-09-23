@@ -1,5 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useI18n } from '../i18n'
+
+const { t } = useI18n()
 
 const isVisible = ref(true)
 // Intro sautée : l'overlay disparaît d'un coup, sans fondu par-dessus le contenu
@@ -41,7 +44,7 @@ onMounted(() => {
   <transition name="fade-out" :css="!skipped">
     <div v-if="isVisible" id="intro-overlay">
       <div class="intro-content">
-        <p>Initialisation<span class="dots-loading"></span></p>
+        <p>{{ t.intro.loading }}<span class="dots-loading"></span></p>
         <div class="intro-title" aria-hidden="true">BRENDAN FLEURDELYS</div>
       </div>
     </div>

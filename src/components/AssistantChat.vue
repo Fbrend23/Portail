@@ -1,5 +1,8 @@
 <script setup>
 import { ref, nextTick } from 'vue'
+import { useI18n } from '../i18n'
+
+const { t } = useI18n()
 
 const isOpen = ref(false)
 const isTyping = ref(false)
@@ -9,76 +12,8 @@ const lastFactIndex = ref(-1)
 
 const botName = "Echo"
 
-// FAQ Logic
-const faqData = {
-  start: {
-    text: `Bonjour ! Je suis ${botName}, l'assistant virtuel de Brendan. Comment puis-je vous aider ?`,
-    options: [
-      { label: "Qui est Brendan ?", next: 'who' },
-      { label: "Compétences", next: 'skills' },
-      { label: "Disponibilité", next: 'availability' },
-      { label: "Ses projets", next: 'projects' },
-      { label: "Le contacter", next: 'contact' }
-    ]
-  },
-  who: {
-    text: "Brendan est informaticien CFC en développement d’applications, diplômé de l’ETML en 2026. C’est une reconversion par passion : polymécanicien CFC depuis 2015, il a suivi une formation accélérée (FPA) de deux ans pour passer de l’atelier au code.",
-    options: [
-      { label: "Son travail de diplôme", next: 'tpi' },
-      { label: "Ses langues", next: 'languages' },
-      { label: "Ses compétences", next: 'skills' },
-      { label: "Retour au début", next: 'start' }
-    ]
-  },
-  tpi: {
-    text: "Pour son TPI, Brendan a développé des modules de statistiques et de recherche de conducteurs et de courses pour Runeado, l’application qui gère le transport des artistes et du staff du Paléo Festival.",
-    options: [
-      { label: "Ses compétences", next: 'skills' },
-      { label: "Voir ses projets", next: 'projects' },
-      { label: "Retour au début", next: 'start' }
-    ]
-  },
-  languages: {
-    text: "Le français et l’anglais sont ses deux langues maternelles, et il apprend le coréen.",
-    options: [
-      { label: "Est-il disponible ?", next: 'availability' },
-      { label: "Retour au début", next: 'start' }
-    ]
-  },
-  skills: {
-    text: "Brendan travaille en ce moment surtout avec Astro et des CMS headless : son portfolio photo tourne sur Astro avec Directus, qu’il héberge lui-même. Il développe aussi avec Vue 3, Supabase et AdonisJS, comme Prodysos, une PWA en Vue et Supabase.",
-    options: [
-      { label: "Est-il disponible ?", next: 'availability' },
-      { label: "Voir ses projets", next: 'projects' },
-      { label: "Retour", next: 'start' }
-    ]
-  },
-  availability: {
-    text: "D’août 2026 à février 2027, Brendan est en stage à Séoul dans l’équipe média d’un cabinet d’avocats, où il participe à la refonte du site web et à des outils internes pour faciliter le travail des avocats. Après son stage, il cherche un poste et est ouvert à travailler en Corée.",
-    options: [
-      { label: "Le contacter", next: 'contact' },
-      { label: "Fun fact", next: 'funfact' },
-      { label: "Retour", next: 'start' }
-    ]
-  },
-  funfact: {
-    // Handled dynamically in handleOption
-    text: "",
-    options: []
-  },
-  projects: {
-    text: "Ses deux projets préférés : son portfolio de photographie animalière (Astro et Directus) et Prodysos, une application de gestion de production réalisée pour une troupe de théâtre. Vous trouverez tous ses projets sur les cartes en arrière-plan !",
-    options: [
-      { label: "Ses compétences", next: 'skills' },
-      { label: "Le contacter", next: 'contact' }
-    ]
-  },
-  contact: {
-    text: "Vous souhaitez lui envoyer un message ? Vous pouvez utiliser le formulaire de contact officiel.",
-    options: [{ label: "Retour au début", next: 'start' }],
-    isContact: true
-  }
-}
+// FAQ de la langue courante (src/i18n)
+const faqData = t.value.echo.faq
 
 // Initialize Chat
 const initChat = () => {
@@ -123,12 +58,7 @@ const handleOption = (option) => {
 
   // Handle Dynamic Fun Fact
   if (option.next === 'funfact') {
-    const facts = [
-      "Fun fact : Brendan adore transformer des idées simples en projets interactifs, parfois juste « pour voir jusqu’où ça peut aller »",
-      "Fun fact : Brendan pratique la photographie, en particulier la photographie animalière, ce qui lui a appris la patience, l’observation et l’attention aux détails.",
-      "Fun fact : avant le code, Brendan usinait des pièces de précision comme polymécanicien. Il a gardé le goût du travail précis.",
-      "Fun fact : Brendan apprend le coréen, pratique quand on fait un stage à Séoul !"
-    ]
+    const facts = t.value.echo.facts
 
     // Pick a random fact different from the last one
     let newIndex
@@ -142,11 +72,7 @@ const handleOption = (option) => {
     // Create a temporary node for display
     nextNode = {
       text: randomFact,
-      options: [
-        { label: "Voir ses projets", next: 'projects' },
-        { label: "Autre fun fact ?", next: 'funfact' },
-        { label: "Retour au début", next: 'start' }
-      ]
+      options: t.value.echo.factOptions
     }
   }
 
@@ -167,10 +93,10 @@ const scrollToBottom = () => {
 <template>
   <div id="assistant" :class="{ open: isOpen }">
 
-    <button id="assistant-toggle" @click="toggleAssistant" :aria-label="isOpen ? 'Fermer l’assistant' : 'Ouvrir l’assistant'">
+    <button id="assistant-toggle" @click="toggleAssistant" :aria-label="isOpen ? t.echo.close : t.echo.open">
       <div class="icon-wrapper">
-        <div v-if="!isOpen" class="greeting-bubble">Bienvenue !</div>
-        <img src="/assets/assistant.webp" alt="Assistant IA" width="64" height="64" />
+        <div v-if="!isOpen" class="greeting-bubble">{{ t.echo.greeting }}</div>
+        <img src="/assets/assistant.webp" :alt="t.echo.avatarAlt" width="64" height="64" />
         <div class="glow-ring"></div>
       </div>
     </button>
@@ -190,7 +116,7 @@ const scrollToBottom = () => {
               <!-- Special Contact Action -->
               <div v-if="msg.isContact" class="contact-action">
                 <a href="https://contact.brendanfleurdelys.ch/" target="_blank" class="btn-redirect">
-                  Aller vers la page de contact →
+                  {{ t.echo.contactLink }}
                 </a>
               </div>
             </div>

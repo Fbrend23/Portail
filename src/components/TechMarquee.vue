@@ -1,4 +1,8 @@
 <script setup>
+import { useI18n } from '../i18n'
+
+const { t } = useI18n()
+
 // Logos : Simple Icons (CC0), https://simpleicons.org
 // Technologies utilisées dans mes dépôts, de la plus présente à la plus ponctuelle
 const techs = [
@@ -103,7 +107,7 @@ const techs = [
 <template>
   <div class="tech-marquee">
     <div class="rail">
-      <ul class="track" aria-label="Technologies utilisées">
+      <ul class="track" :aria-label="t.marquee.label">
         <li v-for="tech in techs" :key="tech.name" :title="tech.name" :style="{ '--brand': tech.color }">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path :d="tech.path" /></svg>
           <span class="visually-hidden">{{ tech.name }}</span>

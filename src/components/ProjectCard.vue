@@ -1,4 +1,8 @@
 <script setup>
+import { useI18n } from '../i18n'
+
+const { t } = useI18n()
+
 defineProps({
   title: {
     type: String,
@@ -38,14 +42,14 @@ defineProps({
 
 <template>
   <div class="card" :class="{ 'is-paused': paused }" :data-theme="theme">
-    <span v-if="paused" class="status">En pause</span>
+    <span v-if="paused" class="status">{{ t.card.paused }}</span>
     <img v-if="image" :src="image" class="preview-bg" alt="" decoding="async" />
     <h2>{{ title }}</h2>
     <p :class="{ 'has-tags': tags.length }">{{ description }}</p>
-    <ul v-if="tags.length" class="tags" aria-label="Technologies">
+    <ul v-if="tags.length" class="tags" :aria-label="t.card.techs">
       <li v-for="tag in tags" :key="tag">{{ tag }}</li>
     </ul>
-    <span v-if="paused" class="btn is-disabled" aria-disabled="true">BIENTÔT DE RETOUR</span>
+    <span v-if="paused" class="btn is-disabled" aria-disabled="true">{{ t.card.comingBack }}</span>
     <a v-else :href="link" class="btn" target="_blank">{{ btnText }}</a>
   </div>
 </template>

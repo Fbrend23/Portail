@@ -1,6 +1,9 @@
 <script setup>
 import { ref, watch, onBeforeUnmount } from 'vue'
 import TechMarquee from './TechMarquee.vue'
+import { useI18n } from '../i18n'
+
+const { t } = useI18n()
 
 const props = defineProps({
   // Passe à true à la fin de l'écran d'intro : l'animation démarre alors
@@ -10,13 +13,8 @@ const props = defineProps({
   }
 })
 
-const phrases = [
-  "Informaticien CFC en développement d'applications",
-  'Développeur web',
-  'Photographe animalier amateur',
-  'Actuellement en stage à Séoul',
-  'Français · English · 한국어 en cours'
-]
+// Phrases de la langue courante (src/i18n) ; la page ne change pas de langue sans rechargement
+const phrases = t.value.header.phrases
 
 // La première phrase est affichée en entier dès le HTML pré-généré
 const typed = ref(phrases[0])
@@ -64,10 +62,10 @@ const scrollToProjects = () => {
         <span class="visually-hidden">{{ phrases.join(' · ') }}</span>
         <span class="typed" aria-hidden="true">{{ typed }}<span class="caret"></span></span>
       </h2>
-      <p>Retrouvez ici tous mes projets</p>
+      <p>{{ t.header.subtitle }}</p>
       <TechMarquee />
       <div class="scroll-down">
-        <button type="button" class="scroll-btn" @click="scrollToProjects" aria-label="Voir les projets">
+        <button type="button" class="scroll-btn" @click="scrollToProjects" :aria-label="t.header.scrollToProjects">
           <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>

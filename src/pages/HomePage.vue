@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useHead } from '@unhead/vue'
 import TheHeader from '../components/TheHeader.vue'
 import ProjectCard from '../components/ProjectCard.vue'
 import SocialSidebar from '../components/SocialSidebar.vue'
@@ -8,102 +9,82 @@ import AssistantChat from '../components/AssistantChat.vue'
 import BackToTop from '../components/BackToTop.vue'
 import ParticlesBackground from '../components/ParticlesBackground.vue'
 import LoadingScreen from '../components/LoadingScreen.vue'
+import LangSwitch from '../components/LangSwitch.vue'
+import { projects as projectData } from '../data/projects'
+import { useI18n, localePaths, SITE_URL } from '../i18n'
 
+const { lang, t } = useI18n()
 
-const projects = ref([
-  {
-    id: 's-photo',
-    title: 'Photographie animalière',
-    description: 'Mon portfolio de photographie animalière',
-    link: 'https://photographie.brendanfleurdelys.ch/',
-    theme: 'forest',
-    image: '/assets/cartes/s-photo.webp',
-    tags: ['Astro', 'Directus'],
-    btnText: 'EXPLORER →'
-  },
-  {
-    id: 's-prodysos',
-    title: 'Prodysos',
-    description: 'Gestion de production, réalisée pour une troupe de théâtre',
-    link: 'https://prodysos.app',
-    theme: 'prodysos',
-    image: '/assets/cartes/s-prodysos.webp',
-    tags: ['Vue', 'Supabase', 'PWA'],
-    btnText: 'GÉRER →'
-  },
-  {
-    id: 's-horaire',
-    title: 'Vivement la fin',
-    description: 'Suivre son horaire en direct avec un clicker pour passer le temps',
-    link: 'https://horaire.brendanfleurdelys.ch/',
-    theme: 'flare',
-    image: '/assets/cartes/s-horaire.webp',
-    tags: ['Vue', 'Supabase', 'Tailwind'],
-    btnText: 'SUIVRE →'
-  },
-  {
-    id: 's-fieu',
-    title: 'Maisallezfieu',
-    description: 'Site d’une pièce de théâtre, réalisé pour une troupe',
-    link: 'https://maisallezfieu.be/',
-    theme: 'crystal',
-    image: '/assets/cartes/s-fieu.webp',
-    tags: ['Astro', 'Directus', 'API Prodysos'],
-    btnText: 'DÉCOUVRIR →'
-  },
-  {
-    id: 's-travel',
-    title: 'TravelDB',
-    description: 'Suivre ses pays visités avec carte interactive',
-    link: 'https://traveldb.brendanfleurdelys.ch/',
-    theme: 'sunset',
-    image: '/assets/cartes/s-travel.webp',
-    // Backend AdonisJS sans hébergement Node disponible pour l'instant
-    paused: true,
-    tags: ['Vue', 'AdonisJS', 'Leaflet'],
-    btnText: 'VOYAGER →'
-  },
-  {
-    id: 's-wiki',
-    title: 'Wiki ETML',
-    description: 'Mes fiches de révisions avec audio',
-    link: 'https://revisions.brendanfleurdelys.ch/',
-    theme: 'dream',
-    image: '/assets/cartes/s-wiki.webp',
-    tags: ['Vue', 'Markdown'],
-    btnText: 'RÉVISER →'
-  },
-  {
-    id: 's-tanuki',
-    title: 'TanukiCode',
-    description: 'Apprendre le japonais en s\'amusant',
-    link: 'https://tanukicode.brendanfleurdelys.ch/',
-    theme: 'tanuki',
-    image: '/assets/cartes/s-tanukicode.webp',
-    tags: ['Vue', 'Supabase', 'Tailwind'],
-    btnText: 'APPRENDRE →'
-  },
-  {
-    id: 's-lunchpicker',
-    title: 'LunchPicker',
-    description: 'Choisir un restaurant à plusieurs en Corée, en quelques swipes',
-    link: 'https://lunch-picker-six.vercel.app/',
-    theme: 'lunchpicker',
-    image: '/assets/cartes/s-lunchpicker.webp',
-    tags: ['Nuxt', 'Supabase', 'PWA'],
-    btnText: 'CHOISIR →'
-  },
-  {
-    id: 's-matinale',
-    title: 'La Matinale de Séoul',
-    description: 'Résumé d’actualité automatisé par IA',
-    link: 'https://matinale.brendanfleurdelys.ch/',
-    theme: 'matinale',
-    image: '/assets/cartes/s-matinale.webp',
-    tags: ['Astro', 'Directus', 'AGY', 'Claude Code'],
-    btnText: 'LIRE →'
+const projects = computed(() =>
+  projectData.map((project) => ({ ...project, ...t.value.projects[project.id] }))
+)
+
+// <head> propre à chaque langue : titre, description, canonical, hreflang,
+// aperçus de liens et données structurées
+const pageUrl = computed(() => SITE_URL + localePaths[lang.value])
+useHead(() => {
+  const meta = t.value.meta
+  const otherLang = lang.value === 'fr' ? 'en' : 'fr'
+  return {
+    htmlAttrs: { lang: lang.value },
+    title: meta.title,
+    meta: [
+      { name: 'description', content: meta.description },
+      { property: 'og:url', content: pageUrl.value },
+      { property: 'og:title', content: meta.ogTitle },
+      { property: 'og:description', content: meta.ogDescription },
+      { property: 'og:image', content: SITE_URL + meta.ogImage },
+      { property: 'og:image:alt', content: meta.ogImageAlt },
+      { property: 'og:locale', content: meta.ogLocale },
+      { property: 'og:locale:alternate', content: otherLang === 'fr' ? 'fr_CH' : 'en_US' }
+    ],
+    link: [
+      { rel: 'canonical', href: pageUrl.value },
+      { rel: 'alternate', hreflang: 'fr', href: SITE_URL + localePaths.fr },
+      { rel: 'alternate', hreflang: 'en', href: SITE_URL + localePaths.en },
+      { rel: 'alternate', hreflang: 'x-default', href: SITE_URL + localePaths.fr }
+    ],
+    script: [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Brendan Fleurdelys',
+          url: pageUrl.value,
+          image: SITE_URL + meta.ogImage,
+          jobTitle: meta.jobTitle,
+          alumniOf: {
+            '@type': 'EducationalOrganization',
+            name: 'ETML, École technique – École des métiers de Lausanne'
+          },
+          hasCredential: [
+            {
+              '@type': 'EducationalOccupationalCredential',
+              credentialCategory: meta.credentials.category,
+              name: meta.credentials.it,
+              dateCreated: '2026'
+            },
+            {
+              '@type': 'EducationalOccupationalCredential',
+              credentialCategory: meta.credentials.category,
+              name: meta.credentials.polymechanic,
+              dateCreated: '2015'
+            }
+          ],
+          knowsLanguage: ['fr', 'en'],
+          knowsAbout: [...meta.knowsAbout, 'Astro', 'Directus', 'Vue.js', 'Supabase', 'AdonisJS', 'PWA'],
+          sameAs: [
+            'https://www.linkedin.com/in/brendan-fleurdelys-319b52301',
+            'https://github.com/Fbrend23',
+            'https://photographie.brendanfleurdelys.ch/'
+          ]
+        })
+      }
+    ]
   }
-])
+})
+
 const isLoaded = ref(false)
 const currentYear = new Date().getFullYear()
 
@@ -132,6 +113,7 @@ onMounted(() => {
 
     <!-- Toujours rendu (donc présent dans le HTML pré-généré), masqué pendant l'intro -->
     <div class="content-wrapper" :class="{ 'is-ready': isLoaded }">
+      <LangSwitch />
       <TheHeader :active="isLoaded" />
 
       <BackToTop />
@@ -146,7 +128,7 @@ onMounted(() => {
 
       <footer>
         <p>
-          <a href="https://contact.brendanfleurdelys.ch/" class="footer-contact">Me contacter</a>
+          <a href="https://contact.brendanfleurdelys.ch/" class="footer-contact">{{ t.footer.contact }}</a>
         </p>
         <p>© {{ currentYear }} Brendan Fleurdelys</p>
       </footer>

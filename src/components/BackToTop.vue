@@ -1,4 +1,8 @@
 <script setup>
+import { useI18n } from '../i18n'
+
+const { t } = useI18n()
+
 const scrollToTop = () => {
     window.scrollTo({
         top: 0,
@@ -9,7 +13,7 @@ const scrollToTop = () => {
 
 <template>
     <div class="back-to-top-wrapper">
-        <button type="button" class="scroll-up" @click="scrollToTop" aria-label="Revenir en haut">
+        <button type="button" class="scroll-up" @click="scrollToTop" :aria-label="t.backToTop">
             <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="18 15 12 9 6 15"></polyline>

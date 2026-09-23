@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import BaseIcon from './BaseIcon.vue'
+import { useI18n } from '../i18n'
+
+const { t } = useI18n()
 
 const isOpen = ref(false)
 
@@ -11,7 +14,7 @@ const toggleSocial = () => {
 
 <template>
   <div class="social-mobile">
-    <button id="toggle-social" @click="toggleSocial" :aria-label="isOpen ? 'Fermer les réseaux sociaux' : 'Ouvrir les réseaux sociaux'" :aria-expanded="isOpen">
+    <button id="toggle-social" @click="toggleSocial" :aria-label="isOpen ? t.social.close : t.social.open" :aria-expanded="isOpen">
       <BaseIcon :name="isOpen ? 'close' : 'share'" />
     </button>
 
