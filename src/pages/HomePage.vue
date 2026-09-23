@@ -109,7 +109,7 @@ onMounted(() => {
   <main>
     <LoadingScreen @finished="isLoaded = true" />
     <ClientOnly>
-      <ParticlesBackground />
+      <ParticlesBackground :active="isLoaded" />
     </ClientOnly>
 
     <!-- Toujours rendu (donc présent dans le HTML pré-généré), masqué pendant l'intro -->
