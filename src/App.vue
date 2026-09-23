@@ -221,7 +221,7 @@ footer {
 <style scoped>
 .content-wrapper {
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 0.6s ease;
 }
 
 .content-wrapper.is-ready {

@@ -6,6 +6,10 @@ const isVisible = ref(true)
 const skipped = ref(false)
 const emit = defineEmits(['finished'])
 
+// Environ 1,6 s au total : assez pour l'effet, sans faire attendre qui arrive d'un lien
+const DISPLAY_MS = 1100
+const FADE_MS = 500 // doit correspondre à .fade-out-leave-active
+
 onMounted(() => {
   // Pas d'intro pour qui a réduit les animations, ni à chaque retour
   // sur le portail pendant la même session (bouton précédent, rechargement)
@@ -25,13 +29,11 @@ onMounted(() => {
     return
   }
 
-  // Simulate loading time or wait for assets
   setTimeout(() => {
     isVisible.value = false
-    setTimeout(() => {
-      emit('finished')
-    }, 1000) // Wait for full fade out before showing content
-  }, 2500) // 2.5s intro
+    // Le contenu apparaît une fois le fondu de l'overlay terminé
+    setTimeout(() => emit('finished'), FADE_MS)
+  }, DISPLAY_MS)
 })
 </script>
 
@@ -72,7 +74,7 @@ onMounted(() => {
   position: relative;
   text-shadow: 0 0 10px rgba(212, 241, 255, 0.4),
     0 0 20px rgba(212, 241, 255, 0.2);
-  animation: fadeGlowIn 1.6s ease-out;
+  animation: fadeGlowIn 0.8s ease-out;
 }
 
 .intro-content .intro-title::after {
@@ -101,7 +103,7 @@ onMounted(() => {
   opacity: 0.7;
   color: #fff;
   margin-bottom: 0.5rem;
-  animation: fadeInUp 2s ease-out;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .dots-loading::after {
@@ -168,7 +170,7 @@ onMounted(() => {
 }
 
 .fade-out-leave-active {
-  transition: opacity 1s ease;
+  transition: opacity 0.5s ease;
 }
 
 .fade-out-leave-to {
