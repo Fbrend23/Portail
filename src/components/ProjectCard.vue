@@ -120,7 +120,8 @@ defineProps({
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  filter: blur(1px);
+  /* Assombrie pour que le texte reste lisible, quelle que soit la capture */
+  filter: blur(1px) brightness(0.18) saturate(0.7);
   transition: opacity 0.4s ease;
   z-index: 0;
   pointer-events: none;
