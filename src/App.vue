@@ -75,6 +75,16 @@ const projects = ref([
     theme: 'tanuki',
     image: '/assets/cartes/s-tanukicode.webp',
     btnText: 'APPRENDRE →'
+  },
+  {
+    id: 's-matinale',
+    title: 'La Matinale de Séoul',
+    description: 'Résumé d’actualité automatisé par IA',
+    link: 'https://matinale.brendanfleurdelys.ch/',
+    theme: 'matinale',
+    image: '/assets/cartes/s-matinale.webp',
+    tags: ['Astro', 'Directus', 'AGY', 'Claude Code'],
+    btnText: 'LIRE →'
   }
 ])
 const isLoaded = ref(false)
