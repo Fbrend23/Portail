@@ -67,7 +67,7 @@ export default {
       {
         date: 'Août 2026 – février 2027',
         title: 'Stage dans un cabinet d’avocats',
-        text: 'Équipe média : refonte du site web et outils internes pour faciliter le travail des avocats.',
+        text: 'Équipe média : refontes des sites web et outils internes pour faciliter le travail des avocats.',
         place: 'Séoul',
         status: 'current'
       },
@@ -193,7 +193,7 @@ export default {
         ]
       },
       availability: {
-        text: 'D’août 2026 à février 2027, Brendan est en stage à Séoul dans l’équipe média d’un cabinet d’avocats, où il participe à la refonte du site web et à des outils internes pour faciliter le travail des avocats. Après son stage, il cherche un poste et est ouvert à travailler en Corée.',
+        text: 'D’août 2026 à février 2027, Brendan est en stage à Séoul dans l’équipe média d’un cabinet d’avocats, où il participe aux refontes des sites web et à des outils internes pour faciliter le travail des avocats. Après son stage, il cherche un poste et est ouvert à travailler en Corée.',
         options: [
           { label: 'Le contacter', next: 'contact' },
           { label: 'Fun fact', next: 'funfact' },

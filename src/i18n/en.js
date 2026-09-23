@@ -66,7 +66,7 @@ export default {
       {
         date: 'August 2026 – February 2027',
         title: 'Internship at a law firm',
-        text: "Media team: website redesign and internal tools that make the lawyers' work easier.",
+        text: "Media team: website redesigns and internal tools that make the lawyers' work easier.",
         place: 'Seoul',
         status: 'current'
       },
@@ -192,7 +192,7 @@ export default {
         ]
       },
       availability: {
-        text: "From August 2026 to February 2027, Brendan is interning in Seoul with the media team of a law firm, where he works on the website redesign and on internal tools that make the lawyers' work easier. After his internship, he is looking for a position and is open to working in Korea.",
+        text: "From August 2026 to February 2027, Brendan is interning in Seoul with the media team of a law firm, where he works on website redesigns and on internal tools that make the lawyers' work easier. After his internship, he is looking for a position and is open to working in Korea.",
         options: [
           { label: 'Contact him', next: 'contact' },
           { label: 'Fun fact', next: 'funfact' },
