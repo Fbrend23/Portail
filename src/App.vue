@@ -14,11 +14,22 @@ const projects = ref([
   {
     id: 's-photo',
     title: 'Photographie animalière',
-    description: 'Portfolio photo autour de la nature',
+    description: 'Mon portfolio de photographie animalière',
     link: 'https://photographie.brendanfleurdelys.ch/',
     theme: 'forest',
     image: '/assets/cartes/s-photo.webp',
+    tags: ['Astro', 'Directus'],
     btnText: 'EXPLORER →'
+  },
+  {
+    id: 's-prodysos',
+    title: 'Prodysos',
+    description: 'Gestion de production, réalisée pour une troupe de théâtre',
+    link: 'https://prodysos.app',
+    theme: 'prodysos',
+    image: '/assets/cartes/s-prodysos.webp',
+    tags: ['Vue', 'Supabase', 'PWA'],
+    btnText: 'GÉRER →'
   },
   {
     id: 's-horaire',
@@ -32,7 +43,7 @@ const projects = ref([
   {
     id: 's-fieu',
     title: 'Maisallezfieu',
-    description: 'Site web pour une pièce de théatre',
+    description: 'Site d’une pièce de théâtre, réalisé pour une troupe',
     link: 'https://maisallezfieu.be/',
     theme: 'crystal',
     image: '/assets/cartes/s-fieu.webp',
@@ -64,15 +75,6 @@ const projects = ref([
     theme: 'tanuki',
     image: '/assets/cartes/s-tanukicode.webp',
     btnText: 'APPRENDRE →'
-  },
-  {
-    id: 's-prodysos',
-    title: 'Prodysos',
-    description: 'Gestion de production théâtrale',
-    link: 'https://prodysos.app',
-    theme: 'prodysos',
-    image: '/assets/cartes/s-prodysos.webp',
-    btnText: 'GÉRER →'
   }
 ])
 const isLoaded = ref(false)
@@ -111,7 +113,7 @@ onMounted(() => {
         <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
           :style="{ animationDelay: `${index * 0.1}s` }">
           <ProjectCard :title="project.title" :description="project.description" :link="project.link"
-            :theme="project.theme" :image="project.image" :btnText="project.btnText" />
+            :theme="project.theme" :image="project.image" :tags="project.tags" :btnText="project.btnText" />
         </div>
       </section>
 

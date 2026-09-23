@@ -20,6 +20,10 @@ defineProps({
     type: String,
     default: ''
   },
+  tags: {
+    type: Array,
+    default: () => []
+  },
   btnText: {
     type: String,
     default: 'EXPLORER →'
@@ -32,6 +36,9 @@ defineProps({
     <img v-if="image" :src="image" class="preview-bg" alt="" decoding="async" />
     <h2>{{ title }}</h2>
     <p>{{ description }}</p>
+    <ul v-if="tags.length" class="tags" aria-label="Technologies">
+      <li v-for="tag in tags" :key="tag">{{ tag }}</li>
+    </ul>
     <a :href="link" class="btn" target="_blank">{{ btnText }}</a>
   </div>
 </template>
@@ -149,6 +156,28 @@ p {
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+.tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  background: rgba(13, 13, 13, 0.6);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
 }
 
 .btn {
