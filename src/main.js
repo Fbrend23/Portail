@@ -1,5 +1,8 @@
 import { ViteSSG } from 'vite-ssg/single-page'
 
+// Police Sora hébergée avec le site : pas de feuille de style externe qui bloque l'affichage
+import '@fontsource-variable/sora'
+
 import App from './App.vue'
 
 // Le HTML est pré-généré au build (vite-ssg) pour que le contenu soit lisible

@@ -160,7 +160,7 @@ h2 {
   margin: 0 0 1rem;
   font-size: 1.2rem;
   color: var(--accent);
-  font-family: 'Sora', sans-serif;
+  font-family: var(--font-family-header);
   text-shadow: none;
   /* Reset shadow */
 }

@@ -96,7 +96,7 @@ header {
 }
 
 h1 {
-  font-family: "Sora", sans-serif;
+  font-family: var(--font-family-header);
   font-size: 3.5rem;
   color: var(--accent, #d4f1ff);
   letter-spacing: 0.15rem;

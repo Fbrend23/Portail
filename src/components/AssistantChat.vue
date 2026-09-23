@@ -377,7 +377,7 @@ const scrollToBottom = () => {
   margin: 0;
   font-size: 1rem;
   color: var(--accent, #fff);
-  font-family: 'Sora', sans-serif;
+  font-family: var(--font-family-header);
 }
 
 .close-btn {

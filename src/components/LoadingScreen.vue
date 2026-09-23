@@ -62,7 +62,7 @@ onMounted(() => {
 }
 
 .intro-content .intro-title {
-  font-family: "Sora", sans-serif;
+  font-family: var(--font-family-header);
   font-size: 3.5rem;
   font-weight: bold;
   color: var(--accent, #d4f1ff);
