@@ -54,7 +54,7 @@ const projects = ref([
   {
     id: 's-travel',
     title: 'TravelDB',
-    description: 'Suivre ses pays visités avec carte intéractive',
+    description: 'Suivre ses pays visités avec carte interactive',
     link: 'https://traveldb.brendanfleurdelys.ch/',
     theme: 'sunset',
     image: '/assets/cartes/s-travel.webp',
