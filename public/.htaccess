@@ -1,0 +1,37 @@
+# Déployé avec le site (copié de public/ vers dist/ par Vite).
+
+# --- Une seule adresse : https://brendanfleurdelys.ch ---
+# Sans ça, http://, https:// et www. répondent tous en 200 : Google voit
+# plusieurs copies de la même page.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # www. → sans www (et en HTTPS au passage)
+  RewriteCond %{HTTP_HOST} ^www\.brendanfleurdelys\.ch$ [NC]
+  RewriteRule ^ https://brendanfleurdelys.ch%{REQUEST_URI} [L,R=301]
+
+  # http:// → https://
+  # L'hébergeur peut terminer le TLS devant Apache : on teste aussi
+  # X-Forwarded-Proto pour ne pas rediriger en boucle.
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- Cache navigateur ---
+<IfModule mod_headers.c>
+  # Toujours revalider la page : c'est elle qui pointe vers les nouveaux bundles
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  # Bundles Vite empreintés (app-XXXXXXXX.js) : le nom change avec le contenu
+  <FilesMatch "-[A-Za-z0-9_-]{8}\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Images et icônes : noms fixes, contenu qui peut changer → un jour
+  <FilesMatch "\.(webp|png|jpg|jpeg|svg|ico)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+</IfModule>
