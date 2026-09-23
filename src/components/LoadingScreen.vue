@@ -5,6 +5,23 @@ const isVisible = ref(true)
 const emit = defineEmits(['finished'])
 
 onMounted(() => {
+  // Pas d'intro pour qui a réduit les animations, ni à chaque retour
+  // sur le portail pendant la même session (bouton précédent, rechargement)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  let alreadySeen = false
+  try {
+    alreadySeen = sessionStorage.getItem('intro-vue') === '1'
+    sessionStorage.setItem('intro-vue', '1')
+  } catch {
+    // Stockage indisponible (navigation privée stricte) : on garde l'intro
+  }
+
+  if (reduceMotion || alreadySeen) {
+    isVisible.value = false
+    emit('finished')
+    return
+  }
+
   // Simulate loading time or wait for assets
   setTimeout(() => {
     isVisible.value = false
