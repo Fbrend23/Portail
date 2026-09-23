@@ -18,6 +18,9 @@
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
+# --- Page d'erreur aux couleurs du site pour les adresses inexistantes ---
+ErrorDocument 404 /404.html
+
 # --- Cache navigateur ---
 <IfModule mod_headers.c>
   # Toujours revalider la page : c'est elle qui pointe vers les nouveaux bundles

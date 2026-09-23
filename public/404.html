@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page introuvable · Brendan Fleurdelys</title>
+    <!-- Page d'erreur servie par Apache (ErrorDocument dans .htaccess) : jamais indexée -->
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#010a14" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <!-- Autonome : servie à n'importe quelle adresse, elle n'utilise que des chemins absolus -->
+    <style>
+      :root {
+        --accent: #d4f1ff;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        background: radial-gradient(circle at center, #0c1e2c 0%, #010a14 100%);
+        color: #fff;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        text-align: center;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: url('/assets/nebuleuse.webp') center / cover;
+        opacity: 0.2;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .code {
+        margin: 0;
+        font-size: clamp(5rem, 22vw, 9rem);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0.1em;
+        color: var(--accent);
+        text-shadow: 0 0 10px rgba(212, 241, 255, 0.4), 0 0 30px rgba(212, 241, 255, 0.2);
+      }
+
+      .code::after {
+        content: '';
+        display: block;
+        width: 60%;
+        height: 4px;
+        margin: 1.5rem auto 0;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), var(--accent), rgba(255, 255, 255, 0.2), transparent);
+        clip-path: polygon(0% 50%, 50% 0%, 100% 50%, 50% 100%);
+      }
+
+      h1 {
+        margin: 2rem 0 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 300;
+      }
+
+      p {
+        margin: 0 0 0.25rem;
+        color: #aaa;
+      }
+
+      .en {
+        margin-top: 1.75rem;
+      }
+
+      .en h2 {
+        margin: 0 0 0.5rem;
+        font-size: 1.1rem;
+        font-weight: 300;
+        color: #ddd;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+        margin-top: 2.5rem;
+      }
+
+      .actions a {
+        padding: 0.65rem 1.3rem;
+        border: 1px solid var(--accent);
+        border-radius: 6px;
+        color: var(--accent);
+        font-weight: bold;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      .actions a.primary,
+      .actions a:hover,
+      .actions a:focus-visible {
+        background: var(--accent);
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="code" aria-hidden="true">404</p>
+      <h1>Cette page n'existe pas</h1>
+      <p>Elle a peut-être été déplacée, ou l'adresse contient une faute de frappe.</p>
+
+      <div class="en" lang="en">
+        <h2>This page doesn't exist</h2>
+        <p>It may have moved, or the address may contain a typo.</p>
+      </div>
+
+      <div class="actions">
+        <a href="/" class="primary">Retour à l'accueil</a>
+        <a href="/en/" lang="en">Back to home</a>
+      </div>
+    </main>
+  </body>
+</html>
