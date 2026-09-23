@@ -28,7 +28,8 @@ const languages = [
 
 <style scoped>
 .lang-switch {
-  position: fixed;
+  /* Attaché au haut de la page, pas à l'écran : ne recouvre pas le contenu au défilement */
+  position: absolute;
   top: 1.25rem;
   right: 1.25rem;
   z-index: 1000;
