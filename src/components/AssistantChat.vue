@@ -152,7 +152,7 @@ const scrollToBottom = () => {
     <button id="assistant-toggle" @click="toggleAssistant" aria-label="Toggle Assistant">
       <div class="icon-wrapper">
         <div v-if="!isOpen" class="greeting-bubble">Bienvenue !</div>
-        <img src="/assets/assistant.png" alt="Assistant IA" />
+        <img src="/assets/assistant.webp" alt="Assistant IA" width="64" height="64" />
         <div class="glow-ring"></div>
       </div>
     </button>

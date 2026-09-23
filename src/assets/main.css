@@ -43,7 +43,7 @@ body::before {
   width: 100vw;
   height: 100vh;
   /* Use absolute path to public/assets if possible, or just assume assets are copied */
-  background-image: url('/assets/nebuleuse.png');
+  background-image: url('/assets/nebuleuse.webp');
   background-size: cover;
   background-position: center;
   opacity: 0.2;

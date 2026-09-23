@@ -17,7 +17,7 @@ const projects = ref([
     description: 'Portfolio photo autour de la nature',
     link: 'https://photographie.brendanfleurdelys.ch/',
     theme: 'forest',
-    image: '/assets/cartes/s-photo.png',
+    image: '/assets/cartes/s-photo.webp',
     btnText: 'EXPLORER →'
   },
   {
@@ -26,7 +26,7 @@ const projects = ref([
     description: 'Suivre son horaire en direct avec un clicker pour passer le temps',
     link: 'https://horaire.brendanfleurdelys.ch/',
     theme: 'flare',
-    image: '/assets/cartes/s-horaire.png',
+    image: '/assets/cartes/s-horaire.webp',
     btnText: 'SUIVRE →'
   },
   {
@@ -35,7 +35,7 @@ const projects = ref([
     description: 'Site web pour une pièce de théatre',
     link: 'https://maisallezfieu.be/',
     theme: 'crystal',
-    image: '/assets/cartes/s-fieu.png',
+    image: '/assets/cartes/s-fieu.webp',
     btnText: 'DÉCOUVRIR →'
   },
   {
@@ -44,7 +44,7 @@ const projects = ref([
     description: 'Suivre ses pays visités avec carte intéractive',
     link: 'https://traveldb.brendanfleurdelys.ch/',
     theme: 'sunset',
-    image: '/assets/cartes/s-travel.png',
+    image: '/assets/cartes/s-travel.webp',
     btnText: 'VOYAGER →'
   },
   {
@@ -53,7 +53,7 @@ const projects = ref([
     description: 'Mes fiches de révisions avec audio',
     link: 'https://revisions.brendanfleurdelys.ch/',
     theme: 'dream',
-    image: '/assets/cartes/s-wiki.png',
+    image: '/assets/cartes/s-wiki.webp',
     btnText: 'RÉVISER →'
   },
   {
@@ -62,7 +62,7 @@ const projects = ref([
     description: 'Apprendre le japonais en s\'amusant',
     link: 'https://tanukicode.brendanfleurdelys.ch/',
     theme: 'tanuki',
-    image: '/assets/cartes/s-tanukicode.png',
+    image: '/assets/cartes/s-tanukicode.webp',
     btnText: 'APPRENDRE →'
   },
   {
@@ -71,7 +71,7 @@ const projects = ref([
     description: 'Gestion de production théâtrale',
     link: 'https://prodysos.app',
     theme: 'prodysos',
-    image: '/assets/cartes/s-prodysos.png',
+    image: '/assets/cartes/s-prodysos.webp',
     btnText: 'GÉRER →'
   }
 ])
@@ -83,6 +83,14 @@ onMounted(() => {
     history.scrollRestoration = 'manual'
   }
   window.scrollTo(0, 0)
+
+  // Précharge et décode les aperçus pendant l'écran d'intro,
+  // pour qu'ils s'affichent d'un coup au survol des cartes
+  projects.value.forEach(({ image }) => {
+    const img = new Image()
+    img.src = image
+    img.decode?.().catch(() => {})
+  })
 })
 </script>
 

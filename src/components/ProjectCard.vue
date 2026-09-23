@@ -29,7 +29,7 @@ defineProps({
 
 <template>
   <div class="card" :data-theme="theme">
-    <img v-if="image" :src="image" class="preview-bg" alt="" />
+    <img v-if="image" :src="image" class="preview-bg" alt="" decoding="async" />
     <h2>{{ title }}</h2>
     <p>{{ description }}</p>
     <a :href="link" class="btn" target="_blank">{{ btnText }}</a>
