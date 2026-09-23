@@ -38,6 +38,7 @@ const projects = ref([
     link: 'https://horaire.brendanfleurdelys.ch/',
     theme: 'flare',
     image: '/assets/cartes/s-horaire.webp',
+    tags: ['Vue', 'Supabase', 'Tailwind'],
     btnText: 'SUIVRE →'
   },
   {
@@ -47,6 +48,7 @@ const projects = ref([
     link: 'https://maisallezfieu.be/',
     theme: 'crystal',
     image: '/assets/cartes/s-fieu.webp',
+    tags: ['Astro', 'API Prodysos'],
     btnText: 'DÉCOUVRIR →'
   },
   {
@@ -56,6 +58,7 @@ const projects = ref([
     link: 'https://traveldb.brendanfleurdelys.ch/',
     theme: 'sunset',
     image: '/assets/cartes/s-travel.webp',
+    tags: ['Vue', 'AdonisJS', 'Leaflet'],
     btnText: 'VOYAGER →'
   },
   {
@@ -65,6 +68,7 @@ const projects = ref([
     link: 'https://revisions.brendanfleurdelys.ch/',
     theme: 'dream',
     image: '/assets/cartes/s-wiki.webp',
+    tags: ['Vue', 'Markdown'],
     btnText: 'RÉVISER →'
   },
   {
@@ -74,6 +78,7 @@ const projects = ref([
     link: 'https://tanukicode.brendanfleurdelys.ch/',
     theme: 'tanuki',
     image: '/assets/cartes/s-tanukicode.webp',
+    tags: ['Vue', 'Supabase', 'Tailwind'],
     btnText: 'APPRENDRE →'
   },
   {
