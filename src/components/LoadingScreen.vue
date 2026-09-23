@@ -20,7 +20,7 @@ onMounted(() => {
     <div v-if="isVisible" id="intro-overlay">
       <div class="intro-content">
         <p>Initialisation<span class="dots-loading"></span></p>
-        <h1>BRENDAN FLEURDELYS</h1>
+        <div class="intro-title" aria-hidden="true">BRENDAN FLEURDELYS</div>
       </div>
     </div>
   </transition>
@@ -41,9 +41,10 @@ onMounted(() => {
   text-align: center;
 }
 
-.intro-content h1 {
+.intro-content .intro-title {
   font-family: "Sora", sans-serif;
   font-size: 3.5rem;
+  font-weight: bold;
   color: var(--accent, #d4f1ff);
   letter-spacing: 0.15rem;
   text-transform: uppercase;
@@ -54,7 +55,7 @@ onMounted(() => {
   animation: fadeGlowIn 1.6s ease-out;
 }
 
-.intro-content h1::after {
+.intro-content .intro-title::after {
   content: "";
   display: block;
   margin: 1rem auto 0;
@@ -155,7 +156,7 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
-  .intro-content h1 {
+  .intro-content .intro-title {
     font-size: 1.8rem;
   }
 }

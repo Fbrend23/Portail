@@ -97,33 +97,33 @@ onMounted(() => {
 <template>
   <main>
     <LoadingScreen @finished="isLoaded = true" />
-    <ParticlesBackground />
+    <ClientOnly>
+      <ParticlesBackground />
+    </ClientOnly>
+
+    <!-- Toujours rendu (donc présent dans le HTML pré-généré), masqué pendant l'intro -->
+    <div class="content-wrapper" :class="{ 'is-ready': isLoaded }">
+      <TheHeader />
+
+      <BackToTop />
+
+      <section id="projects" class="projects-container">
+        <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
+          :style="{ animationDelay: `${index * 0.1}s` }">
+          <ProjectCard :title="project.title" :description="project.description" :link="project.link"
+            :theme="project.theme" :image="project.image" :btnText="project.btnText" />
+        </div>
+      </section>
+
+      <footer>
+        <p>© {{ currentYear }} Brendan Fleurdelys</p>
+      </footer>
 
 
-    <transition name="fade-content">
-      <div v-if="isLoaded" class="content-wrapper">
-        <TheHeader />
-
-        <BackToTop />
-
-        <section id="projects" class="projects-container">
-          <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
-            :style="{ animationDelay: `${index * 0.1}s` }">
-            <ProjectCard :title="project.title" :description="project.description" :link="project.link"
-              :theme="project.theme" :image="project.image" :btnText="project.btnText" />
-          </div>
-        </section>
-
-        <footer>
-          <p>© {{ currentYear }} Brendan Fleurdelys</p>
-        </footer>
-
-
-        <SocialSidebar />
-        <SocialMobile />
-        <AssistantChat />
-      </div>
-    </transition>
+      <SocialSidebar />
+      <SocialMobile />
+      <AssistantChat />
+    </div>
   </main>
 </template>
 
@@ -176,12 +176,18 @@ footer {
 </style>
 
 <style scoped>
-.fade-content-enter-active {
+.content-wrapper {
+  opacity: 0;
   transition: opacity 1s ease;
-  /* Delay removed to prevent brightness dip */
 }
 
-.fade-content-enter-from {
-  opacity: 0;
+.content-wrapper.is-ready {
+  opacity: 1;
+}
+
+/* Les animations d'entrée attendent la fin de l'intro */
+.content-wrapper:not(.is-ready) :deep(.hero),
+.content-wrapper:not(.is-ready) .card-wrapper {
+  animation-play-state: paused;
 }
 </style>

@@ -30,7 +30,7 @@ const faqData = {
     ]
   },
   skills: {
-    text: "Actuellement en formation, Brendan développe activement ses compétences dans l’écosystème web moderne, notamment avec Vue 3, AdonisJS et la conception d’interfaces claires, accessibles et structurées.",
+    text: "Titulaire d’un CFC d’informaticien en développement d’applications, Brendan travaille dans l’écosystème web moderne, notamment avec Vue 3, AdonisJS et la conception d’interfaces claires, accessibles et structurées.",
     options: [
       { label: "Est-il disponible ?", next: 'availability' },
       { label: "Voir ses projets", next: 'projects' },
@@ -38,7 +38,7 @@ const faqData = {
     ]
   },
   availability: {
-    text: "Brendan est actuellement ouvert à de nouvelles opportunités, qu’il s’agisse de projets, de collaborations ou de stages, en contexte local comme international.",
+    text: "Brendan effectue actuellement un stage dans un cabinet d’avocats à Séoul. Il reste ouvert aux projets et aux collaborations, en contexte local comme international.",
     options: [
       { label: "Le contacter", next: 'contact' },
       { label: "Fun fact", next: 'funfact' },

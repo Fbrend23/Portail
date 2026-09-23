@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import BaseIcon from './BaseIcon.vue'
 
 const isOpen = ref(false)
 
@@ -11,15 +12,15 @@ const toggleSocial = () => {
 <template>
   <div class="social-mobile">
     <button id="toggle-social" @click="toggleSocial" :aria-label="isOpen ? 'Close social menu' : 'Open social menu'">
-      <i :class="isOpen ? 'fa-solid fa-times' : 'fa-solid fa-share-nodes'"></i>
+      <BaseIcon :name="isOpen ? 'close' : 'share'" />
     </button>
 
     <div class="social-icons" :class="{ open: isOpen }">
       <a href="https://www.linkedin.com/in/brendan-fleurdelys-319b52301" target="_blank" title="LinkedIn">
-        <i class="fa-brands fa-linkedin"></i>
+        <BaseIcon name="linkedin" />
       </a>
       <a href="https://github.com/Fbrend23" target="_blank" title="GitHub">
-        <i class="fa-brands fa-github"></i>
+        <BaseIcon name="github" />
       </a>
     </div>
   </div>
