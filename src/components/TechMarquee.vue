@@ -127,7 +127,9 @@ const techs = [
 <style scoped>
 .tech-marquee {
   width: min(640px, 90vw);
-  margin: 2.5rem auto 0;
+  /* Marge intérieure : place pour l'agrandissement au survol, que overflow couperait */
+  margin: 2rem auto 0;
+  padding: 0.5rem 0;
   overflow: hidden;
   /* Les logos apparaissent et disparaissent en fondu sur les bords */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
@@ -213,7 +215,7 @@ const techs = [
 
 @media (max-width: 768px) {
   .tech-marquee {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 
   .track {
