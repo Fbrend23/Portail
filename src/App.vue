@@ -58,6 +58,8 @@ const projects = ref([
     link: 'https://traveldb.brendanfleurdelys.ch/',
     theme: 'sunset',
     image: '/assets/cartes/s-travel.webp',
+    // Backend AdonisJS sans hébergement Node disponible pour l'instant
+    paused: true,
     tags: ['Vue', 'AdonisJS', 'Leaflet'],
     btnText: 'VOYAGER →'
   },
@@ -138,7 +140,7 @@ onMounted(() => {
         <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
           :style="{ animationDelay: `${index * 0.1}s` }">
           <ProjectCard :title="project.title" :description="project.description" :link="project.link"
-            :theme="project.theme" :image="project.image" :tags="project.tags" :btnText="project.btnText" />
+            :theme="project.theme" :image="project.image" :tags="project.tags" :paused="project.paused" :btnText="project.btnText" />
         </div>
       </section>
 

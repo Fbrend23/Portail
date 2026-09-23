@@ -24,6 +24,11 @@ defineProps({
     type: Array,
     default: () => []
   },
+  // Projet temporairement hors ligne : la carte reste visible, sans lien
+  paused: {
+    type: Boolean,
+    default: false
+  },
   btnText: {
     type: String,
     default: 'EXPLORER →'
@@ -32,14 +37,16 @@ defineProps({
 </script>
 
 <template>
-  <div class="card" :data-theme="theme">
+  <div class="card" :class="{ 'is-paused': paused }" :data-theme="theme">
+    <span v-if="paused" class="status">En pause</span>
     <img v-if="image" :src="image" class="preview-bg" alt="" decoding="async" />
     <h2>{{ title }}</h2>
     <p :class="{ 'has-tags': tags.length }">{{ description }}</p>
     <ul v-if="tags.length" class="tags" aria-label="Technologies">
       <li v-for="tag in tags" :key="tag">{{ tag }}</li>
     </ul>
-    <a :href="link" class="btn" target="_blank">{{ btnText }}</a>
+    <span v-if="paused" class="btn is-disabled" aria-disabled="true">BIENTÔT DE RETOUR</span>
+    <a v-else :href="link" class="btn" target="_blank">{{ btnText }}</a>
   </div>
 </template>
 
@@ -223,6 +230,31 @@ p.has-tags {
   /* Reset shadow */
   transform: none;
   /* Reset transform */
+}
+
+.status {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 1;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: rgba(13, 13, 13, 0.85);
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn.is-disabled:hover {
+  filter: none;
 }
 
 @media (max-width: 768px) {
