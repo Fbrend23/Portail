@@ -10,6 +10,10 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  // /en/ est généré en en/index.html, servi tel quel par Apache
+  ssgOptions: {
+    dirStyle: 'nested',
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
