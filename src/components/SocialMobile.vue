@@ -11,15 +11,15 @@ const toggleSocial = () => {
 
 <template>
   <div class="social-mobile">
-    <button id="toggle-social" @click="toggleSocial" :aria-label="isOpen ? 'Close social menu' : 'Open social menu'">
+    <button id="toggle-social" @click="toggleSocial" :aria-label="isOpen ? 'Fermer les réseaux sociaux' : 'Ouvrir les réseaux sociaux'" :aria-expanded="isOpen">
       <BaseIcon :name="isOpen ? 'close' : 'share'" />
     </button>
 
     <div class="social-icons" :class="{ open: isOpen }">
-      <a href="https://www.linkedin.com/in/brendan-fleurdelys-319b52301" target="_blank" title="LinkedIn">
+      <a href="https://www.linkedin.com/in/brendan-fleurdelys-319b52301" target="_blank" title="LinkedIn" aria-label="LinkedIn">
         <BaseIcon name="linkedin" />
       </a>
-      <a href="https://github.com/Fbrend23" target="_blank" title="GitHub">
+      <a href="https://github.com/Fbrend23" target="_blank" title="GitHub" aria-label="GitHub">
         <BaseIcon name="github" />
       </a>
     </div>

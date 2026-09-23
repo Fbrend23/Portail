@@ -9,12 +9,12 @@ const scrollToTop = () => {
 
 <template>
     <div class="back-to-top-wrapper">
-        <div class="scroll-up" @click="scrollToTop" aria-label="Back to top">
-            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+        <button type="button" class="scroll-up" @click="scrollToTop" aria-label="Revenir en haut">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
                 stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="18 15 12 9 6 15"></polyline>
             </svg>
-        </div>
+        </button>
     </div>
 </template>
 
@@ -30,6 +30,9 @@ const scrollToTop = () => {
 }
 
 .scroll-up {
+    display: block;
+    border: 0;
+    background: none;
     color: var(--accent, #d4f1ff);
     cursor: pointer;
     animation: bounce-up 2s infinite;
@@ -38,6 +41,12 @@ const scrollToTop = () => {
 
 .scroll-up:hover {
     text-shadow: 0 0 10px var(--accent);
+}
+
+.scroll-up:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 @keyframes bounce-up {

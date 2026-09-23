@@ -11,12 +11,12 @@ const scrollToProjects = () => {
       <h2>Bienvenue sur mon portail personnel</h2>
       <p>Retrouvez tous mes projets et sites ici</p>
       <div class="scroll-down">
-        <div @click="scrollToProjects" aria-label="Scroll to projects">
-          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+        <button type="button" class="scroll-btn" @click="scrollToProjects" aria-label="Voir les projets">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   </header>
@@ -97,6 +97,21 @@ p {
 .scroll-down a {
   color: inherit;
   display: block;
+}
+
+.scroll-btn {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.scroll-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 @keyframes linePulse {

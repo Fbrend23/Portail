@@ -149,7 +149,7 @@ const scrollToBottom = () => {
 <template>
   <div id="assistant" :class="{ open: isOpen }">
 
-    <button id="assistant-toggle" @click="toggleAssistant" aria-label="Toggle Assistant">
+    <button id="assistant-toggle" @click="toggleAssistant" :aria-label="isOpen ? 'Fermer l’assistant' : 'Ouvrir l’assistant'">
       <div class="icon-wrapper">
         <div v-if="!isOpen" class="greeting-bubble">Bienvenue !</div>
         <img src="/assets/assistant.webp" alt="Assistant IA" width="64" height="64" />
