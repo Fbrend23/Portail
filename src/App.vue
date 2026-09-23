@@ -82,6 +82,16 @@ const projects = ref([
     btnText: 'APPRENDRE →'
   },
   {
+    id: 's-lunchpicker',
+    title: 'LunchPicker',
+    description: 'Choisir un restaurant à plusieurs en Corée, en quelques swipes',
+    link: 'https://lunch-picker-six.vercel.app/',
+    theme: 'lunchpicker',
+    image: '/assets/cartes/s-lunchpicker.webp',
+    tags: ['Nuxt', 'Supabase', 'PWA'],
+    btnText: 'CHOISIR →'
+  },
+  {
     id: 's-matinale',
     title: 'La Matinale de Séoul',
     description: 'Résumé d’actualité automatisé par IA',

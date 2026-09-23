@@ -121,6 +121,12 @@ h6 {
   --accent-shadow-hover: rgba(179, 49, 29, 0.6);
 }
 
+[data-theme='lunchpicker'] {
+  --accent: #03c75a;
+  --accent-shadow: rgba(3, 199, 90, 0.4);
+  --accent-shadow-hover: rgba(3, 199, 90, 0.6);
+}
+
 [data-theme='matinale'] {
   --accent: #fb923c;
   --accent-shadow: rgba(251, 146, 60, 0.4);
