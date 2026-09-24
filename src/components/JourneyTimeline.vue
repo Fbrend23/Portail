@@ -238,8 +238,20 @@ h2 {
   box-shadow: 0 0 10px rgba(212, 241, 255, 0.7);
 }
 
+/* Étape en cours : sa propre couleur pour la repérer d'un coup d'œil */
+.is-current {
+  --now: #ffc857;
+}
+
+.is-current .dot {
+  border-color: rgba(255, 200, 87, 0.45);
+}
+
 .is-current.is-reached .dot {
-  animation: pulse 2s ease-out infinite;
+  border-color: var(--now);
+  background: var(--now);
+  box-shadow: 0 0 10px rgba(255, 200, 87, 0.7);
+  animation: pulse-now 2s ease-out infinite;
 }
 
 /* Étape à venir : point creux et pointillé ; atteint, il s'allume sans se remplir */
@@ -282,6 +294,14 @@ h2 {
   font-size: 0.7rem;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.is-current .step-meta {
+  color: var(--now);
+}
+
+.is-current .badge {
+  background: var(--now);
 }
 
 .countdown {
@@ -331,6 +351,14 @@ h3 {
   stroke-linecap: round;
 }
 
+.is-current .clock {
+  border-color: rgba(255, 200, 87, 0.3);
+}
+
+.is-current .clock svg {
+  stroke: var(--now);
+}
+
 /* Apparition au défilement */
 .animated .step {
   opacity: 0;
@@ -343,17 +371,17 @@ h3 {
   transform: none;
 }
 
-@keyframes pulse {
+@keyframes pulse-now {
   0% {
-    box-shadow: 0 0 0 0 rgba(212, 241, 255, 0.6);
+    box-shadow: 0 0 0 0 rgba(255, 200, 87, 0.6);
   }
 
   70% {
-    box-shadow: 0 0 0 10px rgba(212, 241, 255, 0);
+    box-shadow: 0 0 0 10px rgba(255, 200, 87, 0);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(212, 241, 255, 0);
+    box-shadow: 0 0 0 0 rgba(255, 200, 87, 0);
   }
 }
 
