@@ -212,6 +212,12 @@ onMounted(() => {
   animation: fadeUp 0.8s backwards;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .card-wrapper {
+    animation: none;
+  }
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;

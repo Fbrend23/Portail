@@ -54,7 +54,12 @@ const start = async () => {
     import('@tsparticles/preset-stars')
   ])
   await loadStarsPreset(tsParticles)
-  container = await tsParticles.load({ id: 'tsparticles', options })
+  // Étoiles immobiles si l'utilisateur a demandé moins d'animations
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  container = await tsParticles.load({
+    id: 'tsparticles',
+    options: { ...options, particles: { ...options.particles, move: { ...options.particles.move, enable: !reduceMotion } } }
+  })
   ready.value = true
 }
 
