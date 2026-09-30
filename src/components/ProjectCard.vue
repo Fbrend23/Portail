@@ -266,8 +266,24 @@ p.has-tags {
     width: 80vw;
     max-width: 400px;
     height: auto;
-    min-height: 180px;
-    padding: 1.2rem;
+    min-height: 0;
+    padding: 1rem 1.1rem;
+  }
+
+  h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  p {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    margin-bottom: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
   }
 }
 </style>

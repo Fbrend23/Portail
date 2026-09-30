@@ -143,6 +143,7 @@ export default {
   projectsSection: {
     title: 'Projets',
     intro: 'Sites, applications et outils que j’ai réalisés.',
+    showAll: 'Voir tous les projets',
   },
   projects: {
     's-photo': {

@@ -106,6 +106,13 @@ const toggleSocial = () => {
 @media (max-width: 768px) {
   .social-mobile {
     display: flex;
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  #toggle-social {
+    height: 48px;
+    width: 48px;
   }
 }
 </style>

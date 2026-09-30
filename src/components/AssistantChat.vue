@@ -452,8 +452,17 @@ const scrollToBottom = () => {
 
 @media (max-width: 768px) {
   #assistant {
-    bottom: 1.5rem;
-    left: 1.5rem;
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .greeting-bubble {
+    display: none;
   }
 
   #assistant-box {

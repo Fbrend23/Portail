@@ -90,6 +90,9 @@ useHead(() => {
 })
 
 const isLoaded = ref(false)
+const showAllProjects = ref(false)
+// Projets visibles d'entrée sur mobile ; les autres attendent le bouton « voir tous »
+const featuredProjects = ['s-photo', 's-prodysos', 's-lunchpicker', 's-matinale']
 const currentYear = new Date().getFullYear()
 
 onMounted(() => {
@@ -132,13 +135,20 @@ onMounted(() => {
         <p>{{ t.projectsSection.intro }}</p>
       </header>
 
-      <section id="projects" class="projects-container" aria-labelledby="projects-title">
+      <section id="projects" class="projects-container" :class="{ 'show-all': showAllProjects }"
+        aria-labelledby="projects-title">
         <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
+          :class="{ 'is-extra': !featuredProjects.includes(project.id) }"
           :style="{ animationDelay: `${index * 0.1}s` }">
           <ProjectCard :title="project.title" :description="project.description" :link="project.link"
             :theme="project.theme" :image="project.image" :tags="project.tags" :paused="project.paused" :btnText="project.btnText" />
         </div>
       </section>
+
+      <button v-if="!showAllProjects" class="projects-more" aria-controls="projects"
+        @click="showAllProjects = true">
+        {{ t.projectsSection.showAll }} ({{ projects.length }})
+      </button>
 
       <BackToTop />
 
@@ -196,13 +206,45 @@ onMounted(() => {
   padding-bottom: 4rem;
 }
 
+/* Bouton « voir tous » : mobile uniquement */
+.projects-more {
+  display: none;
+  margin: 0 auto 2rem;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: rgba(13, 13, 13, 0.6);
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.projects-more:hover,
+.projects-more:focus-visible {
+  filter: brightness(1.3);
+}
+
 @media (max-width: 768px) {
+  .projects-container:not(.show-all) .card-wrapper.is-extra {
+    display: none;
+  }
+
+  .projects-more {
+    display: block;
+  }
+
   .projects-header {
     padding: 3rem 1.25rem 0;
   }
 
   .projects-header h2 {
     font-size: 1.6rem;
+  }
+
+  footer {
+    padding-bottom: 5rem;
   }
 
   .projects-container {
