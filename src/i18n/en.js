@@ -97,6 +97,17 @@ export default {
     open: 'Open social links',
     close: 'Close social links',
   },
+  photo: {
+    title: 'Through the lens',
+    intro: 'Like in the workshop, wildlife photography takes patience, precision and an eye for detail.',
+    cta: 'Explore the full gallery →',
+    // Locations not provided: append " · Place" to a caption if wanted
+    items: [
+      { src: '/assets/photos/renardeau.webp', width: 1600, height: 900, alt: 'A red fox cub standing in the undergrowth, looking straight at the camera', caption: 'Red fox cub' },
+      { src: '/assets/photos/nette-rousse.webp', width: 1000, height: 562, alt: 'A red-crested pochard floating on blue water, its head tucked against its wing', caption: 'Red-crested pochard' },
+      { src: '/assets/photos/martin-pecheur.webp', width: 1000, height: 563, alt: 'A kingfisher perched on a dead branch against a hazy blue sky', caption: 'Common kingfisher' }
+    ]
+  },
   card: {
     techs: 'Technologies',
     paused: 'On hold',

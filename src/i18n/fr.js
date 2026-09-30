@@ -90,6 +90,17 @@ export default {
     clock: (time) => `Il est ${time} à Séoul`,
     countdown: (days) => (days === 1 ? 'demain' : `dans ${days} jours`),
   },
+  photo: {
+    title: 'À travers l’objectif',
+    intro: 'Comme à l’atelier, la photo animalière demande de la patience, de la précision et le souci du détail.',
+    cta: 'Explorer la galerie complète →',
+    // Lieux non renseignés : ajouter « · Lieu » à la légende si souhaité
+    items: [
+      { src: '/assets/photos/renardeau.webp', width: 1600, height: 900, alt: 'Un renardeau roux, debout dans le sous-bois, regarde droit vers l’objectif', caption: 'Renardeau roux' },
+      { src: '/assets/photos/nette-rousse.webp', width: 1000, height: 562, alt: 'Une nette rousse qui flotte sur une eau bleue, la tête blottie contre son aile', caption: 'Nette rousse' },
+      { src: '/assets/photos/martin-pecheur.webp', width: 1000, height: 563, alt: 'Un martin-pêcheur perché sur une branche morte, sur fond de ciel bleu brumeux', caption: 'Martin-pêcheur d’Europe' }
+    ]
+  },
   marquee: {
     label: 'Technologies utilisées',
   },
