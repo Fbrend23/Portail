@@ -13,6 +13,7 @@ import LangSwitch from '../components/LangSwitch.vue'
 import JourneyTimeline from '../components/JourneyTimeline.vue'
 import PhotoSection from '../components/PhotoSection.vue'
 import { projects as projectData } from '../data/projects'
+import ClientProject from '../components/ClientProject.vue'
 import { useI18n, localePaths, SITE_URL } from '../i18n'
 
 const { lang, t } = useI18n()
@@ -124,6 +125,8 @@ onMounted(() => {
 
       <header class="projects-header">
         <h2 id="projects-title">{{ t.projectsSection.title }}</h2>
+      <ClientProject />
+
         <p>{{ t.projectsSection.intro }}</p>
       </header>
 

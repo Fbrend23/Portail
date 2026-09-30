@@ -58,8 +58,8 @@ export default {
       },
       {
         date: '2026',
-        title: 'TPI pour le Paléo Festival',
-        text: 'Modules de statistiques et de recherche (conducteurs, courses) pour Runeado, l’application qui gère le transport des artistes et du staff.',
+        title: 'Travail de diplôme pour le Paléo Festival',
+        text: 'Outils statistiques et de recherche (conducteurs, courses) pour Runeado, l’application qui gère le transport des artistes et du staff.',
         status: 'past',
       },
       {
@@ -113,6 +113,32 @@ export default {
     techs: 'Technologies',
     paused: 'En pause',
     comingBack: 'BIENTÔT DE RETOUR',
+  },
+  client: {
+    title: 'Projet client',
+    badge: 'Projet client',
+    places: 'Paléo Festival · Eurockéennes de Belfort',
+    name: 'Runeado',
+    intro:
+      'L’application web qui organise le transport des artistes et du staff de deux festivals, à la place d’un tableau de post-it. J’y ai livré trois fonctionnalités, de l’analyse en user stories jusqu’à la code review.',
+    features: [
+      {
+        date: 'Kikéla',
+        title: 'Qui est en service ?',
+        text: 'Les horaires des groupes se chevauchent : ils sont découpés en tranches horaires. La tranche en cours s’ouvre et défile d’elle-même à l’écran.',
+      },
+      {
+        date: 'Mars 2026',
+        title: 'Gestion des imprévus',
+        text: 'Un chauffeur malade ne se note plus sur un post-it : on saisit son absence et sa raison, et il est mis de côté sur les seules tranches concernées.',
+      },
+      {
+        date: 'Mai 2026 · Travail de diplôme',
+        title: 'Outils statistiques',
+        text: 'Un graphique de charge, un tableau croisé dynamique et une recherche « Qui conduisait ? » pour retrouver le chauffeur d’un véhicule à une heure donnée.',
+      },
+    ],
+    techs: ['AdonisJS 6', 'TypeScript', 'Lucid ORM', 'Edge', 'VineJS', 'MySQL'],
   },
   projectsSection: {
     title: 'Projets',
@@ -197,7 +223,7 @@ export default {
         ],
       },
       tpi: {
-        text: 'Pour son TPI, Brendan a développé des modules de statistiques et de recherche (conducteurs, courses) pour Runeado, l’application qui gère le transport des artistes et du staff du Paléo Festival.',
+        text: 'Runeado est un projet client : l’application qui gère le transport des artistes et du staff du Paléo Festival et des Eurockéennes. Brendan y a développé la page Kikéla (qui est en service), la gestion des absences, et pour son travail de diplôme des outils statistiques : graphique de charge, tableau croisé et recherche du conducteur.',
         options: [
           { label: 'Ses compétences', next: 'skills' },
           { label: 'Voir ses projets', next: 'projects' },

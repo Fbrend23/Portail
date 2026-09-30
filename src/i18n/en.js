@@ -113,6 +113,32 @@ export default {
     paused: 'On hold',
     comingBack: 'COMING BACK SOON',
   },
+  client: {
+    title: 'Client project',
+    badge: 'Client project',
+    places: 'Paléo Festival · Eurockéennes de Belfort',
+    name: 'Runeado',
+    intro:
+      'The web app that organises transport for artists and staff at two festivals, replacing a wall of sticky notes. I delivered three features, from user-story analysis to code review.',
+    features: [
+      {
+        date: 'Kikéla',
+        title: 'Who is on duty?',
+        text: 'Group schedules overlap, so they are split into time slots. The current slot opens and scrolls into view by itself.',
+      },
+      {
+        date: 'March 2026',
+        title: 'Handling absences',
+        text: 'A sick driver is no longer a sticky note: their absence and reason are entered, and they are set aside on the affected slots only.',
+      },
+      {
+        date: 'May 2026 · Diploma project',
+        title: 'Statistics tools',
+        text: 'A workload chart, a dynamic pivot table and a "Who was driving?" search to find the driver of a vehicle at a given time.',
+      },
+    ],
+    techs: ['AdonisJS 6', 'TypeScript', 'Lucid ORM', 'Edge', 'VineJS', 'MySQL'],
+  },
   projectsSection: {
     title: 'Projects',
     intro: 'Websites, apps and tools I have built.',
@@ -196,7 +222,7 @@ export default {
         ],
       },
       tpi: {
-        text: 'For his final diploma project, Brendan built statistics and driver/run search modules for Runeado, the app that manages transport for artists and staff at the Paléo Festival.',
+        text: 'Runeado is a client project: the app that manages transport for artists and staff at the Paléo Festival and the Eurockéennes. Brendan built the Kikéla page (who is on duty), absence handling, and for his diploma project statistics tools: a workload chart, a pivot table and a driver search.',
         options: [
           { label: 'His skills', next: 'skills' },
           { label: 'See his projects', next: 'projects' },
