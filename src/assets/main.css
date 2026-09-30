@@ -12,6 +12,9 @@
   /* Font */
   --font-family-base: 'Segoe UI', sans-serif;
   --font-family-header: 'Sora Variable', sans-serif;
+
+  /* Fond des cartes */
+  --card-bg: #1a1a1a;
 }
 
 *,
