@@ -116,7 +116,7 @@ export default {
   projects: {
     's-photo': {
       title: 'Wildlife photography',
-      description: 'My wildlife photography portfolio',
+      description: 'Wildlife photography portfolio, built with Astro and self-hosted Directus',
       btnText: 'EXPLORE →',
     },
     's-prodysos': {

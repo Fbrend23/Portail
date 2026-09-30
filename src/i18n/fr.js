@@ -117,7 +117,7 @@ export default {
   projects: {
     's-photo': {
       title: 'Photographie animalière',
-      description: 'Mon portfolio de photographie animalière',
+      description: 'Portfolio de photographie animalière, en Astro avec Directus auto-hébergé',
       btnText: 'EXPLORER →',
     },
     's-prodysos': {
