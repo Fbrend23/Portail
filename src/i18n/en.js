@@ -113,6 +113,10 @@ export default {
     paused: 'On hold',
     comingBack: 'COMING BACK SOON',
   },
+  projectsSection: {
+    title: 'Projects',
+    intro: 'Websites, apps and tools I have built.',
+  },
   projects: {
     's-photo': {
       title: 'Wildlife photography',

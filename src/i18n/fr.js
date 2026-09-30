@@ -114,6 +114,10 @@ export default {
     paused: 'En pause',
     comingBack: 'BIENTÔT DE RETOUR',
   },
+  projectsSection: {
+    title: 'Projets',
+    intro: 'Sites, applications et outils que j’ai réalisés.',
+  },
   projects: {
     's-photo': {
       title: 'Photographie animalière',

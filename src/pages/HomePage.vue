@@ -124,7 +124,12 @@ onMounted(() => {
 
       <BackToTop />
 
-      <section id="projects" class="projects-container">
+      <header class="projects-header">
+        <h2 id="projects-title">{{ t.projectsSection.title }}</h2>
+        <p>{{ t.projectsSection.intro }}</p>
+      </header>
+
+      <section id="projects" class="projects-container" aria-labelledby="projects-title">
         <div v-for="(project, index) in projects" :key="project.id" class="card-wrapper"
           :style="{ animationDelay: `${index * 0.1}s` }">
           <ProjectCard :title="project.title" :description="project.description" :link="project.link"
@@ -153,6 +158,28 @@ onMounted(() => {
 @import '../assets/main.css';
 
 
+/* Même style de titre que les sections Parcours et Photo */
+.projects-header {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 0;
+  text-align: center;
+}
+
+.projects-header h2 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  color: var(--accent, #d4f1ff);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(212, 241, 255, 0.3);
+}
+
+.projects-header p {
+  margin: 0;
+  color: #aaa;
+}
+
 .projects-container {
   display: flex;
   flex-wrap: wrap;
@@ -165,6 +192,14 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+  .projects-header {
+    padding: 3rem 1.25rem 0;
+  }
+
+  .projects-header h2 {
+    font-size: 1.6rem;
+  }
+
   .projects-container {
     flex-direction: column;
     align-items: center;
