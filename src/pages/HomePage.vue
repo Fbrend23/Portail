@@ -122,8 +122,6 @@ onMounted(() => {
 
       <PhotoSection />
 
-      <BackToTop />
-
       <header class="projects-header">
         <h2 id="projects-title">{{ t.projectsSection.title }}</h2>
         <p>{{ t.projectsSection.intro }}</p>
@@ -136,6 +134,8 @@ onMounted(() => {
             :theme="project.theme" :image="project.image" :tags="project.tags" :paused="project.paused" :btnText="project.btnText" />
         </div>
       </section>
+
+      <BackToTop />
 
       <footer>
         <section class="footer-cta" aria-labelledby="footer-title">
