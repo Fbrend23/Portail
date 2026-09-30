@@ -133,9 +133,11 @@ onMounted(() => {
       </section>
 
       <footer>
-        <p>
-          <a href="https://contact.brendanfleurdelys.ch/" class="footer-contact">{{ t.footer.contact }}</a>
-        </p>
+        <section class="footer-cta" aria-labelledby="footer-title">
+          <h2 id="footer-title">{{ t.footer.title }}</h2>
+          <p>{{ t.footer.text }}</p>
+          <a href="https://contact.brendanfleurdelys.ch/" class="footer-btn">{{ t.footer.cta }}</a>
+        </section>
         <p>© {{ currentYear }} Brendan Fleurdelys</p>
       </footer>
 
@@ -194,15 +196,38 @@ footer {
   font-size: 0.9rem;
 }
 
-.footer-contact {
-  color: var(--accent);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s;
+.footer-cta {
+  max-width: 520px;
+  margin: 2rem auto 3rem;
 }
 
-.footer-contact:hover,
-.footer-contact:focus-visible {
-  border-color: currentColor;
+.footer-cta h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.6rem;
+  color: var(--accent);
+}
+
+.footer-cta p {
+  margin: 0 0 1.25rem;
+  color: #aaa;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.footer-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  background-color: var(--accent);
+  color: #000;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: filter 0.3s;
+}
+
+.footer-btn:hover,
+.footer-btn:focus-visible {
+  filter: brightness(1.3);
 }
 </style>
 

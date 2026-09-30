@@ -162,7 +162,9 @@ export default {
     },
   },
   footer: {
-    contact: 'Me contacter',
+    title: 'Discutons !',
+    text: 'Une opportunité pour 2027, un retour d’expérience sur Séoul, ou simplement un café : écrivez-moi.',
+    cta: 'M’envoyer un message',
   },
   echo: {
     greeting: 'Bienvenue !',

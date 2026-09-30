@@ -161,7 +161,9 @@ export default {
     },
   },
   footer: {
-    contact: 'Contact me',
+    title: 'Let’s connect',
+    text: 'An opportunity for 2027, feedback on life in Seoul, or just a coffee: drop me a line.',
+    cta: 'Send me a message',
   },
   echo: {
     greeting: 'Welcome!',
