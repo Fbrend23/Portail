@@ -37,4 +37,11 @@ ErrorDocument 404 /404.html
   <FilesMatch "\.(webp|png|jpg|jpeg|svg|ico)$">
     Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
+
+  # --- En-têtes de sécurité ---
+  # (HSTS et la compression sont déjà gérés par l'hébergeur)
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # Anti-clickjacking seul : une CSP complète casserait GoatCounter et les styles inline
+  Header set Content-Security-Policy "frame-ancestors 'none'"
 </IfModule>
