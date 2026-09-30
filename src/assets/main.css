@@ -47,7 +47,7 @@ body::before {
   background-image: url('/assets/nebuleuse.webp');
   background-size: cover;
   background-position: center;
-  opacity: 0.2;
+  opacity: calc(0.2 * var(--nebula, 1));
   z-index: -1;
   pointer-events: none;
 }

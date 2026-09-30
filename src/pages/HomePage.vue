@@ -8,12 +8,13 @@ import SocialMobile from '../components/SocialMobile.vue'
 import AssistantChat from '../components/AssistantChat.vue'
 import BackToTop from '../components/BackToTop.vue'
 import ParticlesBackground from '../components/ParticlesBackground.vue'
+import ScrollBackground from '../components/ScrollBackground.vue'
 import LoadingScreen from '../components/LoadingScreen.vue'
 import LangSwitch from '../components/LangSwitch.vue'
 import JourneyTimeline from '../components/JourneyTimeline.vue'
 import PhotoSection from '../components/PhotoSection.vue'
-import { projects as projectData } from '../data/projects'
 import ClientProject from '../components/ClientProject.vue'
+import { projects as projectData } from '../data/projects'
 import { useI18n, localePaths, SITE_URL } from '../i18n'
 
 const { lang, t } = useI18n()
@@ -111,6 +112,7 @@ onMounted(() => {
   <main>
     <LoadingScreen @finished="isLoaded = true" />
     <ClientOnly>
+      <ScrollBackground />
       <ParticlesBackground :active="isLoaded" />
     </ClientOnly>
 
@@ -123,10 +125,10 @@ onMounted(() => {
 
       <PhotoSection />
 
-      <header class="projects-header">
-        <h2 id="projects-title">{{ t.projectsSection.title }}</h2>
       <ClientProject />
 
+      <header class="projects-header">
+        <h2 id="projects-title">{{ t.projectsSection.title }}</h2>
         <p>{{ t.projectsSection.intro }}</p>
       </header>
 

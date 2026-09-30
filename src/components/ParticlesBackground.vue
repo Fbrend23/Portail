@@ -78,16 +78,26 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div id="tsparticles" :class="{ ready }" aria-hidden="true"></div>
+  <div class="stars-fade" aria-hidden="true">
+    <div id="tsparticles" :class="{ ready }"></div>
+  </div>
 </template>
 
 <style scoped>
 /* The component renders a canvas, we force it to background */
-#tsparticles {
+/* Le wrapper porte l'atténuation liée au scroll (--stars), sans délai de transition */
+.stars-fade {
   position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  opacity: var(--stars, 1);
+}
+
+#tsparticles {
+  position: absolute;
   width: 100%;
   height: 100%;
-  z-index: -2;
   top: 0;
   left: 0;
   pointer-events: none;
