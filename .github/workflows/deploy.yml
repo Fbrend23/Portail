@@ -5,7 +5,7 @@
 # personne ne l'apprenne.
 #
 # Deux déclencheurs, et aucun cron :
-#   push (main)         → un changement de code
+#   push (main)         → un changement de code (publié seulement si « verifier » passe)
 #   workflow_dispatch   → relance manuelle, avec dry_run pour lire ce que
 #                         le mirror ferait sans rien écrire
 #
@@ -38,7 +38,29 @@ permissions:
   contents: read
 
 jobs:
+  # Rien n'est publié si le code ne passe pas les contrôles : le FTP n'a pas de corbeille.
+  verifier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci --prefer-offline --no-audit --no-fund
+      # Sans --fix : la CI signale, elle ne réécrit pas
+      - run: npx eslint .
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+
   deployer:
+    needs: verifier
     runs-on: ubuntu-latest
     # Sans plafond, un job bloqué court jusqu'à la limite de six heures de
     # GitHub sans rien dire. Vingt minutes couvrent largement le cas normal,

@@ -36,3 +36,7 @@ coverage
 __screenshots__/
 /private
 /photos-originales
+
+# Playwright
+/test-results/
+/playwright-report/
