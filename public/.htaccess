@@ -16,6 +16,13 @@
   RewriteCond %{HTTPS} off
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # --- Scrapers : 403 ---
+  # Tencent Cloud se fait passer pour Safari iOS 13.2.3 (UA figé ; plus aucun
+  # vrai iPhone ne tourne en 13.2.3). Les autres ignorent robots.txt.
+  RewriteCond %{HTTP_USER_AGENT} "iPhone OS 13_2_3" [NC,OR]
+  RewriteCond %{HTTP_USER_AGENT} (Bytespider|PetalBot|MJ12bot|DotBot) [NC]
+  RewriteRule ^ - [F,L]
 </IfModule>
 
 # --- Page d'erreur aux couleurs du site pour les adresses inexistantes ---
