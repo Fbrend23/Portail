@@ -114,15 +114,15 @@ export default {
     comingBack: 'COMING BACK SOON',
   },
   client: {
-    title: 'Client project',
-    badge: 'Client project',
+    title: 'Team project',
+    badge: 'Team project',
     places: 'Paléo Festival · Eurockéennes de Belfort',
     name: 'Runeado',
     intro:
       'The web app that organises transport for artists and staff at two festivals, replacing a wall of sticky notes. I delivered three features, from user-story analysis to code review.',
     features: [
       {
-        date: 'Kikéla',
+        date: 'February 2026',
         title: 'Who is on duty?',
         text: 'Group schedules overlap, so they are split into time slots. The current slot opens and scrolls into view by itself.',
       },
@@ -223,7 +223,7 @@ export default {
         ],
       },
       tpi: {
-        text: 'Runeado is a client project: the app that manages transport for artists and staff at the Paléo Festival and the Eurockéennes. Brendan built the Kikéla page (who is on duty), absence handling, and for his diploma project statistics tools: a workload chart, a pivot table and a driver search.',
+        text: 'Runeado is a team project: the app that manages transport for artists and staff at the Paléo Festival and the Eurockéennes. Brendan built the Kikéla page (who is on duty), absence handling, and for his diploma project statistics tools: a workload chart, a pivot table and a driver search.',
         options: [
           { label: 'His skills', next: 'skills' },
           { label: 'See his projects', next: 'projects' },

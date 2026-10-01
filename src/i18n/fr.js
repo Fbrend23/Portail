@@ -115,15 +115,15 @@ export default {
     comingBack: 'BIENTÔT DE RETOUR',
   },
   client: {
-    title: 'Projet client',
-    badge: 'Projet client',
+    title: 'Projet d’équipe',
+    badge: 'Projet d’équipe',
     places: 'Paléo Festival · Eurockéennes de Belfort',
     name: 'Runeado',
     intro:
       'L’application web qui organise le transport des artistes et du staff de deux festivals, à la place d’un tableau de post-it. J’y ai livré trois fonctionnalités, de l’analyse en user stories jusqu’à la code review.',
     features: [
       {
-        date: 'Kikéla',
+        date: 'Février 2026',
         title: 'Qui est en service ?',
         text: 'Les horaires des groupes se chevauchent : ils sont découpés en tranches horaires. La tranche en cours s’ouvre et défile d’elle-même à l’écran.',
       },
@@ -224,7 +224,7 @@ export default {
         ],
       },
       tpi: {
-        text: 'Runeado est un projet client : l’application qui gère le transport des artistes et du staff du Paléo Festival et des Eurockéennes. Brendan y a développé la page Kikéla (qui est en service), la gestion des absences, et pour son travail de diplôme des outils statistiques : graphique de charge, tableau croisé et recherche du conducteur.',
+        text: 'Runeado est un projet d’équipe : l’application qui gère le transport des artistes et du staff du Paléo Festival et des Eurockéennes. Brendan y a développé la page Kikéla (qui est en service), la gestion des absences, et pour son travail de diplôme des outils statistiques : graphique de charge, tableau croisé et recherche du conducteur.',
         options: [
           { label: 'Ses compétences', next: 'skills' },
           { label: 'Voir ses projets', next: 'projects' },
