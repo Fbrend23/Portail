@@ -1,21 +1,40 @@
-<script setup>
-import { ref, nextTick } from 'vue'
+<script setup lang="ts">
+import { ref, nextTick, onBeforeUnmount } from 'vue'
 import { useI18n } from '../i18n'
+
+interface Option {
+  label: string
+  next?: string
+}
+
+interface FaqNode {
+  text: string
+  options?: Option[]
+  isContact?: boolean
+}
+
+interface Message extends FaqNode {
+  sender: 'bot' | 'user'
+}
 
 const { t } = useI18n()
 
 const isOpen = ref(false)
 const isTyping = ref(false)
-const messages = ref([])
-const chatBody = ref(null)
+const messages = ref<Message[]>([])
+const chatBody = ref<HTMLElement | null>(null)
+const toggleButton = ref<HTMLButtonElement | null>(null)
 const lastFactIndex = ref(-1)
 
-const botName = "Echo"
+const botName = 'Echo'
 
 // FAQ de la langue courante (src/i18n)
-const faqData = t.value.echo.faq
+const faqData = t.value.echo.faq as Record<string, FaqNode>
 
-// Initialize Chat
+// Délais de « saisie » en cours : annulés si le composant disparaît avant la réponse
+const timers = new Set<ReturnType<typeof setTimeout>>()
+onBeforeUnmount(() => timers.forEach(clearTimeout))
+
 const initChat = () => {
   if (messages.value.length === 0) {
     addBotMessage(faqData.start)
@@ -29,11 +48,27 @@ const toggleAssistant = () => {
   }
 }
 
-const addBotMessage = (node) => {
+// Échap ferme le chat et rend le focus au bouton qui l'a ouvert
+const closeAssistant = () => {
+  if (!isOpen.value) return
+  isOpen.value = false
+  toggleButton.value?.focus()
+}
+
+// Le clavier suit la conversation : focus sur la première réponse proposée
+const focusFirstOption = () => {
+  nextTick(() => {
+    const groups = chatBody.value?.querySelectorAll('.options-container')
+    groups?.[groups.length - 1]?.querySelector<HTMLButtonElement>('.option-chip')?.focus()
+  })
+}
+
+const addBotMessage = (node: FaqNode) => {
   isTyping.value = true
   scrollToBottom()
 
-  setTimeout(() => {
+  const timer = setTimeout(() => {
+    timers.delete(timer)
     isTyping.value = false
     messages.value.push({
       sender: 'bot',
@@ -42,10 +77,12 @@ const addBotMessage = (node) => {
       isContact: node.isContact
     })
     scrollToBottom()
+    if (isOpen.value) focusFirstOption()
   }, 1000) // Simulated delay
+  timers.add(timer)
 }
 
-const handleOption = (option) => {
+const handleOption = (option: Option) => {
   // Add User Message
   messages.value.push({
     sender: 'user',
@@ -54,7 +91,7 @@ const handleOption = (option) => {
   scrollToBottom()
 
   // Trigger Bot Response
-  let nextNode = faqData[option.next]
+  let nextNode: FaqNode | undefined = option.next ? faqData[option.next] : undefined
 
   // Handle Dynamic Fun Fact
   if (option.next === 'funfact') {
@@ -91,9 +128,10 @@ const scrollToBottom = () => {
 </script>
 
 <template>
-  <div id="assistant" :class="{ open: isOpen }">
+  <div id="assistant" :class="{ open: isOpen }" @keydown.esc="closeAssistant">
 
-    <button id="assistant-toggle" @click="toggleAssistant" :aria-label="isOpen ? t.echo.close : t.echo.open">
+    <button id="assistant-toggle" ref="toggleButton" type="button" @click="toggleAssistant"
+      :aria-label="isOpen ? t.echo.close : t.echo.open" :aria-expanded="isOpen" aria-controls="assistant-box">
       <div class="icon-wrapper">
         <div v-if="!isOpen" class="greeting-bubble">{{ t.echo.greeting }}</div>
         <img src="/assets/assistant.webp" :alt="t.echo.avatarAlt" width="64" height="64" />
@@ -102,20 +140,20 @@ const scrollToBottom = () => {
     </button>
 
     <transition name="pop">
-      <div v-if="isOpen" id="assistant-box">
+      <div v-if="isOpen" id="assistant-box" role="dialog" aria-labelledby="assistant-title">
         <div class="chat-header">
-          <h3>{{ botName }}</h3>
-          <button class="close-btn" @click="toggleAssistant">×</button>
+          <h3 id="assistant-title">{{ botName }}</h3>
+          <button class="close-btn" type="button" :aria-label="t.echo.close" @click="closeAssistant">×</button>
         </div>
 
-        <div class="chat-body" ref="chatBody">
+        <div class="chat-body" ref="chatBody" aria-live="polite">
           <div v-for="(msg, index) in messages" :key="index" :class="['message', msg.sender]">
             <div class="bubble">
               {{ msg.text }}
 
               <!-- Special Contact Action -->
               <div v-if="msg.isContact" class="contact-action">
-                <a href="https://contact.brendanfleurdelys.ch/" target="_blank" class="btn-redirect">
+                <a href="https://contact.brendanfleurdelys.ch/" target="_blank" rel="noopener" class="btn-redirect">
                   {{ t.echo.contactLink }}
                 </a>
               </div>
@@ -123,14 +161,14 @@ const scrollToBottom = () => {
 
             <!-- Options (Only for bot messages) -->
             <div v-if="msg.sender === 'bot' && msg.options && msg.options.length" class="options-container">
-              <button v-for="opt in msg.options" :key="opt.label" class="option-chip" @click="handleOption(opt)">
+              <button v-for="opt in msg.options" :key="opt.label" type="button" class="option-chip" @click="handleOption(opt)">
                 {{ opt.label }}
               </button>
             </div>
           </div>
 
           <!-- Typing Indicator -->
-          <div v-if="isTyping" class="message bot typing">
+          <div v-if="isTyping" class="message bot typing" aria-hidden="true">
             <div class="bubble">
               <span class="dot"></span>
               <span class="dot"></span>

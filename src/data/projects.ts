@@ -1,6 +1,15 @@
 // Données communes aux deux langues ; titres, descriptions et boutons sont
 // dans src/i18n/*.js, sous la même clé (id)
-export const projects = [
+export interface Project {
+  id: string
+  link: string
+  theme: string
+  image: string
+  tags: string[]
+  paused?: boolean
+}
+
+export const projects: Project[] = [
   {
     id: 's-photo',
     link: 'https://photographie.brendanfleurdelys.ch/',
