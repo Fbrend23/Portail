@@ -23,6 +23,14 @@
   RewriteCond %{HTTP_USER_AGENT} "iPhone OS 13_2_3" [NC,OR]
   RewriteCond %{HTTP_USER_AGENT} (Bytespider|PetalBot|MJ12bot|DotBot) [NC]
   RewriteRule ^ - [F,L]
+
+  # --- Langue : / → /en/ si le navigateur ne demande pas le français ---
+  # Pas de choix explicite (cookie lang posé par LangSwitch) et un Accept-Language
+  # présent : les robots sans en-tête restent sur la version fr (x-default).
+  RewriteCond %{HTTP_COOKIE} !(^|;\s*)lang=
+  RewriteCond %{HTTP:Accept-Language} .
+  RewriteCond %{HTTP:Accept-Language} !^\s*fr [NC]
+  RewriteRule ^$ /en/ [R=302,L]
 </IfModule>
 
 # --- Page d'erreur aux couleurs du site pour les adresses inexistantes ---
