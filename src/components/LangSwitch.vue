@@ -8,6 +8,11 @@ const languages = [
   { code: 'fr', label: 'FR', name: 'Français' },
   { code: 'en', label: 'EN', name: 'English' }
 ]
+
+// Choix explicite : l'.htaccess ne redirige plus selon la langue du navigateur
+const remember = (code) => {
+  document.cookie = `lang=${code}; path=/; max-age=31536000; SameSite=Lax`
+}
 </script>
 
 <template>
@@ -20,6 +25,7 @@ const languages = [
       :lang="language.code"
       :title="language.name"
       :aria-current="language.code === lang ? 'page' : undefined"
+      @click="remember(language.code)"
     >
       {{ language.label }}
     </a>
