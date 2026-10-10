@@ -260,10 +260,8 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
       <rect width="1600" height="780" fill="url(#sb-sky)" />
       <!-- Lune : croissant dans le ciel, au-dessus des montagnes -->
       <g transform="translate(-228 -20)">
-        <g class="moon">
-          <g mask="url(#sb-moon-mask)">
-            <circle cx="1450" cy="180" r="34" fill="#e3e0d8" />
-          </g>
+        <g mask="url(#sb-moon-mask)">
+          <circle cx="1450" cy="180" r="34" fill="#e3e0d8" />
         </g>
       </g>
       <path :d="mountainsBack" fill="#5a3d72" />
@@ -324,9 +322,6 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
 .scene.off :deep(*) {
   animation-play-state: paused;
 }
-.moon {
-  animation: moon 30s ease-in-out infinite alternate;
-}
 .mist {
   animation: drift 30s ease-in-out infinite alternate;
 }
@@ -342,10 +337,6 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
   from { transform: translateX(-30px); }
   to { transform: translateX(30px); }
 }
-@keyframes moon {
-  from { transform: translate(-8px, 4px); }
-  to { transform: translate(8px, -4px); }
-}
 @keyframes firefly {
   0%, 100% { transform: translate(0, 0); opacity: 0.1; }
   25% { opacity: 1; }
@@ -354,7 +345,7 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .moon, .mist, .firefly {
+  .mist, .firefly {
     animation: none;
   }
 }
