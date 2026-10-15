@@ -71,8 +71,8 @@ export default {
       },
       {
         date: 'Août 2026 – février 2027',
-        title: 'Stage dans un cabinet d’avocats',
-        text: 'Équipe média : refontes des sites web et outils internes pour faciliter le travail des avocats.',
+        title: 'Stage chez MISSION Law Firm',
+        text: 'Équipe média : refonte du site du MISSION Institute for Strategy, outil de publication Google Docs vers WordPress et autres outils internes.',
         place: 'Séoul',
         placeLocal: '서울',
         timeZone: 'Asia/Seoul',
@@ -114,31 +114,64 @@ export default {
     paused: 'En pause',
     comingBack: 'BIENTÔT DE RETOUR',
   },
-  client: {
-    title: 'Projet d’équipe',
-    badge: 'Projet d’équipe',
-    places: 'Paléo Festival · Eurockéennes de Belfort',
-    name: 'Runeado',
-    intro:
-      'L’application web qui organise le transport des artistes et du staff de deux festivals, à la place d’un tableau de post-it. J’y ai livré trois fonctionnalités, de l’analyse en user stories jusqu’à la code review.',
-    features: [
-      {
-        date: 'Février 2026',
-        title: 'Qui est en service ?',
-        text: 'Les horaires des groupes se chevauchent : ils sont découpés en tranches horaires. La tranche en cours s’ouvre et défile d’elle-même à l’écran.',
+  pro: {
+    title: 'Projets professionnels',
+    visit: 'Voir le site →',
+    groups: {
+      mission: {
+        badge: 'Stage · Séoul',
+        places: 'Août 2026 – février 2027',
+        name: 'MISSION Law Firm',
+        intro:
+          'Stage dans l’équipe média de Mission, un groupe dont le siège est le cabinet d’avocats MISSION Law Firm : refontes des sites web du groupe et outils internes pour faciliter le travail des équipes.',
       },
-      {
-        date: 'Mars 2026',
-        title: 'Gestion des imprévus',
-        text: 'Un chauffeur malade ne se note plus sur un post-it : on saisit son absence et sa raison, et il est mis de côté sur les seules tranches concernées.',
+      runeado: {
+        badge: 'Projet d’équipe',
+        places: 'Paléo Festival · Eurockéennes de Belfort',
+        name: 'Runeado',
+        intro:
+          'L’application web qui organise le transport des artistes et du staff de deux festivals, à la place d’un tableau de post-it. J’y ai livré trois fonctionnalités, de l’analyse en user stories jusqu’à la code review.',
+        features: [
+          {
+            date: 'Février 2026',
+            title: 'Qui est en service ?',
+            text: 'Les horaires des groupes se chevauchent : ils sont découpés en tranches horaires. La tranche en cours s’ouvre et défile d’elle-même à l’écran.',
+          },
+          {
+            date: 'Mars 2026',
+            title: 'Gestion des imprévus',
+            text: 'Un chauffeur malade ne se note plus sur un post-it : on saisit son absence et sa raison, et il est mis de côté sur les seules tranches concernées.',
+          },
+          {
+            date: 'Mai 2026 · Travail de diplôme',
+            title: 'Outils statistiques',
+            text: 'Un graphique de charge, un tableau croisé dynamique et une recherche « Qui conduisait ? » pour retrouver le chauffeur d’un véhicule à une heure donnée.',
+          },
+        ],
       },
-      {
-        date: 'Mai 2026 · Travail de diplôme',
-        title: 'Outils statistiques',
-        text: 'Un graphique de charge, un tableau croisé dynamique et une recherche « Qui conduisait ? » pour retrouver le chauffeur d’un véhicule à une heure donnée.',
+    },
+    projects: {
+      mis: {
+        name: 'MISSION Institute for Strategy',
+        intro:
+          'Refonte du site de l’institut de recherche du groupe : d’une page Nuxt unique à un site multi-pages bilingue (coréen et anglais) avec rapports, articles, événements et profils.',
+        points: [
+          'CMS headless Sanity, avec les versions coréenne et anglaise de chaque page reliées entre elles.',
+          'Portail d’édition sur mesure : comptes et rôles, aperçu des brouillons et bouton « Déployer le site ».',
+          'Recherche Pagefind, images de partage générées à la compilation et cartes Naver Maps.',
+        ],
       },
-    ],
-    techs: ['AdonisJS 6', 'TypeScript', 'Lucid ORM', 'Edge', 'VineJS', 'MySQL'],
+      fdp: {
+        name: 'Frontier Docs Publisher',
+        intro:
+          'Un module complémentaire Google Workspace qui transforme un article rédigé dans Google Docs en brouillon WordPress, en un clic.',
+        points: [
+          'Conversion du document en HTML, avec des contrôles préalables et des tests Vitest.',
+          'Plugin WordPress maison : routes REST pour le brouillon, les médias et l’annulation.',
+          'E-mail bilingue (coréen et anglais) à l’auteur quand l’article est publié, et guides pour les journalistes, les admins et les mainteneurs.',
+        ],
+      },
+    },
   },
   projectsSection: {
     title: 'Projets',
@@ -247,7 +280,7 @@ export default {
         ],
       },
       availability: {
-        text: 'D’août 2026 à février 2027, Brendan est en stage à Séoul dans l’équipe média d’un cabinet d’avocats, où il participe aux refontes des sites web et à des outils internes pour faciliter le travail des avocats. Après son stage, il cherche un poste et est ouvert à travailler en Corée.',
+        text: 'D’août 2026 à février 2027, Brendan est en stage à Séoul chez Mission, dans l’équipe média d’un groupe dont le siège est le cabinet d’avocats MISSION Law Firm. Il y a refondu le site du MISSION Institute for Strategy et développé Frontier Docs Publisher, un outil qui transforme un article Google Docs en brouillon WordPress. Après son stage, il cherche un poste et est ouvert à travailler en Corée.',
         options: [
           { label: 'Le contacter', next: 'contact' },
           { label: 'Fun fact', next: 'funfact' },
@@ -255,7 +288,7 @@ export default {
         ],
       },
       projects: {
-        text: 'Ses deux projets préférés : son portfolio de photographie animalière (Astro et Directus) et Prodysos, une application de gestion de production réalisée pour une troupe de théâtre. Vous trouverez tous ses projets sur les cartes en arrière-plan !',
+        text: 'Ses deux projets préférés : son portfolio de photographie animalière (Astro et Directus) et Prodysos, une application de gestion de production réalisée pour une troupe de théâtre. Côté professionnel, il a travaillé sur Runeado, le site du MISSION Institute for Strategy et Frontier Docs Publisher. Vous trouverez tous ses projets sur les cartes en arrière-plan !',
         options: [
           { label: 'Ses compétences', next: 'skills' },
           { label: 'Le contacter', next: 'contact' },

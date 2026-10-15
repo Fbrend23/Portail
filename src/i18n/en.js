@@ -70,8 +70,8 @@ export default {
       },
       {
         date: 'August 2026 – February 2027',
-        title: 'Internship at a law firm',
-        text: "Media team: website redesigns and internal tools that make the lawyers' work easier.",
+        title: 'Internship at MISSION Law Firm',
+        text: 'Media team: redesign of the MISSION Institute for Strategy website, a Google Docs to WordPress publishing tool and other internal tools.',
         place: 'Seoul',
         placeLocal: '서울',
         timeZone: 'Asia/Seoul',
@@ -113,31 +113,64 @@ export default {
     paused: 'On hold',
     comingBack: 'COMING BACK SOON',
   },
-  client: {
-    title: 'Team project',
-    badge: 'Team project',
-    places: 'Paléo Festival · Eurockéennes de Belfort',
-    name: 'Runeado',
-    intro:
-      'The web app that organises transport for artists and staff at two festivals, replacing a wall of sticky notes. I delivered three features, from user-story analysis to code review.',
-    features: [
-      {
-        date: 'February 2026',
-        title: 'Who is on duty?',
-        text: 'Group schedules overlap, so they are split into time slots. The current slot opens and scrolls into view by itself.',
+  pro: {
+    title: 'Professional work',
+    visit: 'Visit the site →',
+    groups: {
+      mission: {
+        badge: 'Internship · Seoul',
+        places: 'August 2026 – February 2027',
+        name: 'MISSION Law Firm',
+        intro:
+          'Internship with the media team at Mission, a group headquartered at the law firm MISSION Law Firm: website redesigns for the group and internal tools that make the teams’ work easier.',
       },
-      {
-        date: 'March 2026',
-        title: 'Handling absences',
-        text: 'A sick driver is no longer a sticky note: their absence and reason are entered, and they are set aside on the affected slots only.',
+      runeado: {
+        badge: 'Team project',
+        places: 'Paléo Festival · Eurockéennes de Belfort',
+        name: 'Runeado',
+        intro:
+          'The web app that organises transport for artists and staff at two festivals, replacing a wall of sticky notes. I delivered three features, from user-story analysis to code review.',
+        features: [
+          {
+            date: 'February 2026',
+            title: 'Who is on duty?',
+            text: 'Group schedules overlap, so they are split into time slots. The current slot opens and scrolls into view by itself.',
+          },
+          {
+            date: 'March 2026',
+            title: 'Handling absences',
+            text: 'A sick driver is no longer a sticky note: their absence and reason are entered, and they are set aside on the affected slots only.',
+          },
+          {
+            date: 'May 2026 · Diploma project',
+            title: 'Statistics tools',
+            text: 'A workload chart, a dynamic pivot table and a "Who was driving?" search to find the driver of a vehicle at a given time.',
+          },
+        ],
       },
-      {
-        date: 'May 2026 · Diploma project',
-        title: 'Statistics tools',
-        text: 'A workload chart, a dynamic pivot table and a "Who was driving?" search to find the driver of a vehicle at a given time.',
+    },
+    projects: {
+      mis: {
+        name: 'MISSION Institute for Strategy',
+        intro:
+          'Redesign of the group’s research institute website: from a single Nuxt page to a bilingual (Korean and English) multi-page site with reports, articles, events and profiles.',
+        points: [
+          'Headless Sanity CMS, with the Korean and English versions of each page linked together.',
+          'Custom editing portal: accounts and roles, draft previews and a “Deploy site” button.',
+          'Pagefind search, sharing images generated at build time and Naver Maps.',
+        ],
       },
-    ],
-    techs: ['AdonisJS 6', 'TypeScript', 'Lucid ORM', 'Edge', 'VineJS', 'MySQL'],
+      fdp: {
+        name: 'Frontier Docs Publisher',
+        intro:
+          'A Google Workspace add-on that turns an article written in Google Docs into a WordPress draft, in one click.',
+        points: [
+          'Document-to-HTML conversion, with preliminary checks and Vitest tests.',
+          'Custom WordPress plugin: REST routes for the draft, the media and rollback.',
+          'Bilingual (Korean and English) e-mail to the author once the article is published, plus guides for reporters, admins and maintainers.',
+        ],
+      },
+    },
   },
   projectsSection: {
     title: 'Projects',
@@ -246,7 +279,7 @@ export default {
         ],
       },
       availability: {
-        text: "From August 2026 to February 2027, Brendan is interning in Seoul with the media team of a law firm, where he works on website redesigns and on internal tools that make the lawyers' work easier. After his internship, he is looking for a position and is open to working in Korea.",
+        text: "From August 2026 to February 2027, Brendan is interning in Seoul at Mission, with the media team of a group headquartered at the law firm MISSION Law Firm. There he redesigned the MISSION Institute for Strategy website and built Frontier Docs Publisher, a tool that turns a Google Docs article into a WordPress draft. After his internship, he is looking for a position and is open to working in Korea.",
         options: [
           { label: 'Contact him', next: 'contact' },
           { label: 'Fun fact', next: 'funfact' },
@@ -254,7 +287,7 @@ export default {
         ],
       },
       projects: {
-        text: 'His two favourite projects: his wildlife photography portfolio (Astro and Directus) and Prodysos, a production management app built for a theatre company. You can find all his projects on the cards in the background!',
+        text: 'His two favourite projects: his wildlife photography portfolio (Astro and Directus) and Prodysos, a production management app built for a theatre company. On the professional side, he worked on Runeado, the MISSION Institute for Strategy website and Frontier Docs Publisher. You can find all his projects on the cards in the background!',
         options: [
           { label: 'His skills', next: 'skills' },
           { label: 'Contact him', next: 'contact' },

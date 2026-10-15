@@ -13,7 +13,7 @@ import LoadingScreen from '../components/LoadingScreen.vue'
 import LangSwitch from '../components/LangSwitch.vue'
 import JourneyTimeline from '../components/JourneyTimeline.vue'
 import PhotoSection from '../components/PhotoSection.vue'
-import ClientProject from '../components/ClientProject.vue'
+import ProProjects from '../components/ProProjects.vue'
 import { projects as projectData } from '../data/projects'
 import { useI18n, localePaths, SITE_URL } from '../i18n'
 
@@ -128,7 +128,7 @@ onMounted(() => {
 
       <PhotoSection />
 
-      <ClientProject />
+      <ProProjects />
 
       <header class="projects-header">
         <h2 id="projects-title">{{ t.projectsSection.title }}</h2>
