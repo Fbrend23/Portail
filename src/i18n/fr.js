@@ -140,7 +140,7 @@ export default {
       mission: {
         badge: 'Stage · Séoul',
         places: 'Août 2026 – février 2027',
-        name: 'MISSION - Law Firm for Innovators',
+        name: 'MISSION Law Firm',
         intro:
           'Stage dans l’équipe média de MISSION Law Firm : refontes de sites web et outils internes pour faciliter le travail des équipes.',
       },
