@@ -92,14 +92,33 @@ export default {
   },
   photo: {
     title: 'À travers l’objectif',
-    intro: 'Comme à l’atelier, la photo animalière demande de la patience, de la précision et le souci du détail.',
+    intro:
+      'Comme à l’atelier, la photo animalière demande de la patience, de la précision et le souci du détail.',
     cta: 'Explorer la galerie complète →',
     // Lieux non renseignés : ajouter « · Lieu » à la légende si souhaité
     items: [
-      { src: '/assets/photos/renardeau.webp', width: 1600, height: 900, alt: 'Un renardeau roux, debout dans le sous-bois, regarde droit vers l’objectif', caption: 'Renardeau roux' },
-      { src: '/assets/photos/nette-rousse.webp', width: 1000, height: 562, alt: 'Une nette rousse qui flotte sur une eau bleue, la tête blottie contre son aile', caption: 'Nette rousse' },
-      { src: '/assets/photos/martin-pecheur.webp', width: 1000, height: 563, alt: 'Un martin-pêcheur perché sur une branche morte, sur fond de ciel bleu brumeux', caption: 'Martin-pêcheur d’Europe' }
-    ]
+      {
+        src: '/assets/photos/renardeau.webp',
+        width: 1600,
+        height: 900,
+        alt: 'Un renardeau roux, debout dans le sous-bois, regarde droit vers l’objectif',
+        caption: 'Renardeau roux',
+      },
+      {
+        src: '/assets/photos/nette-rousse.webp',
+        width: 1000,
+        height: 562,
+        alt: 'Une nette rousse qui flotte sur une eau bleue, la tête blottie contre son aile',
+        caption: 'Nette rousse',
+      },
+      {
+        src: '/assets/photos/martin-pecheur.webp',
+        width: 1000,
+        height: 563,
+        alt: 'Un martin-pêcheur perché sur une branche morte, sur fond de ciel bleu brumeux',
+        caption: 'Martin-pêcheur d’Europe',
+      },
+    ],
   },
   marquee: {
     label: 'Technologies utilisées',
@@ -121,9 +140,9 @@ export default {
       mission: {
         badge: 'Stage · Séoul',
         places: 'Août 2026 – février 2027',
-        name: 'MISSION Law Firm',
+        name: 'MISSION - Law Firm for Innovators',
         intro:
-          'Stage dans l’équipe média de Mission, un groupe dont le siège est le cabinet d’avocats MISSION Law Firm : refontes des sites web du groupe et outils internes pour faciliter le travail des équipes.',
+          'Stage dans l’équipe média de MISSION Law Firm : refontes de sites web et outils internes pour faciliter le travail des équipes.',
       },
       runeado: {
         badge: 'Projet d’équipe',
@@ -154,7 +173,7 @@ export default {
       mis: {
         name: 'MISSION Institute for Strategy',
         intro:
-          'Refonte du site de l’institut de recherche du groupe : d’une page Nuxt unique à un site multi-pages bilingue (coréen et anglais) avec rapports, articles, événements et profils.',
+          'Refonte du site du MISSION Institute for Strategy, l’institut de recherche de Mission : d’une page Nuxt unique à un site multi-pages bilingue (coréen et anglais) avec rapports, articles, événements et profils.',
         points: [
           'CMS headless Sanity, avec les versions coréenne et anglaise de chaque page reliées entre elles.',
           'Portail d’édition sur mesure : comptes et rôles, aperçu des brouillons et bouton « Déployer le site ».',
@@ -280,7 +299,7 @@ export default {
         ],
       },
       availability: {
-        text: 'D’août 2026 à février 2027, Brendan est en stage à Séoul chez Mission, dans l’équipe média d’un groupe dont le siège est le cabinet d’avocats MISSION Law Firm. Il y a refondu le site du MISSION Institute for Strategy et développé Frontier Docs Publisher, un outil qui transforme un article Google Docs en brouillon WordPress. Après son stage, il cherche un poste et est ouvert à travailler en Corée.',
+        text: 'D’août 2026 à février 2027, Brendan est en stage à Séoul dans l’équipe média de MISSION Law Firm. Il y a refondu le site du MISSION Institute for Strategy et développé Frontier Docs Publisher, un outil qui transforme un article Google Docs en brouillon WordPress. Après son stage, il cherche un poste et est ouvert à travailler en Corée.',
         options: [
           { label: 'Le contacter', next: 'contact' },
           { label: 'Fun fact', next: 'funfact' },
