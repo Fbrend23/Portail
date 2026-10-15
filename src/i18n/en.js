@@ -139,7 +139,7 @@ export default {
       mission: {
         badge: 'Internship · Seoul',
         places: 'August 2026 – February 2027',
-        name: 'MISSION - Law Firm for Innovators',
+        name: 'MISSION Law Firm ',
         intro:
           'Internship with the media team at MISSION Law Firm: website redesigns and internal tools that make the teams’ work easier.',
       },
