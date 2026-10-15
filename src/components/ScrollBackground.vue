@@ -137,7 +137,6 @@ const row = (step, base, h0, i0) =>
     pine(i * step - 40 + ((i * 53 + i0) % 30), base, h0 + ((i * 37 + i0) % 5) * 45)).join('')
 const treesFar = row(110, 720, 260, 3)
 const treesMid = row(160, 800, 340, 11)
-const treesNear = row(250, 900, 470, 29)
 
 // ---- Lac : deux chaînes de montagnes (pour les projets), puis le lac et sa rive (fin de page) ----
 const range = (peaks, base) => `M0 ${base}` + peaks.map(([x, y]) => `L${x} ${y}`).join('') + `L1600 ${base}Z`
@@ -166,12 +165,20 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
     <!-- FORÊT (galerie) -->
     <svg ref="forest" class="scene soft off fade-bottom" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
       <defs>
-        <linearGradient id="sb-forest-sky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
+        <linearGradient id="sb-forest-sky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="3000">
           <stop offset="0" stop-color="#050d1f" stop-opacity="0.6" />
-          <stop offset="0.3" stop-color="#050d1f" />
-          <stop offset="0.55" stop-color="#0f2a35" />
-          <stop offset="1" stop-color="#1c4a4a" />
+          <stop offset="0.09" stop-color="#050d1f" />
+          <stop offset="0.165" stop-color="#0f2a35" />
+          <stop offset="0.3" stop-color="#1c4a4a" />
+          <stop offset="0.42" stop-color="#3a2a5c" />
+          <stop offset="0.6" stop-color="#2c2050" />
+          <stop offset="1" stop-color="#2c2050" />
         </linearGradient>
+        <!-- Le bas de la forêt se dissout dans le ciel au lieu de finir en sol noir -->
+        <linearGradient id="sb-dense-fade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1700">
+          <stop offset="0.42" stop-color="#fff" /><stop offset="0.7" stop-color="#fff" stop-opacity="0.45" /><stop offset="1" stop-color="#000" />
+        </linearGradient>
+        <mask id="sb-dense-mask"><rect width="1600" height="3000" fill="url(#sb-dense-fade)" /></mask>
         <linearGradient id="sb-mist" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#9fd8cf" stop-opacity="0" />
           <stop offset="0.5" stop-color="#9fd8cf" stop-opacity="0.22" />
@@ -184,18 +191,12 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
         <linearGradient id="sb-tree-mid" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#173c3b" /><stop offset="1" stop-color="#0a1f20" />
         </linearGradient>
-        <linearGradient id="sb-tree-near" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0b1d1c" /><stop offset="1" stop-color="#030b0a" />
-        </linearGradient>
         <!-- Sols : ils naissent en fondu (transparent -> plein) pour ne laisser aucune ligne horizontale -->
         <linearGradient id="sb-gnd-far" gradientUnits="userSpaceOnUse" x1="0" y1="600" x2="0" y2="900">
           <stop offset="0" stop-color="#153230" stop-opacity="0" /><stop offset="0.5" stop-color="#153230" />
         </linearGradient>
         <linearGradient id="sb-gnd-mid" gradientUnits="userSpaceOnUse" x1="0" y1="680" x2="0" y2="900">
           <stop offset="0" stop-color="#0a1f20" stop-opacity="0" /><stop offset="0.5" stop-color="#0a1f20" />
-        </linearGradient>
-        <linearGradient id="sb-gnd-near" gradientUnits="userSpaceOnUse" x1="0" y1="740" x2="0" y2="900">
-          <stop offset="0" stop-color="#030b0a" stop-opacity="0" /><stop offset="0.5" stop-color="#030b0a" />
         </linearGradient>
         <radialGradient id="sb-moonglow" cx="50%" cy="0%" r="70%">
           <stop offset="0" stop-color="#b9e6dc" stop-opacity="0.32" />
@@ -207,19 +208,18 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
           <stop offset="1" stop-color="#d6f76a" stop-opacity="0" />
         </radialGradient>
       </defs>
-      <rect width="1600" height="900" fill="url(#sb-forest-sky)" />
+      <rect width="1600" height="8000" fill="url(#sb-forest-sky)" />
 
       <ellipse cx="800" cy="0" rx="900" ry="520" fill="url(#sb-moonglow)" />
 
-      <!-- Chaque rangée descend jusqu'au bas de l'image : plus de ciel visible sous les troncs -->
+      <g mask="url(#sb-dense-mask)">
       <path :d="treesFar" fill="url(#sb-tree-far)" />
       <rect y="600" width="1600" height="8000" fill="url(#sb-gnd-far)" />
       <g class="mist"><rect y="560" width="1600" height="200" fill="url(#sb-mist)" /></g>
       <path :d="treesMid" fill="url(#sb-tree-mid)" />
       <rect y="680" width="1600" height="8000" fill="url(#sb-gnd-mid)" />
       <g class="mist m2"><rect y="680" width="1600" height="200" fill="url(#sb-mist)" /></g>
-      <path :d="treesNear" fill="url(#sb-tree-near)" />
-      <rect y="740" width="1600" height="8000" fill="url(#sb-gnd-near)" />
+      </g>
 
       <g>
         <g v-for="(f, i) in fireflies" :key="i" class="firefly" :style="{ animationDelay: f.d + 's' }">
@@ -232,8 +232,8 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
     <svg ref="lake" class="scene soft off" viewBox="0 0 1600 1290" preserveAspectRatio="xMidYMid slice">
       <defs>
         <linearGradient id="sb-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0a1030" stop-opacity="0.6" />
-          <stop offset="0.25" stop-color="#0a1030" />
+          <stop offset="0" stop-color="#2c2050" stop-opacity="0.6" />
+          <stop offset="0.25" stop-color="#2c2050" />
           <stop offset="0.5" stop-color="#3a2a5c" />
           <stop offset="0.8" stop-color="#d9743f" />
           <stop offset="1" stop-color="#f2a65a" />
