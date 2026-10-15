@@ -1,5 +1,5 @@
 <script setup>
-// Fond qui évolue avec la page : nebula -> Terre (parcours) -> forêt (galerie) -> lac (projets).
+// Fond qui évolue avec la page : nebula -> Terre (parcours) -> forêt (galerie) -> skyline de Séoul (projets pro) -> lac (projets).
 // Les scènes sont des éléments du document, posés une fois à hauteur de leur section : elles défilent
 // avec le contenu, en natif (aucun calcul pendant le scroll). Seules la nebula et les étoiles, qui sont
 // fixes, sont estompées via les variables CSS --nebula et --stars posées sur <html>.
@@ -8,6 +8,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
 const root = ref(null)
 const earth = ref(null)
 const forest = ref(null)
+const city = ref(null)
 const lake = ref(null)
 const shore = ref(null)
 
@@ -47,6 +48,8 @@ function place(el, top, height, perVh, baseH, growUp, cx, minW) {
   el.style.top = `${top}px`
   el.style.height = `${height}px`
   el.setAttribute('viewBox', `${x0} ${growUp ? baseH - h : 0} ${w} ${h}`)
+  // Fondu bas de la ville : proportionnel à l'échelle du dessin (sinon, sur mobile, il avale toute la skyline)
+  if (el === city.value) el.style.setProperty('--fade', `${((160 * height) / h).toFixed(0)}px`)
   if (el === lake.value && shore.value) shore.value.setAttribute('transform', `translate(0 ${h - baseH})`)
 }
 
@@ -70,6 +73,8 @@ function layout() {
   lakeTop = projects - 0.2 * vh // lac : jusqu'au bas de la page (montagnes -> lac -> rive)
   place(earth.value, earthTop, Math.max(1.4 * vh, photo - journey + 0.05 * vh), 900 / 1.4, 900, true, 1180, 700)
   place(forest.value, forestTop, Math.max(1.5 * vh, projects - photo + 0.6 * vh), 900 / 1.5, 900, false, 800, 0)
+  // Skyline : finit un peu avant le lac, ses pieds se dissolvent dans le ciel violet qui devient celui du lac
+  place(city.value, lakeTop - 0.25 * vh - 2.6 * vh, 2.6 * vh, 600 / 1.15, 600, true, 620, 700)
   place(lake.value, lakeTop, Math.max(vh, docH - lakeTop), 1290 / 2, 1290, false, 800, 900)
 }
 
@@ -110,7 +115,7 @@ onMounted(() => {
     (entries) => entries.forEach((e) => e.target.classList.toggle('off', !e.isIntersecting)),
     { rootMargin: '100px' },
   )
-  ;[earth, forest, lake].forEach((s) => s.value && visibility.observe(s.value))
+  ;[earth, forest, city, lake].forEach((s) => s.value && visibility.observe(s.value))
 })
 
 onBeforeUnmount(() => {
@@ -137,13 +142,38 @@ const row = (step, base, h0, i0) =>
     pine(i * step - 40 + ((i * 53 + i0) % 30), base, h0 + ((i * 37 + i0) % 5) * 45)).join('')
 const treesFar = row(110, 720, 260, 3)
 const treesMid = row(160, 800, 340, 11)
-const treesNear = row(250, 900, 470, 29)
 
 // ---- Lac : deux chaînes de montagnes (pour les projets), puis le lac et sa rive (fin de page) ----
 const range = (peaks, base) => `M0 ${base}` + peaks.map(([x, y]) => `L${x} ${y}`).join('') + `L1600 ${base}Z`
 const mountainsBack = range([[0, 620], [150, 520], [260, 570], [420, 430], [560, 540], [700, 480], [860, 590], [1010, 450], [1160, 560], [1300, 500], [1450, 590], [1600, 540]], 780)
 const mountainsFront = range([[0, 700], [120, 640], [300, 690], [480, 600], [640, 680], [800, 630], [980, 700], [1150, 610], [1330, 690], [1480, 640], [1600, 700]], 780)
 const shoreTrees = [60, 190, 330, 1290, 1420, 1540].map((x, i) => pine(x, 1215, 150 + (i % 3) * 55)).join('')
+
+// ---- Skyline de Séoul : trois plans d'immeubles (haze -> nuit), fenêtres allumées, Lotte World Tower et N Seoul Tower ----
+const skyline = (seed, base, h0, hVar, withWindows) => {
+  let x = -20
+  let i = 0
+  let d = ''
+  let win = ''
+  while (x < 1620) {
+    const w = 34 + ((i * 47 + seed) % 5) * 14
+    const h = h0 + ((i * 61 + seed * 7) % 7) * (hVar / 6)
+    d += `M${x} ${base}V${base - h}H${x + w}V${base}Z`
+    if (withWindows) {
+      const cols = Math.floor((w - 8) / 11)
+      const pad = (w - (cols * 11 - 6)) / 2 // fenêtres centrées sur la largeur de l'immeuble
+      const rows = Math.min(26, Math.floor((h - 14) / 15))
+      for (let r = 0; r < rows; r++)
+        for (let c = 0; c < cols; c++)
+          if ((r * 7 + c * 13 + i * 5 + seed) % 3 === 0) win += `M${(x + pad + c * 11).toFixed(1)} ${base - h + 10 + r * 15}h5v7h-5Z`
+    }
+    x += w + 4 + ((i * 29 + seed) % 3) * 6
+    i++
+  }
+  return { d, win }
+}
+const cityMid = skyline(11, 600, 120, 130, true)
+const cityNear = skyline(29, 600, 80, 110, true)
 
 // Lucioles
 const fireflies = Array.from({ length: 16 }, (_, i) => ({
@@ -166,12 +196,20 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
     <!-- FORÊT (galerie) -->
     <svg ref="forest" class="scene soft off fade-bottom" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
       <defs>
-        <linearGradient id="sb-forest-sky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
+        <linearGradient id="sb-forest-sky" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="3000">
           <stop offset="0" stop-color="#050d1f" stop-opacity="0.6" />
-          <stop offset="0.3" stop-color="#050d1f" />
-          <stop offset="0.55" stop-color="#0f2a35" />
-          <stop offset="1" stop-color="#1c4a4a" />
+          <stop offset="0.09" stop-color="#050d1f" />
+          <stop offset="0.165" stop-color="#0f2a35" />
+          <stop offset="0.3" stop-color="#1c4a4a" />
+          <stop offset="0.42" stop-color="#3a2a5c" />
+          <stop offset="0.6" stop-color="#2c2050" />
+          <stop offset="1" stop-color="#2c2050" />
         </linearGradient>
+        <!-- Le bas de la forêt se dissout dans le ciel au lieu de finir en sol noir -->
+        <linearGradient id="sb-dense-fade" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1700">
+          <stop offset="0.42" stop-color="#fff" /><stop offset="0.7" stop-color="#fff" stop-opacity="0.45" /><stop offset="1" stop-color="#000" />
+        </linearGradient>
+        <mask id="sb-dense-mask"><rect width="1600" height="3000" fill="url(#sb-dense-fade)" /></mask>
         <linearGradient id="sb-mist" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#9fd8cf" stop-opacity="0" />
           <stop offset="0.5" stop-color="#9fd8cf" stop-opacity="0.22" />
@@ -184,20 +222,7 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
         <linearGradient id="sb-tree-mid" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#173c3b" /><stop offset="1" stop-color="#0a1f20" />
         </linearGradient>
-        <linearGradient id="sb-tree-near" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0b1d1c" /><stop offset="1" stop-color="#030b0a" />
-        </linearGradient>
-        <!-- Sols : ils naissent en fondu (transparent -> plein) pour ne laisser aucune ligne horizontale -->
-        <linearGradient id="sb-gnd-far" gradientUnits="userSpaceOnUse" x1="0" y1="600" x2="0" y2="900">
-          <stop offset="0" stop-color="#153230" stop-opacity="0" /><stop offset="0.5" stop-color="#153230" />
-        </linearGradient>
-        <linearGradient id="sb-gnd-mid" gradientUnits="userSpaceOnUse" x1="0" y1="680" x2="0" y2="900">
-          <stop offset="0" stop-color="#0a1f20" stop-opacity="0" /><stop offset="0.5" stop-color="#0a1f20" />
-        </linearGradient>
-        <linearGradient id="sb-gnd-near" gradientUnits="userSpaceOnUse" x1="0" y1="740" x2="0" y2="900">
-          <stop offset="0" stop-color="#030b0a" stop-opacity="0" /><stop offset="0.5" stop-color="#030b0a" />
-        </linearGradient>
-        <radialGradient id="sb-moonglow" cx="50%" cy="0%" r="70%">
+                <radialGradient id="sb-moonglow" cx="50%" cy="0%" r="70%">
           <stop offset="0" stop-color="#b9e6dc" stop-opacity="0.32" />
           <stop offset="1" stop-color="#b9e6dc" stop-opacity="0" />
         </radialGradient>
@@ -207,19 +232,16 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
           <stop offset="1" stop-color="#d6f76a" stop-opacity="0" />
         </radialGradient>
       </defs>
-      <rect width="1600" height="900" fill="url(#sb-forest-sky)" />
+      <rect width="1600" height="8000" fill="url(#sb-forest-sky)" />
 
       <ellipse cx="800" cy="0" rx="900" ry="520" fill="url(#sb-moonglow)" />
 
-      <!-- Chaque rangée descend jusqu'au bas de l'image : plus de ciel visible sous les troncs -->
+      <g mask="url(#sb-dense-mask)">
       <path :d="treesFar" fill="url(#sb-tree-far)" />
-      <rect y="600" width="1600" height="8000" fill="url(#sb-gnd-far)" />
       <g class="mist"><rect y="560" width="1600" height="200" fill="url(#sb-mist)" /></g>
       <path :d="treesMid" fill="url(#sb-tree-mid)" />
-      <rect y="680" width="1600" height="8000" fill="url(#sb-gnd-mid)" />
       <g class="mist m2"><rect y="680" width="1600" height="200" fill="url(#sb-mist)" /></g>
-      <path :d="treesNear" fill="url(#sb-tree-near)" />
-      <rect y="740" width="1600" height="8000" fill="url(#sb-gnd-near)" />
+      </g>
 
       <g>
         <g v-for="(f, i) in fireflies" :key="i" class="firefly" :style="{ animationDelay: f.d + 's' }">
@@ -228,12 +250,43 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
       </g>
     </svg>
 
+    <!-- SKYLINE DE SÉOUL (projets pro) : Namsan et sa tour, Lotte World Tower, immeubles éclairés, halo orangé de la ville -->
+    <svg ref="city" class="scene soft city-fade off" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <!-- Ciel de la ville : il naît transparent puis recouvre les cimes de la forêt qui descendent derrière -->
+        <linearGradient id="sb-city-sky" gradientUnits="userSpaceOnUse" x1="0" y1="-160" x2="0" y2="600">
+          <stop offset="0" stop-color="#1c4a4a" stop-opacity="0" />
+          <stop offset="0.2" stop-color="#2e3f5e" />
+          <stop offset="0.55" stop-color="#3a2a5c" />
+          <stop offset="1" stop-color="#5a3d72" />
+        </linearGradient>
+        <linearGradient id="sb-city-glow" gradientUnits="userSpaceOnUse" x1="0" y1="100" x2="0" y2="600">
+          <stop offset="0" stop-color="#d9743f" stop-opacity="0" /><stop offset="1" stop-color="#d9743f" stop-opacity="0.4" />
+        </linearGradient>
+      </defs>
+      <rect y="-160" width="1600" height="760" fill="url(#sb-city-sky)" />
+      <rect y="-800" width="1600" height="1400" fill="url(#sb-city-glow)" />
+      <!-- Namsan et la N Seoul Tower -->
+      <path d="M880 600V500Q1040 410 1200 405Q1360 410 1520 505V600Z" fill="#3b2c62" />
+      <path d="M1197 405V330L1200 300L1203 330V405Z" fill="#3b2c62" />
+      <ellipse cx="1200" cy="338" rx="12" ry="7" fill="#3b2c62" />
+      <circle class="beacon" cx="1200" cy="297" r="2.5" fill="#ff6a6a" />
+      <g>
+      <!-- Lotte World Tower -->
+      <path d="M392 600L400 400L412 300L418 230L421 205L424 230L430 300L442 400L450 600Z" fill="#231a45" />
+      <path :d="cityMid.d" fill="#231a45" />
+      <path :d="cityMid.win" fill="#ffd58a" opacity="0.55" />
+      <path :d="cityNear.d" fill="#130d28" />
+      <path :d="cityNear.win" fill="#ffd58a" opacity="0.8" />
+      </g>
+    </svg>
+
     <!-- MONTAGNES (projets) puis LAC et rive (fin de page) : la scène fait 200 % de l'écran et se lit de haut en bas -->
     <svg ref="lake" class="scene soft off" viewBox="0 0 1600 1290" preserveAspectRatio="xMidYMid slice">
       <defs>
         <linearGradient id="sb-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#0a1030" stop-opacity="0.6" />
-          <stop offset="0.25" stop-color="#0a1030" />
+          <stop offset="0" stop-color="#2c2050" stop-opacity="0.6" />
+          <stop offset="0.25" stop-color="#2c2050" />
           <stop offset="0.5" stop-color="#3a2a5c" />
           <stop offset="0.8" stop-color="#d9743f" />
           <stop offset="1" stop-color="#f2a65a" />
@@ -315,6 +368,11 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
   mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 80%, transparent);
 }
+/* La ville se dissout dans le ciel du lac sur sa hauteur de fondu (--fade, posée par le script) */
+.scene.soft.city-fade {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 calc(100% - var(--fade, 30vh)), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 calc(100% - var(--fade, 30vh)), transparent);
+}
 /* Scène hors écran : cachée, animations en pause */
 .scene.off {
   visibility: hidden;
@@ -329,10 +387,17 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
   animation-duration: 42s;
   animation-direction: alternate-reverse;
 }
+.beacon {
+  animation: blink 2.4s ease-in-out infinite;
+}
 .firefly {
   animation: firefly 9s ease-in-out infinite;
 }
 
+@keyframes blink {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 1; }
+}
 @keyframes drift {
   from { transform: translateX(-30px); }
   to { transform: translateX(30px); }
@@ -345,7 +410,7 @@ const fireflies = Array.from({ length: 16 }, (_, i) => ({
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mist, .firefly {
+  .mist, .firefly, .beacon {
     animation: none;
   }
 }
