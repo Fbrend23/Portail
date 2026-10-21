@@ -65,7 +65,7 @@ defineProps({
   background: var(--card-bg, #1a1a1a);
   border: 1px solid var(--accent);
   border-radius: 12px;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: box-shadow 0.3s;
   backdrop-filter: blur(10px);
   background-color: rgba(13, 13, 13, 0.6);
   box-shadow: 0 0 10px rgba(51, 204, 255, 0.05),
@@ -77,7 +77,6 @@ defineProps({
 }
 
 .card:hover {
-  transform: translateY(-5px);
   box-shadow: 0 0 30px var(--accent-shadow-hover), 0 0 20px var(--accent);
 }
 
