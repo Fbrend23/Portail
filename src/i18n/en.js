@@ -165,6 +165,11 @@ export default {
       description: 'Website for a stage play, built for a theatre company',
       btnText: 'DISCOVER →',
     },
+    's-cliffhanger': {
+      title: 'Compagnie Cliffhanger',
+      description: 'Website for a theatre company between Brussels and Montréal',
+      btnText: 'DISCOVER →',
+    },
     's-travel': {
       title: 'TravelDB',
       description: "Track the countries you've visited on an interactive map",
