@@ -43,7 +43,7 @@ export const projects: Project[] = [
     link: 'https://compagniecliffhanger.be/',
     theme: 'cliffhanger',
     image: '/assets/cartes/s-cliffhanger.webp',
-    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos']
+    tags: ['Astro', 'Directus', 'API Prodysos']
   },
   {
     id: 's-travel',
