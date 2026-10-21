@@ -15,7 +15,7 @@ export const projects: Project[] = [
     link: 'https://photographie.brendanfleurdelys.ch/',
     theme: 'forest',
     image: '/assets/cartes/s-photo.webp',
-    tags: ['Astro', 'Directus']
+    tags: ['Astro', 'Directus', 'Tailwind']
   },
   {
     id: 's-prodysos',
@@ -36,7 +36,7 @@ export const projects: Project[] = [
     link: 'https://maisallezfieu.be/',
     theme: 'crystal',
     image: '/assets/cartes/s-fieu.webp',
-    tags: ['Astro', 'Directus', 'API Prodysos']
+    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos']
   },
   {
     id: 's-cliffhanger',
@@ -66,6 +66,7 @@ export const projects: Project[] = [
     link: 'https://tanukicode.brendanfleurdelys.ch/',
     theme: 'tanuki',
     image: '/assets/cartes/s-tanukicode.webp',
+    paused: true,
     tags: ['Vue', 'Supabase', 'Tailwind']
   },
   {
