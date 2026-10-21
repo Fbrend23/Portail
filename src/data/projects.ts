@@ -59,7 +59,7 @@ export const projects: Project[] = [
     link: 'https://revisions.brendanfleurdelys.ch/',
     theme: 'dream',
     image: '/assets/cartes/s-wiki.webp',
-    tags: ['Vue', 'Markdown']
+    tags: ['Vue', 'Markdown', 'OpenAI API']
   },
   {
     id: 's-tanuki',
