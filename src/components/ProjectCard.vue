@@ -60,7 +60,7 @@ defineProps({
   flex-direction: column;
   justify-content: space-between;
   width: 300px;
-  height: 250px;
+  height: 280px;
   padding: 1.5rem;
   background: var(--card-bg, #1a1a1a);
   border: 1px solid var(--accent);

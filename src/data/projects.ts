@@ -22,7 +22,7 @@ export const projects: Project[] = [
     link: 'https://prodysos.app',
     theme: 'prodysos',
     image: '/assets/cartes/s-prodysos.webp',
-    tags: ['Vue', 'Supabase', 'PWA']
+    tags: ['Vue', 'Supabase', 'Tailwind', 'PWA']
   },
   {
     id: 's-horaire',
@@ -43,7 +43,7 @@ export const projects: Project[] = [
     link: 'https://compagniecliffhanger.be/',
     theme: 'cliffhanger',
     image: '/assets/cartes/s-cliffhanger.webp',
-    tags: ['Astro', 'Directus', 'API Prodysos']
+    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos']
   },
   {
     id: 's-travel',
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     link: 'https://lunch-picker-six.vercel.app/',
     theme: 'lunchpicker',
     image: '/assets/cartes/s-lunchpicker.webp',
-    tags: ['Nuxt', 'Supabase', 'PWA']
+    tags: ['Nuxt', 'Supabase', 'Tailwind', 'PWA']
   },
   {
     id: 's-matinale',
