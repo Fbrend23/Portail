@@ -111,6 +111,12 @@ h6 {
   --accent-shadow-hover: rgba(102, 204, 255, 0.6);
 }
 
+[data-theme='cliffhanger'] {
+  --accent: #e5e5e5;
+  --accent-shadow: rgba(229, 229, 229, 0.4);
+  --accent-shadow-hover: rgba(229, 229, 229, 0.6);
+}
+
 [data-theme='dream'] {
   --accent: #8899ff;
   --accent-shadow: rgba(136, 153, 255, 0.4);

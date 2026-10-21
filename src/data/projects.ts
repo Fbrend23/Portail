@@ -15,14 +15,14 @@ export const projects: Project[] = [
     link: 'https://photographie.brendanfleurdelys.ch/',
     theme: 'forest',
     image: '/assets/cartes/s-photo.webp',
-    tags: ['Astro', 'Directus']
+    tags: ['Astro', 'Directus', 'Tailwind']
   },
   {
     id: 's-prodysos',
     link: 'https://prodysos.app',
     theme: 'prodysos',
     image: '/assets/cartes/s-prodysos.webp',
-    tags: ['Vue', 'Supabase', 'PWA']
+    tags: ['Vue', 'Supabase', 'Tailwind', 'PWA']
   },
   {
     id: 's-horaire',
@@ -36,7 +36,14 @@ export const projects: Project[] = [
     link: 'https://maisallezfieu.be/',
     theme: 'crystal',
     image: '/assets/cartes/s-fieu.webp',
-    tags: ['Astro', 'Directus', 'API Prodysos']
+    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos']
+  },
+  {
+    id: 's-cliffhanger',
+    link: 'https://compagniecliffhanger.be/',
+    theme: 'cliffhanger',
+    image: '/assets/cartes/s-cliffhanger.webp',
+    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos']
   },
   {
     id: 's-travel',
@@ -52,13 +59,14 @@ export const projects: Project[] = [
     link: 'https://revisions.brendanfleurdelys.ch/',
     theme: 'dream',
     image: '/assets/cartes/s-wiki.webp',
-    tags: ['Vue', 'Markdown']
+    tags: ['Vue', 'Markdown', 'OpenAI API']
   },
   {
     id: 's-tanuki',
     link: 'https://tanukicode.brendanfleurdelys.ch/',
     theme: 'tanuki',
     image: '/assets/cartes/s-tanukicode.webp',
+    paused: true,
     tags: ['Vue', 'Supabase', 'Tailwind']
   },
   {
@@ -66,7 +74,7 @@ export const projects: Project[] = [
     link: 'https://lunch-picker-six.vercel.app/',
     theme: 'lunchpicker',
     image: '/assets/cartes/s-lunchpicker.webp',
-    tags: ['Nuxt', 'Supabase', 'PWA']
+    tags: ['Nuxt', 'Supabase', 'Tailwind', 'PWA']
   },
   {
     id: 's-matinale',

@@ -166,6 +166,11 @@ export default {
       description: 'Site d’une pièce de théâtre, réalisé pour une troupe',
       btnText: 'DÉCOUVRIR →',
     },
+    's-cliffhanger': {
+      title: 'Compagnie Cliffhanger',
+      description: 'Site d’une compagnie de théâtre bruxelloise',
+      btnText: 'DÉCOUVRIR →',
+    },
     's-travel': {
       title: 'TravelDB',
       description: 'Suivre ses pays visités avec carte interactive',
