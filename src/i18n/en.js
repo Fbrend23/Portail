@@ -167,7 +167,7 @@ export default {
     },
     's-cliffhanger': {
       title: 'Compagnie Cliffhanger',
-      description: 'Website for a theatre company between Brussels and Montréal',
+      description: 'Website for a Brussels theatre company',
       btnText: 'DISCOVER →',
     },
     's-travel': {

@@ -168,7 +168,7 @@ export default {
     },
     's-cliffhanger': {
       title: 'Compagnie Cliffhanger',
-      description: 'Site d’une compagnie de théâtre entre Bruxelles et Montréal',
+      description: 'Site d’une compagnie de théâtre bruxelloise',
       btnText: 'DÉCOUVRIR →',
     },
     's-travel': {
