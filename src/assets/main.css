@@ -23,6 +23,11 @@
   box-sizing: border-box;
 }
 
+/* Évite le saut de mise en page quand le scroll est verrouillé pendant l'intro */
+html {
+  scrollbar-gutter: stable;
+}
+
 body {
   margin: 0;
   padding: 0;

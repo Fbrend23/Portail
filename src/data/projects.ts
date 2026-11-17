@@ -15,35 +15,49 @@ export const projects: Project[] = [
     link: 'https://photographie.brendanfleurdelys.ch/',
     theme: 'forest',
     image: '/assets/cartes/s-photo.webp',
-    tags: ['Astro', 'Directus', 'Tailwind']
+    tags: ['Astro', 'Directus', 'Tailwind'],
   },
   {
     id: 's-prodysos',
     link: 'https://prodysos.app',
     theme: 'prodysos',
     image: '/assets/cartes/s-prodysos.webp',
-    tags: ['Vue', 'Supabase', 'Tailwind', 'PWA']
-  },
-  {
-    id: 's-horaire',
-    link: 'https://horaire.brendanfleurdelys.ch/',
-    theme: 'flare',
-    image: '/assets/cartes/s-horaire.webp',
-    tags: ['Vue', 'Supabase', 'Tailwind']
-  },
-  {
-    id: 's-fieu',
-    link: 'https://maisallezfieu.be/',
-    theme: 'crystal',
-    image: '/assets/cartes/s-fieu.webp',
-    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos']
+    tags: ['Vue', 'Supabase', 'Tailwind', 'PWA'],
   },
   {
     id: 's-cliffhanger',
     link: 'https://compagniecliffhanger.be/',
     theme: 'cliffhanger',
     image: '/assets/cartes/s-cliffhanger.webp',
-    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos']
+    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos'],
+  },
+  {
+    id: 's-fieu',
+    link: 'https://maisallezfieu.be/',
+    theme: 'crystal',
+    image: '/assets/cartes/s-fieu.webp',
+    tags: ['Astro', 'Directus', 'Tailwind', 'API Prodysos'],
+  },
+  {
+    id: 's-matinale',
+    link: 'https://matinale.brendanfleurdelys.ch/',
+    theme: 'matinale',
+    image: '/assets/cartes/s-matinale.webp',
+    tags: ['Astro', 'Directus', 'AGY', 'Claude Code'],
+  },
+  {
+    id: 's-lunchpicker',
+    link: 'https://lunch-picker-six.vercel.app/',
+    theme: 'lunchpicker',
+    image: '/assets/cartes/s-lunchpicker.webp',
+    tags: ['Nuxt', 'Neon', 'Tailwind', 'PWA'],
+  },
+  {
+    id: 's-horaire',
+    link: 'https://horaire.brendanfleurdelys.ch/',
+    theme: 'flare',
+    image: '/assets/cartes/s-horaire.webp',
+    tags: ['Vue', 'Supabase', 'Tailwind'],
   },
   {
     id: 's-travel',
@@ -52,35 +66,22 @@ export const projects: Project[] = [
     image: '/assets/cartes/s-travel.webp',
     // Backend AdonisJS sans hébergement Node disponible pour l'instant
     paused: true,
-    tags: ['Vue', 'AdonisJS', 'Leaflet']
+    tags: ['Vue', 'AdonisJS', 'Leaflet'],
   },
   {
     id: 's-wiki',
     link: 'https://revisions.brendanfleurdelys.ch/',
     theme: 'dream',
     image: '/assets/cartes/s-wiki.webp',
-    tags: ['Vue', 'Markdown', 'OpenAI API']
+    tags: ['Vue', 'Markdown', 'OpenAI API'],
   },
   {
     id: 's-tanuki',
     link: 'https://tanukicode.brendanfleurdelys.ch/',
     theme: 'tanuki',
     image: '/assets/cartes/s-tanukicode.webp',
+    // Supabase en pause
     paused: true,
-    tags: ['Vue', 'Supabase', 'Tailwind']
+    tags: ['Vue', 'Supabase', 'Tailwind'],
   },
-  {
-    id: 's-lunchpicker',
-    link: 'https://lunch-picker-six.vercel.app/',
-    theme: 'lunchpicker',
-    image: '/assets/cartes/s-lunchpicker.webp',
-    tags: ['Nuxt', 'Supabase', 'Tailwind', 'PWA']
-  },
-  {
-    id: 's-matinale',
-    link: 'https://matinale.brendanfleurdelys.ch/',
-    theme: 'matinale',
-    image: '/assets/cartes/s-matinale.webp',
-    tags: ['Astro', 'Directus', 'AGY', 'Claude Code']
-  }
 ]

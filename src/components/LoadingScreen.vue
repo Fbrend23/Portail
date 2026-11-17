@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from '../i18n'
 
 const { t } = useI18n()
@@ -12,6 +12,15 @@ const emit = defineEmits(['finished'])
 // Environ 1,6 s au total : assez pour l'effet, sans faire attendre qui arrive d'un lien
 const DISPLAY_MS = 1100
 const FADE_MS = 500 // doit correspondre à .fade-out-leave-active
+
+// Le contenu est déjà dans la page (masqué) : sans verrou, on pourrait scroller sous l'intro
+function setScrollLock(on) {
+  const value = on ? 'hidden' : ''
+  document.documentElement.style.overflow = value
+  document.body.style.overflow = value
+}
+
+onBeforeUnmount(() => setScrollLock(false))
 
 onMounted(() => {
   // Pas d'intro pour qui a réduit les animations, ni à chaque retour
@@ -32,10 +41,16 @@ onMounted(() => {
     return
   }
 
+  setScrollLock(true)
+  window.scrollTo(0, 0)
+
   setTimeout(() => {
     isVisible.value = false
     // Le contenu apparaît une fois le fondu de l'overlay terminé
-    setTimeout(() => emit('finished'), FADE_MS)
+    setTimeout(() => {
+      setScrollLock(false)
+      emit('finished')
+    }, FADE_MS)
   }, DISPLAY_MS)
 })
 </script>
