@@ -80,7 +80,7 @@ export default {
       {
         date: 'From March 2027',
         title: "What's next?",
-        text: 'Looking for a developer position, in Switzerland or in Korea.',
+        text: 'Looking for a developer position, in Switzerland or in Asia (Korea, Japan, Singapore).',
         countdownTo: '2027-03-01',
         status: 'future',
       },
@@ -251,7 +251,7 @@ export default {
         ],
       },
       availability: {
-        text: "From August 2026 to February 2027, Brendan is interning in Seoul with the media team of a law firm, where he works on website redesigns and on internal tools that make the lawyers' work easier. After his internship, he is looking for a position and is open to working in Korea.",
+        text: "From August 2026 to February 2027, Brendan is interning in Seoul with the media team of a law firm, where he works on website redesigns and on internal tools that make the lawyers' work easier. After his internship, he is looking for a position and is open to working in Switzerland or in Asia, especially Korea, Japan or Singapore.",
         options: [
           { label: 'Contact him', next: 'contact' },
           { label: 'Fun fact', next: 'funfact' },
