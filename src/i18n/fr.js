@@ -81,7 +81,7 @@ export default {
       {
         date: 'Dès mars 2027',
         title: 'Et ensuite ?',
-        text: 'À la recherche d’un poste de développeur, en Suisse ou en Corée.',
+        text: 'À la recherche d’un poste de développeur, en Suisse ou en Asie (Corée, Japon, Singapour).',
         countdownTo: '2027-03-01',
         status: 'future',
       },
@@ -252,7 +252,7 @@ export default {
         ],
       },
       availability: {
-        text: 'D’août 2026 à février 2027, Brendan est en stage à Séoul dans l’équipe média d’un cabinet d’avocats, où il participe aux refontes des sites web et à des outils internes pour faciliter le travail des avocats. Après son stage, il cherche un poste et est ouvert à travailler en Corée.',
+        text: 'D’août 2026 à février 2027, Brendan est en stage à Séoul dans l’équipe média d’un cabinet d’avocats, où il participe aux refontes des sites web et à des outils internes pour faciliter le travail des avocats. Après son stage, il cherche un poste et est ouvert à travailler en Suisse ou en Asie, notamment en Corée, au Japon ou à Singapour.',
         options: [
           { label: 'Le contacter', next: 'contact' },
           { label: 'Fun fact', next: 'funfact' },
